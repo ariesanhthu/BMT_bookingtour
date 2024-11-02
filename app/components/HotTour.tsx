@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import React, { useState } from 'react';
 import { simplifiedProduct, categoryProps } from "../interface";
@@ -53,7 +54,7 @@ export default async function HotTour() {
   return (
     <div className="m-10">
         
-        <h4 className="text-2xl bold text-xl font-bold">Tour HOT 🔥</h4>
+        <h4 className="text-2xl bold font-bold">Tour HOT 🔥</h4>
         
         <Tab tabs = {categories}/>
     </div>

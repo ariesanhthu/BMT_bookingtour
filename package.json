@@ -18,18 +18,18 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.289.0",
-    "next": "^13.0.2",
-    "next-sanity": "^5.5.11",
+    "next": "^15.0.2",
+    "next-sanity": "^9.8.8",
     "next-themes": "^0.3.0",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "stripe": "^14.25.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "use-shopping-cart": "^3.2.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^20.17.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
@@ -38,5 +38,10 @@
     "postcss": "^8",
     "tailwindcss": "^3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "use-shopping-cart": {
+      "react-dom": "^18.2.0"
+    }
   }
 }
