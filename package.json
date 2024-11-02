@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "next build",
+    "build": "npm install --legacy-peer-deps && npm run build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -18,7 +18,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.289.0",
-    "next": "14.0.0",
+    "next": "^15.0.2",
     "next-sanity": "^5.5.11",
     "next-themes": "^0.3.0",
     "react": "^18",
