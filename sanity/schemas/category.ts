@@ -1,12 +1,20 @@
 export default {
   name: 'category',
   type: 'document',
-  title: 'Categories',
+  title: 'Thẻ',
   fields: [
     {
       name: 'name',
-      title: 'Name of Category',
+      title: 'Tên thẻ',
       type: 'string',
     },
+    {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'name',
+      },
+    }
   ],
 }

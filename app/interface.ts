@@ -3,7 +3,7 @@ export interface simplifiedProduct {
   imageUrl: string;
   price: number;
   slug: string;
-  categoryName: string;
+  categories: any;
   name: string;
 }
 
@@ -16,4 +16,10 @@ export interface fullProduct {
   name: string;
   description: string;
   price_id: string;
+}
+
+export interface categoryProps {
+  _id : string;
+  slug: string;
+  name: string;
 }

@@ -1,23 +1,28 @@
 export default {
-  name: 'product',
+  name: 'tour',
   type: 'document',
-  title: 'Product',
+  title: 'Tour',
   fields: [
+    {
+      name: 'isHot',
+      type: 'boolean',
+      title: 'Tour nổi bật',
+    },
     {
       name: 'name',
       type: 'string',
-      title: 'Name of Product',
+      title: 'Tên',
     },
     {
       name: 'images',
       type: 'array',
-      title: 'Product Images',
+      title: 'Thêm hình ảnh',
       of: [{type: 'image'}],
     },
     {
       name: 'description',
       type: 'text',
-      title: 'Description of product',
+      title: 'Mô tả tour',
     },
     {
       name: 'slug',
@@ -29,23 +34,21 @@ export default {
     },
     {
       name: 'price',
-      title: 'Price',
+      title: 'Giá bán',
       type: 'number',
     },
+    
     {
-      name: 'price_id',
-      title: 'Stripe Price ID',
-      type: 'string',
+      name: 'service',
+      title: 'Dịch vụ',
+      type: 'text',
     },
+    
     {
-      name: 'category',
-      title: 'Product Category',
-      type: 'reference',
-      to: [
-        {
-          type: 'category',
-        },
-      ],
+      name: "categories",
+      title: "Thẻ",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "category" }] }],
     },
   ],
 }
