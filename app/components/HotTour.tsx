@@ -49,6 +49,8 @@ export default async function HotTour() {
     const data: simplifiedProduct[] = await getData();
     const cateList: categoryProps[] = await getCategory();
     const categories = getMatchingCategories(data, cateList);
+
+    // write to console
     console.log(categories);
 
   return (

@@ -7,9 +7,9 @@ import { ModeToggle } from "./ModeToggle";
 
 const links = [
   { name: "Giới thiệu", href: "/about" },
-  { name: "Sản phẩm", href: "/Men", sublinks: ["Miền Bắc", "Miền Trung", "Miền Nam", "Khác"] },
-  { name: "Đặt vé", href: "/Women" },
-  { name: "Ưu đãi", href: "/Teens" },
+  { name: "Sản phẩm", href: "/Tour", sublinks: ["Miền Bắc", "Miền Trung", "Miền Nam", "Khác"] },
+  { name: "Đặt vé", href: "/Booking" },
+  { name: "Ưu đãi", href: "/Discount" },
 ];
 
 export default function Navbar() {

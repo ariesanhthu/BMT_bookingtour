@@ -1,4 +1,4 @@
-import AddToBag from "@/app/components/AddToBag";
+// import AddToBag from "@/app/components/AddToBag";
 import CheckoutNow from "@/app/components/CheckoutNow";
 import ImageGallery from "@/app/components/ImageGallery";
 import { fullProduct } from "@/app/interface";
