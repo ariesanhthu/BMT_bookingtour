@@ -1,10 +1,10 @@
 "use client"
-import Link from "next/link";
+// import Link from "next/link";
 import React, { useState } from 'react';
 import { simplifiedProduct, categoryProps } from "../interface";
 import { client } from "../lib/sanity";
-import Image from "next/image";
-import category from "@/sanity/schemas/category";
+// import Image from "next/image";
+// import category from "@/sanity/schemas/category";
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export const dynamic = "force-dynamic";
