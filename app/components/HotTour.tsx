@@ -50,9 +50,6 @@ export default async function HotTour() {
     const cateList: categoryProps[] = await getCategory();
     const categories = getMatchingCategories(data, cateList);
 
-    // write to console
-    console.log(categories);
-
   return (
     <div className="m-10">
         

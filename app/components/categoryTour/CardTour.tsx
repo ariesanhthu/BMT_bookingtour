@@ -27,6 +27,8 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, descrip
           transition: 'transform 0.3s',
           transform: hovered ? 'scale(1.1)' : 'scale(1)',
           zIndex: hovered ? '1' : '0',
+          width: '300px',
+          height: '200px',
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -48,8 +50,8 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, descrip
             -{salePercentage}%
           </div>
         )}
-        <div style={{ position: 'relative' }}>
-          <Image src={src} alt={alt} width={300} height={200} />
+        <div className="relative w-full h-full">
+          <Image src={src} alt={alt} width={300} height={200} className="cover h-full w-full"/>
           <div
             style={{
               position: 'absolute',
@@ -64,7 +66,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, descrip
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-              <div style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}}>
+              <div style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', width:'65%'}}>
                 <div style={{ color: '#fff', fontSize: '1rem', fontWeight: 'bold' }}>{text}</div>
                 <div style={{ color: '#fff', fontSize: '0.8rem', marginTop: '5px' }}>{description}</div>
                 <div style={{ color: '#fff', fontSize: '0.8rem', marginTop: '5px', display: hovered ? '' : 'none' }}>dịch vụ: đưa đón, ăn trưa</div>
@@ -76,7 +78,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, descrip
                     {oldPrice} ₫
                   </div>
                 )}
-                <div style={{ color: '#FF9800', fontSize: '1rem', marginLeft: '10px', marginTop: '0.5rem',fontWeight: 'bold' }}>{price} ₫</div>
+                <div style={{ color: '#FF9800', fontSize: '0.8rem', marginLeft: '3px', marginTop: '0.5rem',fontWeight: 'bold'}}>{price} ₫</div>
               </div>
             </div>
           </div>
@@ -86,4 +88,4 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, descrip
   );
 };
 
-export default ImageComponent;
+export default ImageComponent; 

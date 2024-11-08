@@ -27,8 +27,7 @@ export default function Navbar() {
   return (
     <header className="mb-8 border-b p-5">
       <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
-        
-      <Link href="/">
+        <div>
           <div className="flex gap-5">
             <div className="w-9 h-9 relative">
 
@@ -43,11 +42,13 @@ export default function Navbar() {
                 />
               </div>
             <h1 className="text-2xl md:text-xl font-bold">
+              <Link href="/">
               BLUE MOON<span className="text-primary">LIGHT</span>
+              </Link>
             </h1>
           </div>
-      </Link>
-
+        </div>
+        
         <nav className="hidden gap-12 lg:flex 2xl:ml-16">
           {links.map((link, idx) => (
             <div key={idx}>

@@ -22,7 +22,7 @@ export default function Slideshow({ images, count }: iAppProps) {
         {images.map((image: any, idx: any) => (
             <Image
               key={idx}
-              src={urlFor(image).url()}
+              src={image}
               fill
               alt="photo"
               style={{

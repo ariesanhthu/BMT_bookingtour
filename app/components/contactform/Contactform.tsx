@@ -1,12 +1,11 @@
 import React from 'react'
 import Image from 'next/image';
-import styles from "./booking.module.css";
-import Contactform from '../components/contactform/Contactform';
-const BookingPage = () => {
+import styles from "./contact.module.css";
+const Contactform = () => {
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
-        <Image src="/contact.png" alt="" fill className={styles.img} />
+        <Image src="/bannerImage.jpg" alt="" fill className={styles.img} />
       </div>
       <div className={styles.formContainer}>
         {/* <HydrationTestNoSSR/> */}
@@ -25,4 +24,4 @@ const BookingPage = () => {
   )
 }
 
-export default BookingPage;
+export default Contactform;

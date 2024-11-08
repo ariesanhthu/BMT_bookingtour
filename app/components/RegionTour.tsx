@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface ImageComponentProps {
+interface ImageProps {
   src: string;
   alt: string;
   text: string;
   link: string;
 }
 
-const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, link }) => {
+const ImageRegion: React.FC<ImageProps> = ({ src, alt, text, link }) => {
     const [hovered, setHovered] = useState(false);
   
     return (
@@ -40,14 +40,14 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, link })
 const RegionTour: React.FC = () => {
   return (
     <div className='mt-20 ml-10'>
-         <h4 className="text-2xl bold text-xl font-bold">Tour hằng ngày 🚌</h4>
+         <h4 className="bold text-xl font-bold">Tour hằng ngày 🚌</h4>
 
     <div className="flex justify-around gap-10 flex-wrap mt-5">
     
-      <ImageComponent src="/mienbac.jpg" alt="Image 1" text="Miền Bắc" link="/mienbac" />
-      <ImageComponent src="/mientrung.jpg" alt="Image 2" text="Miền Trung" link="/mientrung" />
-      <ImageComponent src="/miennam.jpg" alt="Image 3" text="Miền Nam" link="/miennam" />
-      <ImageComponent src="/servicetour.jpg" alt="Image 4" text="Dịch vụ" link="/dichvu" />
+      <ImageRegion src="/mienbac.jpg" alt="Image 1" text="Miền Bắc" link="/mienbac" />
+      <ImageRegion src="/mientrung.jpg" alt="Image 2" text="Miền Trung" link="/mientrung" />
+      <ImageRegion src="/miennam.jpg" alt="Image 3" text="Miền Nam" link="/miennam" />
+      <ImageRegion src="/servicetour.jpg" alt="Image 4" text="Dịch vụ" link="/dichvu" />
     </div>
     </div>
   );

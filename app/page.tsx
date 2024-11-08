@@ -6,18 +6,34 @@ import { client, urlFor } from "./lib/sanity";
 import ImageGallery from "./components/ImageGallery";
 import HotTour from "./components/HotTour";
 import RegionTour from "./components/RegionTour";
+
 export const dynamic = "force-dynamic";
 
-async function getData() {
-  const query = `*[_type == "banner"][0]`;
+// async function getData() {
+//   const query = `*[_type == "banner"][0]`;
 
-  const data = await client.fetch(query);
-  return data;
-}
+//   const data = await client.fetch(query);
+//   return data;
+// }
 
 export default async function Home() {
 
-  const data = await getData();
+  // const data = await getData();
+  // data.ts
+  const data = {
+    slogan:"Du lịch cùng chúng tôi",
+    subSlogan: "Đồng hành cùng bạn tham quan các địa điểm nổi tiếng ở khắp Việt Nam",
+    images: [
+      '/slide1.jpg',
+      '/slide2.jpg',
+      '/slide3.jpg',
+      '/slide4.jpg',
+      '/slide5.jpg',
+    ],
+    count: 5,
+  };
+
+// export default data;
   const imagesCount = data.images.length;
   return (
 
@@ -30,16 +46,16 @@ export default async function Home() {
           <p className="xl:text-6xl xl:leading-snug sm:max-2xl:p-0 text-3xl pl-5 pr-5 sm:max-lg:text-4xl font-bold uppercase">{data.slogan}</p>
           <p className="lg:pr-10 text-base text-balance font-semibold sm:max-md:text-sm lg:max-2xl:text-xl">{data.subSlogan}</p>
         </div>
-        <Slideshow images={data.images} count = {imagesCount}/>
+        <Slideshow images={data.images} count = {data.count}/>
       </div>
       
       {/* section HOT TOUR */}
 
         <RegionTour/>
+        
         <HotTour/>
-    {/* <Hero /> */}
-    {/* <Newest /> */}
-  </div>
+
+    </div>
 
   );
 }

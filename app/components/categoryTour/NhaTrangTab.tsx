@@ -3,7 +3,6 @@ import ImageComponent from './CardTour';
 
 const NhatrangTab: React.FC<{}> = () => { 
   return (
-    <>
     <div style={{ display: 'flex', justifyContent: 'space-around', gap: '10px', flexWrap: 'wrap', marginTop: '20px'}}>
       <ImageComponent
         src="/langchai.jpg"
@@ -36,7 +35,6 @@ const NhatrangTab: React.FC<{}> = () => {
         link="/miennam"
       />
     </div>
-    </>
   );
 };
 
