@@ -1,23 +1,77 @@
-.container{
-    height: 100px;
+  .container{
+    height: 300px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: gray;
   }
   
+  .footer {
+    font-weight: bold;
+    height : 350px;
+    max-height: 500px;
+    display: flex;            /* Flexbox for the two columns */
+    align-items: center;
+    justify-content: center;  /* Centers the columns as a group */
+    gap: 50px;                /* Space between the two columns */
+    background-color: #091529; /*3b82f6*/
+  }
+  
+  .footer_column {
+    height: 300px;
+    width : 300px;
+    max-width: 300px;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    padding: 5px;
+  }
+
   .logo{
     font-weight: bold;
+    margin-left: 30px;
   }
   
+  .image {
+    margin:auto
+  }
+
   .text{
-    font-size: 12px;
+    font-size: 20px;
+    text-align: center;
+  }
+  .costume_text{
+    /* font-family: "Helvetica"; */
+    font-size: 45px;
+    text-align: center;
+  }
+
+  .link{
+    display: inline-flex;
+    color: #FFFFFF; /* Blue color */
+    align-items: center;
+    text-decoration: none; /* Remove underline by default */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+    font-size: 14px;
+    margin-top: 5;
+    margin-bottom: 5;
+  }
+
+  .link:hover{
+    color: #FFFFFF; /* Lighter blue on hover */
+    text-decoration: underline; /* Add underline on hover */
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 30px;
   }
   
   @media (max-width:768px){
     .container{
       flex-direction: column;
       align-items: center;
-      justify-content: space-around;
+      /* justify-content: space-around; */
     }
   }

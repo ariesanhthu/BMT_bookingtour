@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Model } from 'mongoose';
 interface ITag extends Document {
     name: string;
     description: string;
@@ -11,5 +11,6 @@ interface ITag extends Document {
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
   });
   
-  export const Tag = mongoose.model<ITag>('Tag', TagSchema);
+  // export const Tag = mongoose.model<ITag>('Tag', TagSchema);
+  export const Tag: Model<ITag> = mongoose.models.Tag || mongoose.model<ITag>('Tag', TagSchema)
   

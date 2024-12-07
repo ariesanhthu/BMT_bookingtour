@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Model } from 'mongoose';
 interface IService extends Document {
     name: string;
     description: string;
@@ -11,5 +11,4 @@ interface IService extends Document {
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
   });
   
-  export const Service = mongoose.model<IService>('Service', ServiceSchema);
-  
+  export const Service: Model<IService> = mongoose.models.Service || mongoose.model<IService>('Service', ServiceSchema)
