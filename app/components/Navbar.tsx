@@ -25,7 +25,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="mb-8 border-b p-5">
+    <header className="mb-8 border-b p-5">    
       <div className="flex items-center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
         <div>
           <div className="flex gap-5">

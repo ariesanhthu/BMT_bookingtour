@@ -7,11 +7,11 @@ import { Role } from '@/app/lib/models/Role';
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   try {
     await connectDB();
-    const role = await Role.findById(params.id).populate('users');
+    const role = await Role.findById(params.id).select('name description users').populate('users', 'username');
     if (!role) {
       return NextResponse.json({ success: false, error: 'Role not found' }, { status: 404 });
     }
-    return NextResponse.json({ success: true, data: role.users });
+    return NextResponse.json({ success: true, data: role });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
@@ -72,6 +72,38 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
     return NextResponse.json({ success: true });
   } catch (error) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
+
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
+  try {
+    // Connect to the database
+    await connectDB();
+
+    // Parse the request body to get the updated data
+    const { roleId, name, description } = await req.json();
+
+    // Find the role by ID from URL params
+    const role = await Role.findById(params.id);
+    if (!role) {
+      return NextResponse.json({ success: false, error: 'Role not found' }, { status: 404 });
+    }
+
+    // If role name is provided, update the role's name and description
+    if (name) role.name = name;
+    if (description) role.description = description;
+
+
+    // Save the updated role
+    await role.save();
+
+
+    // Send back the updated role
+    return NextResponse.json({ success: true, data: role });
+
+  } catch (error) {
+    // Handle any errors that occur during the process
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

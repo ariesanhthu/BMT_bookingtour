@@ -132,6 +132,7 @@ export default function RolePage() {
             <strong>Username:  {user.username}</strong>
             <button onClick={() => handleEdit(user._id)}>Edit</button> 
             <button onClick={() => handleDelete(user._id)}>Delete</button>
+            <a href={`user/${user._id}`}>Go to Edit Page</a>
           </li>
         ))}
       </ul>
