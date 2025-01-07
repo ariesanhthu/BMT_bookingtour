@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 
 export default function RolePage() {
+  const [roles, setRoles] = useState([]);
+  const [selectedRole, setSelectedRole] = useState('');
+
   const [users, setUser] = useState([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,10 +13,26 @@ export default function RolePage() {
   const [status, setStatus] = useState<string | null>(null);
 
   useEffect(() => {
+    fetchRoles();
     fetchUsers();
   }, []);
 
   // Fetch all roles
+  const fetchRoles = async () => {
+    try {
+      const res = await fetch('/api/role');
+      const data = await res.json();
+      if (data.success) {
+        setRoles(data.data || []);
+        setStatus(null); // Clear any previous status
+      } else {
+        setStatus('Failed to fetch users');
+      }
+    } catch (error) {
+      setStatus('Error fetching users');
+    }
+  }
+
   const fetchUsers = async () => {
     try {
       const res = await fetch('/api/user');
@@ -29,6 +48,31 @@ export default function RolePage() {
     }
   };
 
+  const assignRoleToUser = async (userId: string, roleId: string) => {
+    // console.log("id: ", userId)
+    try {
+      const res = await fetch(`/api/role/${roleId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId,
+        }),
+      });
+    
+      const data = await res.json();
+    
+      // if (data.success) {
+      //   setStatus('Role assigned successfully');
+      // } else {
+      //   setStatus(data.error);
+      // }
+    } catch (error){
+      setStatus(error.message)
+    }
+  };
+
   // Create or update role
   const handleCreateOrUpdate = async () => {
     if (!username) {
@@ -39,7 +83,7 @@ export default function RolePage() {
     const url = '/api/user';
     const method = editUsername ? 'PUT' : 'POST';
     const body = JSON.stringify({
-      _id: editUsername,
+      // _id: editUsername,
       username,
       password,
     });
@@ -52,9 +96,12 @@ export default function RolePage() {
       });
       const data = await res.json();
       if (data.success) {
+        console.log('New User:', data);  // Access the _id
+        assignRoleToUser(data.data._id, selectedRole);
         fetchUsers();
         resetForm();
         setStatus(editUsername ? 'User updated successfully' : 'User created successfully');
+
       } else {
         setStatus(data.error || 'Failed to save user');
       }
@@ -119,6 +166,14 @@ export default function RolePage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <select onChange={(e) => setSelectedRole(e.target.value)} value={selectedRole}>
+          <option value="">Select Role</option>
+          {roles.map((role: any) => (
+            <option key={role._id} value={role._id}>
+              {role.name}
+            </option>
+        ))}
+        </select>
         <button onClick={handleCreateOrUpdate}>
           {editUsername ? 'Update user' : 'Create user'}
         </button>

@@ -16,11 +16,6 @@ const links = [
 export default function AdminPage() {
     const pathname = usePathname();
     const [showSublist, setShowSublist] = useState(false);
-
-    const handleMouseEvent = () => {
-        setShowSublist(!showSublist);
-    }
-
     return (
         <div> 
             <nav>

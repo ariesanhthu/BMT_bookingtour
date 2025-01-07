@@ -130,8 +130,9 @@ export default function RolePage() {
         {Categorys.map((Category: any) => (
           <li key={Category._id}>
             <strong>Name:  {Category.name}</strong>  /  <strong>Slug:  {Category.slug || "No slug"}</strong>
-            <button onClick={() => handleEdit(Category._id)}>Edit</button> 
+            {/* <button onClick={() => handleEdit(Category._id)}>Edit</button>  */}
             <button onClick={() => handleDelete(Category._id)}>Delete</button>
+            <a href={`category/${Category._id}`}>Edit</a>
           </li>
         ))}
       </ul>

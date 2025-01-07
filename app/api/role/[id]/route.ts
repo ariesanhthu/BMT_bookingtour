@@ -33,14 +33,15 @@ export async function POST(req: Request, { params }: { params: { id: string } })
       return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 });
     }
 
-    // Cập nhật Role và User
+    // // Cập nhật Role và User
     role.users.push(user._id);
     await role.save();
 
     user.roles.push(role._id);
     await user.save();
 
-    return NextResponse.json({ success: true, data: role });
+    // return NextResponse.json({ success: true, data: role });
+    return NextResponse.json({ success: true});
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

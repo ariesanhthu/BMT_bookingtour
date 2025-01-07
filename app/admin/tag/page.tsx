@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 export default function RolePage() {
   const [Tags, setTag] = useState([]);
   const [name, setTagname] = useState('');
+  const [description, setDescription] = useState('');
   const [editTagname, setEditTag] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
 
@@ -40,6 +41,7 @@ export default function RolePage() {
     const body = JSON.stringify({
       _id: editTagname,
       name,
+      description,
     });
 
     try {
@@ -105,24 +107,33 @@ export default function RolePage() {
       <div>
         <input
           type="text"
-          placeholder="Tagname"
+          placeholder="Tag name"
           value={name}
           onChange={(e) => setTagname(e.target.value)}
         />
+        <input
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        /> 
         <button onClick={handleCreateOrUpdate}>
           {editTagname ? 'Update tag' : 'Create tag'}
         </button>
         {editTagname && <button onClick={resetForm}>Cancel</button>}
       </div>
 
-      {/* Role List */}
+      {/* Tag List */}
       <ul>
         {Tags.map((tag: any) => (
           <li key={tag._id}>
             <strong>Name:  {tag.name}</strong>
-            <button onClick={() => handleEdit(tag._id)}>Edit</button> 
+            <strong>Description:  {tag.description || "None"}</strong> 
+            {/* <button onClick={() => handleEdit(tag._id)}>Edit</button>  */}
             <button onClick={() => handleDelete(tag._id)}>Delete</button>
+            <a href={`tag/${tag._id}`}>Edit</a>
           </li>
+          
         ))}
       </ul>
     </div>
