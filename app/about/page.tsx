@@ -87,28 +87,13 @@ const AboutPage = () => {
     </div>
     </section>
 
-    {/* section 3 */}
-    <section className={styles.section}>
-    {/* Tiêu đề lớn */}
-    <h1 className={styles.header}>Tầm Nhìn & Sứ Mệnh</h1>
-
-    {/* Nội dung 2 cột */}
-    <div className={styles.columns}>
-      {/* Cột bên trái */}
-      <div className={styles.column}>
-        <p>
-        Ánh Trăng Xanh hướng đến trở thành một trong những công ty du lịch hàng đầu, không chỉ ở Việt Nam mà còn vươn tầm ra quốc tế.
-        </p>
-      </div>
-
-      {/* Cột bên phải */}
-      <div className={styles.column}>
-        <p>
-        Chúng tôi mong muốn trở thành người bạn đồng hành tin cậy của mọi du khách, mang đến những trải nghiệm độc đáo và trọn vẹn nhất.
-        </p>
-      </div>
-    </div>
-    </section>
+    {/* TẦM NHÌN VÀ SỨ MỆNH*/}
+    <SectionCol
+        title="Tầm Nhìn & Sứ Mệnh"
+        leftContent="Ánh Trăng Xanh hướng đến trở thành một trong những công ty du lịch hàng đầu, không chỉ ở Việt Nam mà còn vươn tầm ra quốc tế."
+        rightContent="Chúng tôi mong muốn trở thành người bạn đồng hành tin cậy của mọi du khách, mang đến những trải nghiệm độc đáo và trọn vẹn nhất."
+      />
+    
   
     {/* GIÁ TRỊ CỐT LỖI  */}
     
