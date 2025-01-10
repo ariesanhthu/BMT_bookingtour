@@ -9,7 +9,7 @@ export async function GET() {
     const roles = await Role.find({});
     return NextResponse.json({ success: true, data: roles });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 500 });
   }
 }
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const newRole = await Role.create(body);
     return NextResponse.json({ success: true, data: newRole });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }
 
@@ -39,7 +39,7 @@ export async function PUT(req: Request) {
     }
     return NextResponse.json({ success: true, data: updatedRole });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }
 
@@ -54,6 +54,6 @@ export async function DELETE(req: Request) {
     }
     return NextResponse.json({ success: true, data: deletedRole });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }

@@ -2,6 +2,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 
 // Interface định nghĩa các thuộc tính của Role
 export interface IRole extends Document {
+  _id: mongoose.Types.ObjectId;
   name: string;
   description?: string; // Mô tả là tùy chọn
   users: mongoose.Types.ObjectId[]; // Liên kết với User

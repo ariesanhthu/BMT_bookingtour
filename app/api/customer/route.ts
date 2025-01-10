@@ -9,7 +9,7 @@ export async function GET() {
     const customers = await Customer.find({});
     return NextResponse.json({ success: true, data: customers });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 500 });
   }
 }
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const newCustomer = await Customer.create(body);
     return NextResponse.json({ success: true, data: newCustomer });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error:" error.message" }, { status: 400 });
   }
 }
 
@@ -39,7 +39,7 @@ export async function PUT(req: Request) {
     }
     return NextResponse.json({ success: true, data: updatedCustomer });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }
 
@@ -54,6 +54,6 @@ export async function DELETE(req: Request) {
     }
     return NextResponse.json({ success: true, data: deletedCustomer });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }

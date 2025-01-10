@@ -9,7 +9,7 @@ export async function GET() {
     const tags = await Tag.find().select('name description'); // Lấy thông tin cơ bản của Tag
     return NextResponse.json({ success: true, data: tags });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 500 });
   }
 }
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const newTag = await Tag.create(body);
     return NextResponse.json({ success: true, data: newTag });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }
 
@@ -39,7 +39,7 @@ export async function PUT(req: Request) {
     }
     return NextResponse.json({ success: true, data: updatedTag });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error:" error.message" }, { status: 400 });
   }
 }
 
@@ -54,6 +54,6 @@ export async function DELETE(req: Request) {
     }
     return NextResponse.json({ success: true, data: deletedTag });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }

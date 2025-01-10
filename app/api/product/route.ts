@@ -9,7 +9,7 @@ export async function GET() {
     const products = await Product.find().select('name description'); // Lấy thông tin cơ bản của Product
     return NextResponse.json({ success: true, data: products });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "error.message "}, { status: 500 });
   }
 }
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const newProduct = await Product.create(body);
     return NextResponse.json({ success: true, data: newProduct });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }
 
@@ -39,7 +39,7 @@ export async function PUT(req: Request) {
     }
     return NextResponse.json({ success: true, data: updatedProduct });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }
 
@@ -54,6 +54,6 @@ export async function DELETE(req: Request) {
     }
     return NextResponse.json({ success: true, data: deletedProduct });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }
