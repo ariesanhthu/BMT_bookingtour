@@ -164,9 +164,28 @@ const AboutPage = () => {
         </div>
       </div>
     </section>
+
+    <section className={styles.section}>
+      {/* Tiêu đề lớn */}
+      <h1 className={styles.header}>LỜI CẢM ƠN</h1>
+
+      {/* Nội dung 2 cột */}
+      <div className={styles.columns}>
+        {/* Cột bên trái */}
+        <div className={styles.column}>
+          <p>
+          Thay mặt Ban lãnh đạo và toàn thể cán bộ nhân viên Công ty Ánh Trăng Xanh, chúng tôi xin trân trọng cảm ơn Quý khách đã dành thời gian quan tâm đến phần giới thiệu của chúng tôi. Ánh Trăng Xanh luôn mong muốn được đồng hành cùng Quý khách trong những chuyến hành trình ý nghĩa và mang lại những dịch vụ tốt nhất, đáp ứng mọi nhu cầu của Quý khách hàng.
+          </p>
+        </div>
+      </div>
+    </section>
+  {/* BỔ SUNG CODE Ở ĐÂY */}
+  
+  
+    {/* 
+    end
+    */}
     </div>
-     
-    
   );
 }
 
