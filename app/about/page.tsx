@@ -3,6 +3,8 @@ import Image from 'next/image';
 
 import styles from "./about.module.css";
 
+import SectionCol from '../components/content/sectionCol/SectionCol';
+
 const AboutPage = () => {
   return (
     <div>
@@ -36,101 +38,81 @@ const AboutPage = () => {
       </div>
       {/* ------- */}
        {/* Section 1 */}
-       <section className={styles.section}>
-      {/* Tiêu đề lớn */}
-      <h1 className={styles.header}>Blue Moon Light</h1>
-
-      {/* Nội dung 2 cột */}
-      <div className={styles.columns}>
-        {/* Cột bên trái */}
-        <div className={styles.column}>
+    <SectionCol
+        title="Blue Moon Light"
+        leftContent="Được thành lập vào năm 2023, Ánh Trăng Xanh mang đến những trải nghiệm đáng nhớ, an toàn, và thân thiện với môi trường. Chúng tôi cam kết bảo vệ và gìn giữ thiên nhiên cho thế hệ tương lai."
+        rightContent="Với phương châm 'Hành trình trọn niềm vui', chúng tôi không chỉ tập trung vào việc tổ chức các tour du lịch chất lượng mà còn hướng tới sự phát triển bền vững."
+      />
+    {/* Section 2 */}
+    <section className={styles.section}>
+    <h1 className={styles.header}>Chúng tôi cung cấp các chuyến đi</h1>
+    <div className={styles.sec2content}>
+      {/* Nội dung bên trái */}
+      <div className={styles.left}>
+        <div className={styles.item}>
+          <h3>Chất Lượng & An Toàn</h3>
           <p>
-            Được thành lập vào năm 2023, Ánh Trăng Xanh mang đến những trải
-            nghiệm đáng nhớ, an toàn, và thân thiện với môi trường. Chúng tôi cam
-            kết bảo vệ và gìn giữ thiên nhiên cho thế hệ tương lai.
+            Cung cấp các tour du lịch chất lượng, đảm bảo an toàn tuyệt đối
+            cho khách hàng.
           </p>
         </div>
-
-        {/* Cột bên phải */}
-        <div className={styles.column}>
+        <div className={styles.item}>
+          <h3>Đối Tác Đáng Tin Cậy</h3>
           <p>
-            Với phương châm "Hành trình trọn niềm vui", chúng tôi không chỉ tập
-            trung vào việc tổ chức các tour du lịch chất lượng mà còn hướng tới
-            sự phát triển bền vững.
+            Lựa chọn những đối tác đáng tin cậy, mang lại dịch vụ tốt nhất với
+            mức giá hợp lý.
           </p>
         </div>
-      </div>
-    </section>
-
-      {/* Section 2 */}
-      <section className={styles.section}>
-      <h1 className={styles.header}>Chúng tôi cung cấp các chuyến đi</h1>
-      <div className={styles.sec2content}>
-        {/* Nội dung bên trái */}
-        <div className={styles.left}>
-          <div className={styles.item}>
-            <h3>Chất Lượng & An Toàn</h3>
-            <p>
-              Cung cấp các tour du lịch chất lượng, đảm bảo an toàn tuyệt đối
-              cho khách hàng.
-            </p>
-          </div>
-          <div className={styles.item}>
-            <h3>Đối Tác Đáng Tin Cậy</h3>
-            <p>
-              Lựa chọn những đối tác đáng tin cậy, mang lại dịch vụ tốt nhất với
-              mức giá hợp lý.
-            </p>
-          </div>
-          <div className={styles.item}>
-            <h3>Bền Vững & Bảo Vệ Môi Trường</h3>
-            <p>
-              Hướng tới các giá trị bền vững bằng việc giảm thiểu tác động đến
-              môi trường và khuyến khích du khách tham gia vào các hoạt động bảo
-              vệ thiên nhiên.
-            </p>
-          </div>
-          <div className={styles.item}>
-            <h3>Cải Tiến & Đổi Mới</h3>
-            <p>
-              Không ngừng cải tiến, đổi mới để đem đến những trải nghiệm tốt nhất
-              cho khách hàng.
-            </p>
-          </div>
-        </div>
-
-        {/* Phần ảnh bên phải */}
-        <div className={styles.right}>
-          <img src="/about.jpg" alt="About" />
-        </div>
-      </div>
-    </section>
-
-      {/* section 3 */}
-      <section className={styles.section}>
-      {/* Tiêu đề lớn */}
-      <h1 className={styles.header}>Tầm Nhìn & Sứ Mệnh</h1>
-
-      {/* Nội dung 2 cột */}
-      <div className={styles.columns}>
-        {/* Cột bên trái */}
-        <div className={styles.column}>
+        <div className={styles.item}>
+          <h3>Bền Vững & Bảo Vệ Môi Trường</h3>
           <p>
-          Ánh Trăng Xanh hướng đến trở thành một trong những công ty du lịch hàng đầu, không chỉ ở Việt Nam mà còn vươn tầm ra quốc tế.
+            Hướng tới các giá trị bền vững bằng việc giảm thiểu tác động đến
+            môi trường và khuyến khích du khách tham gia vào các hoạt động bảo
+            vệ thiên nhiên.
           </p>
         </div>
-
-        {/* Cột bên phải */}
-        <div className={styles.column}>
+        <div className={styles.item}>
+          <h3>Cải Tiến & Đổi Mới</h3>
           <p>
-          Chúng tôi mong muốn trở thành người bạn đồng hành tin cậy của mọi du khách, mang đến những trải nghiệm độc đáo và trọn vẹn nhất.
+            Không ngừng cải tiến, đổi mới để đem đến những trải nghiệm tốt nhất
+            cho khách hàng.
           </p>
         </div>
       </div>
+
+      {/* Phần ảnh bên phải */}
+      <div className={styles.right}>
+        <img src="/about.jpg" alt="About" />
+      </div>
+    </div>
     </section>
-  {/* GIÁ TRỊ CỐT LỖI  */}
+
+    {/* section 3 */}
+    <section className={styles.section}>
+    {/* Tiêu đề lớn */}
+    <h1 className={styles.header}>Tầm Nhìn & Sứ Mệnh</h1>
+
+    {/* Nội dung 2 cột */}
+    <div className={styles.columns}>
+      {/* Cột bên trái */}
+      <div className={styles.column}>
+        <p>
+        Ánh Trăng Xanh hướng đến trở thành một trong những công ty du lịch hàng đầu, không chỉ ở Việt Nam mà còn vươn tầm ra quốc tế.
+        </p>
+      </div>
+
+      {/* Cột bên phải */}
+      <div className={styles.column}>
+        <p>
+        Chúng tôi mong muốn trở thành người bạn đồng hành tin cậy của mọi du khách, mang đến những trải nghiệm độc đáo và trọn vẹn nhất.
+        </p>
+      </div>
+    </div>
+    </section>
+  
+    {/* GIÁ TRỊ CỐT LỖI  */}
     
-  <section className={styles.sec3}>
+    <section className={styles.sec3}>
       <h2 className={styles["sec3-header"]}>Giá Trị Cốt Lõi</h2>
       <div className={styles.grid}>
         <div className={styles.card}>
@@ -179,7 +161,8 @@ const AboutPage = () => {
         </div>
       </div>
     </section>
-  {/* BỔ SUNG CODE Ở ĐÂY */}
+    
+    {/* BỔ SUNG CODE Ở ĐÂY */}
   
   
     {/* 
