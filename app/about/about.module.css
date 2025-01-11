@@ -205,6 +205,14 @@
     align-items: center;
   }
 
+  .left2_3 {
+    flex: 2;
+  }
+
+  .right2_3 {
+    flex: 1;
+  }
+
   .right img {
     max-width: 100%;
     border-radius: 8px;
@@ -285,4 +293,17 @@
   .visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .subsec {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .sec-flex-col {
+    flex-direction: column;
+    align-items:center;
   }

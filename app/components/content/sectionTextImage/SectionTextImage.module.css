@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+.content {
+  width: 100vh;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  /* max-width: 800px; */
+  padding: 0px;
+}
+
+.title {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.description {
+  width: max-content;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/*
+
+*/
+/* Section chung */
+.section {
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+}
+
+.sectionBlue {
+  padding: 50px 20px;
+  background-color: #e6f4ff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Tiêu đề */
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.section {
+  padding: 2rem;
+  background-color: #f5f7ff; /* Màu nền nhạt */
+  border-radius: 8px; /* Bo góc */
+  margin: 2rem auto;
+  max-width: 1200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+.header {
+  text-align: left;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #3a56d6; /* Màu xanh chủ đạo */
+  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+}
+
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.column {
+  flex: 1;
+  min-width: 280px;
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+  text-align: justify;
+}
+
+.column p {
+  margin: 0;
+}
