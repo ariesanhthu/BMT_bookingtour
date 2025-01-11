@@ -3,13 +3,10 @@ import { CalendarDays, MapPin, Users, Clock, DollarSign, Utensils, Hotel, Plane 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
 import Image from 'next/image'
-import { TourDescription } from '@/app/components/content/TourDescription'
 import TourTimeline from '@/app/components/content/TourTimeline'
 import TourPolicies from '@/app/components/content/TourPolicies'
 import { useParams } from 'next/navigation';
-import category from '@/sanity/schemas/category'
 
 type TimeOfDay = 'buổi sáng' | 'buổi trưa' |'buổi chiều' | 'buổi tối';
 
