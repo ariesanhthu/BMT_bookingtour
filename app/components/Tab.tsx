@@ -32,12 +32,8 @@ const Tab: React.FC<TabProps> = ({ tabs }) => {
             </button>
           ))}
         </div>
-        {/* <button onClick={() => alert('Hello!')} className="bg-black h-10 w-10">
-  ablo
-</button> */}
-        {/* <div className="mt-4">{activeTab}</div> */}
-        
-        {activeTab == 0 && <PhuquocTab/> }
+
+        {activeTab == 0  && <PhuquocTab/> }
         {activeTab == 1 && <NhatrangTab/> }
         {activeTab == 2 && <MoreTab/> }
       </>

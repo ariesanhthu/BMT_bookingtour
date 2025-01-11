@@ -54,7 +54,7 @@ const TourTimeline: React.FC<TourComponentProps> = ({ tourData }) => {
                   <div className="md:flex">
                     <div className="md:flex-shrink-0">
                       <img
-                        className="h-full w-full object-cover md:w-48"
+                        className="h-full w-full object-cover p-0 m-0 md:w-48"
                         src={stop.image}
                         alt={stop.place}
                       />

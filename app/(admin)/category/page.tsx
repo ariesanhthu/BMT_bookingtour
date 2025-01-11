@@ -1,31 +1,55 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Plus, Pencil, Trash } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Category } from '@/app/lib/models/Category';
+import { categoryProps } from '@/app/interface';
 
-export default function RolePage() {
-  const [Categorys, setCategory] = useState([]);
+export default function AdminCategoryPage() {
+  const [Categories, setCategories] = useState<[]>([]);
+  // new category
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
-  const [editCategory, setEditCategory] = useState<string | null>(null);
+
+  const [editingCategory, setEditingCategory] = useState<categoryProps | null>(null);
   const [status, setStatus] = useState<string | null>(null);
+  //???
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   useEffect(() => {
-    fetchCategorys();
+    fetchCategories();
   }, []);
 
   // Fetch all roles
-  const fetchCategorys = async () => {
+  const fetchCategories = async () => {
     try {
       const res = await fetch('/api/category');
       const data = await res.json();
       if (data.success) {
-        setCategory(data.data || []);
+        setCategories(data.data || []);
         setStatus(null); // Clear any previous status
       } else {
-        setStatus('Failed to fetch Categorys');
+        setStatus('Failed to fetch Categories');
       }
     } catch (error) {
-      setStatus('Error fetching Categorys');
+      setStatus('Error fetching Categories');
     }
   };
 
@@ -37,11 +61,11 @@ export default function RolePage() {
     }
 
     const url = '/api/category';
-    const method = editCategory ? 'PUT' : 'POST';
+    const method = editingCategory ? 'PUT' : 'POST';
     const body = JSON.stringify({
-      _id: editCategory,
+      _id: editingCategory,
       name,
-      slug,
+      slug
     });
 
     try {
@@ -52,9 +76,9 @@ export default function RolePage() {
       });
       const data = await res.json();
       if (data.success) {
-        fetchCategorys();
+        fetchCategories();
         resetForm();
-        setStatus(editCategory ? 'Category updated successfully' : 'Category created successfully');
+        setStatus(editingCategory ? 'Category updated successfully' : 'Category created successfully');
       } else {
         setStatus(data.error || 'Failed to save Category');
       }
@@ -71,9 +95,11 @@ export default function RolePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
       });
+
       const data = await res.json();
+      
       if (data.success) {
-        fetchCategorys();
+        fetchCategories();
         setStatus('Category deleted successfully');
       } else {
         setStatus(data.error || 'Failed to delete Category');
@@ -85,7 +111,7 @@ export default function RolePage() {
 
   // Edit role (populate form fields)
   const handleEdit = (Category: any) => {
-    setEditCategory(Category._id);
+    setEditingCategory(Category._id);
     setName(Category.name);
     setSlug(Category.slug || '  ');
     setStatus(null);
@@ -95,46 +121,119 @@ export default function RolePage() {
   const resetForm = () => {
     setName('');
     setSlug('');
-    setEditCategory(null);
+    setEditingCategory(null);
   };
 
   return (
-    <div>
-      <h1>Category Management</h1>
-
+    <div className="space-y-8">
       {/* Status Message */}
       {status && <p style={{ color: 'red'}}>{status}</p>}
+      <Card>
+        <CardHeader>
+          <CardTitle>Category Management</CardTitle>
+        </CardHeader>
+        <form onSubmit={handleCreateOrUpdate}>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+                <Label htmlFor="categoryName">Category Name</Label>
+                <Input
+                  id="categoryName"
+                  value={name}
+                  type='text'
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Ten loai"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="categorySlug">Category Slug</Label>
+                <Input
+                  id="categorySlug"
+                  value={slug}
+                  type='text'
+                  onChange={(e) => setSlug(e.target.value)}
+                  placeholder="Ten-loai"
+                  required
+                />
+              </div>
+          </CardContent>
 
-      {/* Form for Create/Update */}
-      <div>
-        <input
-          type="text"
-          placeholder="Category Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Category Slug"
-          value={slug}
-          onChange={(e) => setSlug(e.target.value)}
-        />
-        <button onClick={handleCreateOrUpdate}>
-          {editCategory ? 'Update Category' : 'Create Category'}
-        </button>
-        {editCategory && <button onClick={resetForm}>Cancel</button>}
+          {/* // BUTTON FOOTER SUBMIT*/}
+          <CardFooter className="justify-center">
+            <Button type="submit" className="text-white">
+              <Plus className="w-4 h-4 mr-2 text-white" />
+              Thêm mới
+            </Button>
+          </CardFooter>
+
+        </form>
+      </Card>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {Categories.map((Category: any) => (
+          <Card key={Category._id}>
+            <CardHeader>
+              <CardTitle>{Category.name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">Tên: {Category.name}</p>
+            </CardContent>
+            <CardFooter className="flex justify-end space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setEditingCategory(Category);
+                  setIsEditDialogOpen(true);
+                }}
+              >
+                <Pencil className="w-4 h-4 mr-2" />
+                Edit
+              </Button>
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => handleDelete(Category._id)}
+              >
+                <Trash className="w-4 h-4 mr-2" />
+                Delete
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
       </div>
 
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Category</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleEdit}>
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <Label htmlFor="editCategoryName">Category Name</Label>
+                <Input
+                  id="editCategoryName"
+                  value={editingCategory?.name || ''}
+                  onChange={(e) =>
+                    setEditingCategory(
+                      editingCategory
+                        ? { ...editingCategory, name: e.target.value }
+                        : null
+                    )
+                  }
+                  required
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit">Save Changes</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
       {/* Role List */}
-      <ul>
-        {Categorys.map((Category: any) => (
-          <li key={Category._id}>
-            <strong>Name:  {Category.name}</strong>  /  <strong>Slug:  {Category.slug || "No slug"}</strong>
-            <button onClick={() => handleEdit(Category._id)}>Edit</button> 
-            <button onClick={() => handleDelete(Category._id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

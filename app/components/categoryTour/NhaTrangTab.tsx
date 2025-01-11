@@ -5,35 +5,36 @@ const NhatrangTab: React.FC<{}> = () => {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-around', gap: '10px', flexWrap: 'wrap', marginTop: '20px'}}>
       <ImageComponent
-        src="/langchai.jpg"
-        alt="Image 1"
-        text="Tour 3 đảo"
-        description="Minibeach – Làng Chài – Hòn Tằm"
-        price={780000}
-        oldPrice={880000}
-        salePercentage={11}
-        link="/mienbac"
-      />
+  src="/dalat/dalat.jpg"
+  alt="Đà Lạt"
+  text="Đà Lạt"
+  description="Thành phố ngàn hoa"
+  price={2839000}
+  oldPrice={3000000}
+  salePercentage={5.3}
+  link="/tour/1"
+/>
+<ImageComponent
+
+  src="/namdu/namdu1.jpg"
+  alt="Nam du"
+  text="NAM DU"
+  description="Tiệc BBQ, lặn ngắm san hô, khám phá vẻ đẹp hoang sơ."
+  price={2139000}
+  oldPrice={2500000}
+  salePercentage={17}
+  link="/tour/2"
+/>
       <ImageComponent
-        src="/tour3.jpg"
-        alt="Image 3"
-        text="Đảo Bình Hưng"
-        description="hòn đảo nổi tiếng với vẻ đẹp hoang sơ"
-        price={750000}
-        oldPrice={830000}
-        salePercentage={10}
-        link="/miennam"
-      />
-      <ImageComponent
-        src="/phuquoc.jpg"
-        alt="Image 3"
-        text="ĐIỆP SƠN – KDL DỐC LẾT"
-        description=""
-        price={750000}
-        oldPrice={900000}
-        salePercentage={13}
-        link="/miennam"
-      />
+  src="/honson/honson3.jpg"
+  alt="Hòn Sơn"
+  text="HÒN SƠN"
+  description="Check in những địa điểm hot nhất"
+  price={2239000}
+  oldPrice={2560000}
+  salePercentage={13}
+  link="/tour/3"
+/>
     </div>
   );
 };
