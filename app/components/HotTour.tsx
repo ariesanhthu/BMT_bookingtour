@@ -63,7 +63,19 @@ export default async function HotTour() {
 
     // const [Categories, setCategories] = useState<[]>([]);
     // Fetch all categories
-    const Categories: categoryProps[] = await fetchCategories();
+    // const Categories: categoryProps[] = await fetchCategories();
+    const Categories: categoryProps[] = [
+      {_id : "1",
+      slug: "mien-nam",
+      name: "Miền Nam"},
+      {_id : "2",
+      slug: "mien-trung",
+      name: "Miền Trung"},
+      {_id : "3",
+      slug: "mien-bac",
+      name: "Miền Bắc"}
+    ]
+
     // console.log(Categories);
   return (
     <div className="m-10">
