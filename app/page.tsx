@@ -1,20 +1,9 @@
 import Image from "next/image";
-import Hero from "./components/Hero";
-// import Newest from "./components/Newest";
 import Slideshow from './components/Slideshow';
-import { client, urlFor } from "./lib/sanity";
-import ImageGallery from "./components/ImageGallery";
 import HotTour from "./components/HotTour";
 import RegionTour from "./components/RegionTour";
 
 export const dynamic = "force-dynamic";
-
-// async function getData() {
-//   const query = `*[_type == "banner"][0]`;
-
-//   const data = await client.fetch(query);
-//   return data;
-// }
 
 export default async function Home() {
 
@@ -51,9 +40,10 @@ export default async function Home() {
       
       {/* section HOT TOUR */}
 
+        <HotTour/>
+
         <RegionTour/>
         
-        <HotTour/>
 
     </div>
 
