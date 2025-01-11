@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ModeToggle } from "./ModeToggle";
 
 const links = [
+  { name: "Trang chủ", href: "/" },
   { name: "Giới thiệu", href: "/about" },
   { name: "Sản phẩm", href: "/Tour", sublinks: ["Miền Bắc", "Miền Trung", "Miền Nam", "Khác"] },
   { name: "Đặt vé", href: "/Booking" },
@@ -76,6 +77,7 @@ export default function Navbar() {
               ) : (
                 <Link
                   href={link.href}
+                  
                   className={pathname === link.href ? "text-lg font-semibold text-primary" : "text-lg font-semibold text-gray-600 transition duration-100 hover:text-primary"}
                 >
                   {link.name}
