@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+import React , { useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 import styles from "./about.module.css";
@@ -6,9 +7,30 @@ import styles from "./about.module.css";
 import SectionCol from '../components/content/sectionCol/SectionCol';
 
 const AboutPage = () => {
+  const elementsRef = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(styles.visible);
+          observer.unobserve(entry.target); // Stop observing once it's visible
+        }
+      });
+    });
+
+    elementsRef.current.forEach((el) => el && observer.observe(el));
+
+    return () => observer.disconnect(); // Clean up observer
+  }, []);
+  const addToRefs = (el: HTMLDivElement) => {
+    if (el && !elementsRef.current.includes(el)) {
+      elementsRef.current.push(el);
+    }
+  };
   return (
     <div>
-{/* 
+    {/* 
     <div className="flex items-center justify-center">
       <div className="text-center">
         Logo image 
@@ -27,7 +49,7 @@ const AboutPage = () => {
     </div> */}
 
      {/* ABOUT PAGE  */}
-     <div className={styles.hero}>
+    <div ref={addToRefs} className={`${styles.hero} ${styles.hidden}`}>
         <div className={styles.content}>
           <h1 className={styles.title}>Ánh Trăng Xanh: Hành Trình Trọn Niềm Vui</h1>
           <p className={styles.description}>
@@ -35,16 +57,19 @@ const AboutPage = () => {
             trọn vẹn niềm vui và sự an toàn.
           </p>
         </div>
-      </div>
+    </div>
       {/* ------- */}
-       {/* Section 1 */}
-    <SectionCol
+    {/* Section 1 */}
+    <div ref={addToRefs} className={styles.hidden}>
+      <SectionCol
         title="Blue Moon Light"
         leftContent="Được thành lập vào năm 2023, Ánh Trăng Xanh mang đến những trải nghiệm đáng nhớ, an toàn, và thân thiện với môi trường. Chúng tôi cam kết bảo vệ và gìn giữ thiên nhiên cho thế hệ tương lai."
         rightContent="Với phương châm 'Hành trình trọn niềm vui', chúng tôi không chỉ tập trung vào việc tổ chức các tour du lịch chất lượng mà còn hướng tới sự phát triển bền vững."
-      />
+        />
+    </div>  
+    
     {/* Section 2 */}
-    <section className={styles.section}>
+    <section ref={addToRefs} className={`${styles.section} ${styles.hidden}`}>
     <h1 className={styles.header}>Chúng tôi cung cấp các chuyến đi</h1>
     <div className={styles.sec2content}>
       {/* Nội dung bên trái */}
@@ -88,16 +113,16 @@ const AboutPage = () => {
     </section>
 
     {/* TẦM NHÌN VÀ SỨ MỆNH*/}
-    <SectionCol
+    <div ref={addToRefs} className={styles.hidden}>
+      <SectionCol
         title="Tầm Nhìn & Sứ Mệnh"
         leftContent="Ánh Trăng Xanh hướng đến trở thành một trong những công ty du lịch hàng đầu, không chỉ ở Việt Nam mà còn vươn tầm ra quốc tế."
         rightContent="Chúng tôi mong muốn trở thành người bạn đồng hành tin cậy của mọi du khách, mang đến những trải nghiệm độc đáo và trọn vẹn nhất."
-      />
+        />
+    </div>
     
-  
     {/* GIÁ TRỊ CỐT LỖI  */}
-    
-    <section className={styles.sec3}>
+    <section ref={addToRefs} className={`${styles.sec3} ${styles.hidden}`}>
       <h2 className={styles["sec3-header"]}>Giá Trị Cốt Lõi</h2>
       <div className={styles.grid}>
         <div className={styles.card}>
@@ -132,7 +157,7 @@ const AboutPage = () => {
       </div>
     </section>
 
-    <section className={styles.section}>
+    <section ref={addToRefs} className={`${styles.section} ${styles.hidden}`}>
       {/* Tiêu đề lớn */}
       <h1 className={styles.header}>LỜI CẢM ƠN</h1>
 
@@ -148,7 +173,7 @@ const AboutPage = () => {
     </section>
     
     {/* BỔ SUNG CODE Ở ĐÂY */}
-  
+   \
   
     {/* 
     end
