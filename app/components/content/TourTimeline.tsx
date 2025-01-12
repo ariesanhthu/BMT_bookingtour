@@ -49,7 +49,6 @@ const TourTimeline: React.FC<TourComponentProps> = ({ tourData }) => {
             <h2 className="text-2xl font-bold text-primary mb-6 pb-2 border-b border-gray-200">
               Ngày {day}
             </h2>
-            import Image from 'next/image';
 
 <div className="space-y-6">
   {stops.map((stop, index) => (
@@ -57,9 +56,9 @@ const TourTimeline: React.FC<TourComponentProps> = ({ tourData }) => {
       key={index}
       className="bg-white rounded-lg shadow-md overflow-hidden"
     >
-      <div className="md:flex">
+      <div className="lg:flex">
         {stop.image ? (
-          <div className="md:w-80 w-full flex-shrink-0 relative aspect-[4/3]">
+          <div className="lg:w-80 w-full flex-shrink-0 relative aspect-[4/3]">
             {/* Sử dụng Next.js Image */}
             <Image
               src={stop.image}
@@ -96,7 +95,7 @@ const TourTimeline: React.FC<TourComponentProps> = ({ tourData }) => {
       </div>
     </div>
   ))}
-</div>;
+</div>
 
           </div>
         ))}
