@@ -52,13 +52,15 @@ const TourTimeline: React.FC<TourComponentProps> = ({ tourData }) => {
               {stops.map((stop, index) => (
                 <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
                   <div className="md:flex">
-                    <div className="md:flex-shrink-0">
+                  {stop.image ?
+                    <div className="md:flex-shrink-0 w-80">
+                     
                       <img
-                        className="h-full w-full object-cover p-0 m-0 md:w-48"
+                        className="h-full w-full object-cover p-0 m-0"
                         src={stop.image}
                         alt={stop.place}
-                      />
-                    </div>
+                      /> 
+                    </div>:''}
                     <div className="p-6">
                       <div className="flex items-center space-x-3">
                         <div className="flex items-center space-x-1 text-gray-500">

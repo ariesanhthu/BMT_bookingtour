@@ -69,8 +69,8 @@ export default async function HotTour() {
       slug: "mien-nam",
       name: "Miền Nam"},
       {_id : "2",
-      slug: "mien-trung",
-      name: "Miền Trung"},
+      slug: "bien-dao",
+      name: "Biển Đảo"},
       {_id : "3",
       slug: "mien-bac",
       name: "Miền Bắc"}
