@@ -12,6 +12,7 @@
   color: #fff;
   text-align: center;
   overflow: hidden;
+  filter: contrast(100%) saturate(100%);
 }
 
 .hero::before {
@@ -47,14 +48,24 @@
   line-height: 1.6;
 }
 
+.odd-sec {
+  background-color: #4b88fe;
+  padding: 10px;
+}
+
+.even-sec {
+  background-color: #fbfaff;
+  padding: 10px;
+}
+
 /*
 
 */
 /* Section chung */
-.section {
+/* .section {
   padding: 50px 20px;
   background-color: #f9f9f9;
-}
+} */
 
 .sectionBlue {
   padding: 50px 20px;
@@ -127,6 +138,7 @@
 
 .section {
   padding: 2rem;
+  /* background-color: #f5f7ff; Màu nền nhạt */
   background-color: #f5f7ff; /* Màu nền nhạt */
   border-radius: 8px; /* Bo góc */
   margin: 2rem auto;
