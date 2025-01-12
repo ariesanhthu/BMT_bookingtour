@@ -134,7 +134,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-4 transition-opacity hover:opacity-90">
           <div className="relative w-9 h-9 overflow-hidden rounded-lg">
             <Image 
-              src="/logo.jpg"
+              src="/logo.png"
               alt="logo"
               fill
               className="object-cover object-center"

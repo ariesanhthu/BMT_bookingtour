@@ -1,39 +1,8 @@
 // import Link from "next/link";
 import React from 'react';
 import { simplifiedProduct, categoryProps } from "../interface";
-import { client } from "../lib/sanity";
-// import Image from "next/image";
-// import category from "@/sanity/schemas/category";
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export const dynamic = "force-dynamic";
-
-async function getData() {
-    const query = `*[_type == "tour" && isHot == true]{
-        name,
-        slug,
-        price,
-        "imageUrl": images[0].asset->url,
-        categories[]-> {
-          _id,
-          name
-        }
-      }
-      `;
-  const data = await client.fetch(query);
-
-  return data;
-}
-async function getCategory()
-{
-    const data = await client.fetch(`*[_type == "category"]{
-        _id,
-        name,
-        slug
-      }`);
-
-    return data;
-}
 
 async function fetchCategories()
 {
@@ -57,8 +26,6 @@ function getMatchingCategories(data: simplifiedProduct[], cateList: categoryProp
 }
 import Tab from "./Tab";
 export default async function HotTour() {
-    // const data: simplifiedProduct[] = await getData();
-    // const cateList: categoryProps[] = await getCategory();
     // const categories = getMatchingCategories(data, cateList);
 
     // const [Categories, setCategories] = useState<[]>([]);

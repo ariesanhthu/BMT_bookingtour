@@ -1,5 +1,6 @@
 import React from 'react';
 import { Clock, MapPin, Sun, Sunset, Moon } from 'lucide-react';
+import Image from 'next/image';
 
 type TimeOfDay = 'buổi sáng' | 'buổi trưa' |'buổi chiều' | 'buổi tối';
 
@@ -48,48 +49,55 @@ const TourTimeline: React.FC<TourComponentProps> = ({ tourData }) => {
             <h2 className="text-2xl font-bold text-primary mb-6 pb-2 border-b border-gray-200">
               Ngày {day}
             </h2>
-            <div className="space-y-6">
-              {stops.map((stop, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
-                  <div className="md:flex">
-                  {stop.image ?
-                    <div className="md:flex-shrink-0 w-80">
-                     
-                      <img
-                        className="h-full w-full object-cover p-0 m-0"
-                        src={stop.image}
-                        alt={stop.place}
-                      /> 
-                    </div>:''}
-                    <div className="p-6">
-                      <div className="flex items-center space-x-3">
-                        <div className="flex items-center space-x-1 text-gray-500">
-                          {getTimeIcon(stop.timeOfDay)}
-                          <span className="text-sm capitalize">{stop.timeOfDay}</span>
-                        </div>
-                        {
-                            stop.time ? 
-                        
-                        <div className="flex items-center space-x-1 text-gray-500">
-                          <Clock className="w-4 h-4" />
-                            <span className="text-sm">{stop.time}</span>
-                        </div>
-                            : ""
-                        } 
-                      </div>
-                      
-                      <div className="mt-4">
-                        <div className="flex items-center space-x-2 text-gray-900">
-                          <MapPin className="w-5 h-5 text-gray-500" />
-                          <h3 className="text-xl font-semibold">{stop.place}</h3>
-                        </div>
-                        <p className="mt-2 text-gray-600 text-wrap">{stop.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            import Image from 'next/image';
+
+<div className="space-y-6">
+  {stops.map((stop, index) => (
+    <div
+      key={index}
+      className="bg-white rounded-lg shadow-md overflow-hidden"
+    >
+      <div className="md:flex">
+        {stop.image ? (
+          <div className="md:w-80 w-full flex-shrink-0 relative aspect-[4/3]">
+            {/* Sử dụng Next.js Image */}
+            <Image
+              src={stop.image}
+              alt={stop.place}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg"
+              priority={index === 0} // Tăng ưu tiên cho ảnh đầu tiên
+            />
+          </div>
+        ) : null}
+        <div className="p-6 flex-1">
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-1 text-gray-500">
+              {getTimeIcon(stop.timeOfDay)}
+              <span className="text-sm capitalize">{stop.timeOfDay}</span>
             </div>
+            {stop.time ? (
+              <div className="flex items-center space-x-1 text-gray-500">
+                <Clock className="w-4 h-4" />
+                <span className="text-sm">{stop.time}</span>
+              </div>
+            ) : null}
+          </div>
+
+          <div className="mt-4">
+            <div className="flex items-center space-x-2 text-gray-900">
+              <MapPin className="w-5 h-5 text-gray-500" />
+              <h3 className="text-xl font-semibold">{stop.place}</h3>
+            </div>
+            <p className="mt-2 text-gray-600">{stop.description}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>;
+
           </div>
         ))}
       </div>
