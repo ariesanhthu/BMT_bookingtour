@@ -221,7 +221,7 @@ const AboutPage = () => {
 
           {/* Phần ảnh bên phải */}
           <div ref={addToRefs} className={`${styles.right2_3} ${styles.hidden}`}>
-            <img src="/about.jpg" alt="About"/>
+            <img src="/about/about3.jpg" alt="About"/>
           </div>
         </div>
       </div>
@@ -255,7 +255,7 @@ const AboutPage = () => {
 
           {/* Phần ảnh bên phải */}
           <div ref={addToRefs} className={`${styles.right2_3} ${styles.hidden}`}>
-            <img src="/about.jpg" alt="About"/>
+            <img src="/about/about2.jpg" alt="About"/>
           </div>
         </div>
       </div>
@@ -309,7 +309,7 @@ const AboutPage = () => {
         rightStyle={styles.hidden}
         title="Liên Hệ Với Chúng Tôi"
         leftContent='Hãy liên hệ với chúng tôi để bắt đầu hành trình trọn niềm vui của bạn ngay hôm nay! Chúng tôi rất mong nhận được sự quan tâm, góp ý và phản hồi từ Quý khách để không ngừng hoàn thiện chất lượng dịch vụ.'
-        rightContent="/about.jpg"
+        rightContent="/about/contact.jpg"
         />
     </section>
 

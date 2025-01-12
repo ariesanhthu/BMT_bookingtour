@@ -26,12 +26,12 @@ const SectionCol: React.FC<SectionTextImage> =
       <div className={styles.columns}>
         {/* Cột bên trái */}
         <div className={styles.column}>
-          <p ref = {leftRef} className={`${leftStyle}`}>{leftContent}</p>
+          <p ref = {leftRef} className={`  ${leftStyle}`}>{leftContent}</p>
         </div>
 
         {/* Cột bên phải */}
-        <div ref = {rightRef} className={`${styles.column} ${rightStyle}`}>
-          <img src={rightContent}/>
+        <div ref = {rightRef} className={`${styles.column} ${rightStyle} justify-end`}>
+          <img src={rightContent} className="h-64 w-auto pt-0 mt-0 rounded-sm xl:ml-12"/>
         </div>
       </div>
     </section>
