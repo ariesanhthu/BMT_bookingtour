@@ -12,6 +12,7 @@
   color: #fff;
   text-align: center;
   overflow: hidden;
+  filter: contrast(100%) saturate(100%);
 }
 
 .hero::before {
@@ -47,14 +48,24 @@
   line-height: 1.6;
 }
 
+.odd-sec {
+  background-color: #4b88fe;
+  padding: 10px;
+}
+
+.even-sec {
+  background-color: #fbfaff;
+  padding: 10px;
+}
+
 /*
 
 */
 /* Section chung */
-.section {
+/* .section {
   padding: 50px 20px;
   background-color: #f9f9f9;
-}
+} */
 
 .sectionBlue {
   padding: 50px 20px;
@@ -127,6 +138,7 @@
 
 .section {
   padding: 2rem;
+  /* background-color: #f5f7ff; Màu nền nhạt */
   background-color: #f5f7ff; /* Màu nền nhạt */
   border-radius: 8px; /* Bo góc */
   margin: 2rem auto;
@@ -205,6 +217,14 @@
     align-items: center;
   }
 
+  .left2_3 {
+    flex: 2;
+  }
+
+  .right2_3 {
+    flex: 1;
+  }
+
   .right img {
     max-width: 100%;
     border-radius: 8px;
@@ -275,4 +295,27 @@
     color: #555;
     line-height: 1.6;
     font-weight: 500;
+  }
+
+  .hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .subsec {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .sec-flex-col {
+    flex-direction: column;
+    align-items:center;
   }

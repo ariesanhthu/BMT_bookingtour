@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
-import styles from "./SectionCol.module.css";
+import styles from "./SectionTextImage.module.css";
 
-interface SectionColProps {
+interface SectionTextImage {
   titleRef?: React.Ref<HTMLParagraphElement>;
   leftRef?: React.Ref<HTMLParagraphElement>; // Ref for left paragraph
   rightRef?: React.Ref<HTMLParagraphElement>; // Ref for right paragraph
@@ -13,7 +13,7 @@ interface SectionColProps {
   rightContent: string; // Nội dung cột phải
 }
 
-const SectionCol: React.FC<SectionColProps> = 
+const SectionCol: React.FC<SectionTextImage> = 
     ({titleRef = null, leftRef = null, rightRef = null, 
       titleStyle = "", leftStyle = null, rightStyle = null, 
       title, leftContent, rightContent }) => {
@@ -30,8 +30,8 @@ const SectionCol: React.FC<SectionColProps> =
         </div>
 
         {/* Cột bên phải */}
-        <div className={styles.column}>
-          <p ref = {rightRef} className={`${rightStyle}`}>{rightContent}</p>
+        <div ref = {rightRef} className={`${styles.column} ${rightStyle}`}>
+          <img src={rightContent}/>
         </div>
       </div>
     </section>
