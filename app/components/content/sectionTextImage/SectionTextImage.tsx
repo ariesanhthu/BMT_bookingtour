@@ -33,6 +33,9 @@ const SectionCol: React.FC<SectionTextImage> =
         <div ref = {rightRef} className={`${styles.column} ${rightStyle} justify-end`}>
           <img src={rightContent} className="h-64 w-auto pt-0 mt-0 rounded-sm xl:ml-12"/>
         </div>
+        {/* <div ref = {rightRef} className={`${styles.column} ${rightStyle}`}>
+          <img src={rightContent}/>
+        </div> */}
       </div>
     </section>
   );
