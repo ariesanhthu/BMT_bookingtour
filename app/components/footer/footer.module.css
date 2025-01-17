@@ -48,7 +48,7 @@
 
   .link{
     /* display: inline-flex; */
-    color: #FFFFFF; /* Blue color */
+    /* color: #FFFFFF; */
     /* align-items: center; */
     text-decoration: none; /* Remove underline by default */
     transition: color 0.3s ease; /* Smooth color transition on hover */
@@ -58,7 +58,7 @@
   }
 
   .link:hover{
-    color: #FFFFFF; /* Lighter blue on hover */
+    /* color: #FFFFFF;  */
     text-decoration: underline; /* Add underline on hover */
   }
 
