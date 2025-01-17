@@ -1,12 +1,21 @@
 'use client'
 import { CalendarDays, MapPin, Users, Clock, DollarSign, Utensils, Hotel, Plane } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import axios from 'axios';
+
 import Image from 'next/image'
+
 import TourTimeline from '@/app/components/content/TourTimeline'
 import TourPolicies from '@/app/components/content/TourPolicies'
-import { useParams } from 'next/navigation';
+
+import { useParams, useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+
 
 type TimeOfDay = 'buổi sáng' | 'buổi trưa' |'buổi chiều' | 'buổi tối';
 
@@ -1003,6 +1012,38 @@ export default function TourDetailPage() {
 //     notIncluded: ['Hóa đơn VAT, không áp dụng lễ, Tết', 'Chí phí cá nhân ngoài chương trình'],
 //   }
 
+//-------------------------------------------------------
+const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        request: '',
+    });
+
+    const router = useRouter();
+
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => 
+  setFormData({ ...formData, [e.target.name]: e.target.value,});
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+      await axios.post('/api/orders', { ...formData, tourId: id });
+
+      alert('Thông tin đã được gửi thành công!');
+      setFormData({ name: '', phone: '', email: '', request: '' });
+      setIsDialogOpen(false);
+      router.refresh(); // Refresh lại trang để cập nhật thông tin nếu cần.
+  } catch (error) {
+      console.error('Lỗi khi gửi thông tin:', error);
+      alert('Đã xảy ra lỗi. Vui lòng thử lại!');
+  }
+};
+
+//-------------------------------------------------------
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1055,7 +1096,74 @@ export default function TourDetailPage() {
               <p className="text-gray-600">mỗi người</p>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Đặt ngay để nhận<p className='text-white pl-1'>ƯU ĐÃI</p></Button>
+                  
+                  {/* 
+                  -----------------------------------------------------------------
+                  */}
+                    <Button className="w-full" onClick={() => setIsDialogOpen(true)}>
+                        Đặt ngay để nhận <p className="text-white pl-1">ƯU ĐÃI</p>
+                    </Button>
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Đặt Tour</DialogTitle>
+                            </DialogHeader>
+                            <form onSubmit={handleFormSubmit}>
+                                <div className="space-y-4 py-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="name">Họ Tên</Label>
+                                        <Input
+                                            id="name"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="phone">Số Điện Thoại</Label>
+                                        <Input
+                                            id="phone"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="email">Email</Label>
+                                        <Input
+                                            id="email"
+                                            name="email"
+                                            type="email"
+                                            value={formData.email}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="request">Yêu Cầu</Label>
+                                        <textarea
+                                            id="request"
+                                            name="request"
+                                            value={formData.request}
+                                            onChange={handleInputChange}
+                                            className="w-full p-2 border rounded"
+                                        />
+                                    </div>
+                                </div>
+                                <DialogFooter>
+                                    <Button type="submit">Gửi Thông Tin</Button>
+                                </DialogFooter>
+                            </form>
+                        </DialogContent>
+                    </Dialog>
+                  
+                  {/* 
+                  -----------------------------------------------------------------
+                  */}
+                  
+
+              {/* <Button className="w-full">Đặt ngay để nhận<p className='text-white pl-1'>ƯU ĐÃI</p></Button> */}
             </CardFooter>
           </Card>
 
