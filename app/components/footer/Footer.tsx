@@ -1,5 +1,7 @@
 import { Item } from "@radix-ui/react-dropdown-menu";
 import styles from "./footer.module.css";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+
 
 const Footer = () => {
   return (
@@ -7,11 +9,11 @@ const Footer = () => {
       {/* Contact information */}
       <div className={`flex-1 p-5`}>
       {/* ${styles.costume_text} */}
-        <h1 className={`text-center text-lg md:text-xl lg:text-3xl text-[#1E90FF] mb-6`}> <i>Đặt lịch ngay với chúng tôi</i> </h1>
+        <h1 className={`text-center text-md md:text-lg lg:text-xl text-[#1E90FF] mb-6`}> <i>Đặt lịch ngay với chúng tôi</i> </h1>
         {/*Link Mail*/}
         <p> 
           <a 
-            className={`inline-flex my-3 text-sm md:text-md lg:text-lg ${styles.link}`}
+            className={`inline-flex my-3 text-sm md:text-md ${styles.link}`}
             // href="mailto:bluemoonlight.travel@gmail.com"
             href="https://mail.google.com/mail/?view=cm&fs=1&to=bluemoonlight.travel@gmail.com"
             target="_blank"
@@ -23,7 +25,7 @@ const Footer = () => {
         {/*Link facebook*/}
         <p> 
           <a
-            className={`inline-flex my-3 text-sm md:text-md lg:text-lg ${styles.link}`}
+            className={`inline-flex my-3 text-sm md:text-md ${styles.link}`}
             href="https://www.facebook.com/profile.php?id=61569547720275"
             target="_blank"
             rel="noopener noreferrer"> 
@@ -34,7 +36,7 @@ const Footer = () => {
         {/*Link Zalo*/}
         <p> 
           <a
-            className={`inline-flex my-3 text-sm md:text-md lg:text-lg ${styles.link}`}
+            className={`inline-flex my-3 text-sm md:text-md ${styles.link}`}
             href="https://zalo.me/0942190022"
             target="_blank"
             rel="noopener noreferrer">
@@ -45,7 +47,7 @@ const Footer = () => {
         {/*Link gg map*/}
         <p> 
           <a    
-            className={`inline-flex my-3 text-sm md:text-md lg:text-lg ${styles.link}`}
+            className={`inline-flex my-3 text-sm md:text-md ${styles.link}`}
             href="https://maps.app.goo.gl/GdHMkMAM9vXrKL789"
             target="_blank"
             rel="noopener noreferrer"> 
@@ -61,13 +63,13 @@ const Footer = () => {
         <p>
           <img className={`${styles.image} brightness-0 dark:brightness-100`} width="200px" height="200px" src="/qr_zalo.png" alt="QR zalo"/>
         </p>
-        <h1 className={`text-center text-lg md:text-xl lg:text-3xl text-[#1E90FF] my-3`}> <i> Quét để xem ưu đãi </i> </h1>
+        <h1 className={`text-center text-md md:text-lg lg:text-xl text-[#1E90FF] my-3`}> <i> Quét để xem ưu đãi </i> </h1>
       </div>
       {/* THong tin khac */}
       <div className={`flex-1 p-5`}>
-        <h1 className={`text-lg md:text-xl lg:text-3xl text-[#1E90FF] mb-6`}> CÔNG TY TNHH MÔI TRƯỜNG & DU LỊCH ÁNH TRĂNG XANH</h1>
-        <p className={`my-3 text-sm md:text-md lg:text-lg`}>Blue Moonlight Travel & Environment CO., LTD</p>
-        <p className={`my-3 text-sm md:text-md lg:text-lg`}>MÃ SỐ THUẾ (MST): 0317967773</p>
+        <p className={`text-sm md:text-md text-[#1E90FF] mb-6`}> CÔNG TY TNHH MÔI TRƯỜNG & DU LỊCH ÁNH TRĂNG XANH</p>
+        <p className={`my-3 text-sm md:text-md`}>Blue Moonlight Travel & Environment CO., LTD</p>
+        <p className={`my-3 text-sm md:text-md`}>MÃ SỐ THUẾ (MST): 0317967773</p>
       </div>
     </footer>
   );
