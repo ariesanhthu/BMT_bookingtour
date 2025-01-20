@@ -2,7 +2,7 @@ import mongoose, { Schema, model, models } from 'mongoose';
 
 const OrderSchema = new Schema(
     {
-        tourId: { type: String, required: true },
+        tourId: { type: String },
         name: { type: String, required: true },
         phone: { type: String, required: true },
         email: { type: String },

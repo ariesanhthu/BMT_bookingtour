@@ -86,9 +86,13 @@ const OrdersPage = () => {
                         {order.request && <p className="text-sm">Yêu cầu: {order.request}</p>}
                     </CardContent>
                     <CardFooter className="flex justify-end space-x-2">
+                       {
+                        
+                       
                         <Button variant="outline" size="sm" onClick={() => handleArchive(order._id)}>
-                            <Archive className="w-4 h-4 mr-2" /> Lưu trữ
+                            <Archive className="w-4 h-4 mr-2" /> {!order.archived ? 'Lưu trữ' : 'Bỏ lưu trữ'}
                         </Button>
+                        }
                         <Button variant="destructive" size="sm" onClick={() => handleDelete(order._id)}>
                             <Trash className="w-4 h-4 mr-2" /> Xóa
                         </Button>

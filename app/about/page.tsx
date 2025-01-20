@@ -70,7 +70,7 @@ const AboutPage = () => {
         titleStyle={styles.hidden}
         leftStyle={styles.hidden}
         rightStyle={styles.hidden}
-        title="Blue Moon Light"
+        title="Blue Moonlight"
         leftContent="Được thành lập vào năm 2023, Ánh Trăng Xanh mang đến những trải nghiệm đáng nhớ, an toàn, và thân thiện với môi trường. Chúng tôi cam kết bảo vệ và gìn giữ thiên nhiên cho thế hệ tương lai."
         rightContent="Với phương châm 'Hành trình trọn niềm vui', chúng tôi không chỉ tập trung vào việc tổ chức các tour du lịch chất lượng mà còn hướng tới sự phát triển bền vững."
         />

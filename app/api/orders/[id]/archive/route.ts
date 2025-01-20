@@ -1,3 +1,4 @@
+import { Archive } from 'lucide-react';
 import { NextResponse } from 'next/server';
 
 import Order from '@/app/lib/models/Order';
@@ -6,12 +7,11 @@ import connectDB from '@/app/lib/connectDB';
 export async function PUT(req: Request, { params }: { params: { id: any } }) {
     try {
         await connectDB();
-        // const { id } = params;
         const { id } = await params;
 
         const updatedOrder = await Order.findByIdAndUpdate(
             id,
-            { archived: true },
+            [{ $set: { archived: { $eq: [false, "$archived"] } } }],
             { new: true } // Trả về document đã được cập nhật
         );
         

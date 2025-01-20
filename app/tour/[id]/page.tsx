@@ -1014,7 +1014,7 @@ export default function TourDetailPage() {
 
 //-------------------------------------------------------
 const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
         name: '',
         phone: '',
         email: '',
