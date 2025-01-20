@@ -2,13 +2,20 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/app/lib/connectDB';
 import {Product} from '@/app/lib/models/Product';
 import mongoose from 'mongoose';
+
+
+type Params = Promise<{ id: string }>
+
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Params }
 ) {
   try {
     await connectDB();
-    const product = await Product.findById(params.id).populate('category');
+
+    const {id} = await params;
+
+    const product = await Product.findById(id).populate('category');
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
@@ -20,12 +27,15 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Params }
 ) {
   try {
     await connectDB();
     const body = await request.json();
-    const product = await Product.findByIdAndUpdate(params.id, body, { new: true });
+
+    const { id } = await params;
+
+    const product = await Product.findByIdAndUpdate(id, body, { new: true });
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
@@ -37,7 +47,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Params }
 ) {
   try {
     await connectDB();

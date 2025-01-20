@@ -1,22 +1,20 @@
-import { Archive } from 'lucide-react';
 import { NextResponse } from 'next/server';
 
 import Order from '@/app/lib/models/Order';
 import connectDB from '@/app/lib/connectDB';
 
-export async function PUT(req: Request, { params }: { params: { id: any } }) {
+type Params = Promise<{ id: string }>
+export async function PUT(req: Request, { params }: { params: Params }) {
     try {
         await connectDB();
+
         const { id } = await params;
 
         const updatedOrder = await Order.findByIdAndUpdate(
             id,
             [{ $set: { archived: { $eq: [false, "$archived"] } } }],
-            { new: true } // Trả về document đã được cập nhật
+            { new: true } 
         );
-        
-        // const test = await Order.findById({_id : id});
-        // console.log(test);
         
         if (!updatedOrder) {
             return NextResponse.json({ error: 'Order not found' }, { status: 404 });
@@ -28,17 +26,3 @@ export async function PUT(req: Request, { params }: { params: { id: any } }) {
         return NextResponse.json({ error: 'Error archiving order' }, { status: 500 });
     }
 }
-
-
-// export async function PUT(req: Request, { params }: { params: { id: string } }) {
-//     try {
-//         await connectDB();
-//         const { id } = params;
-
-//         const order = await Order.findByIdAndUpdate(id, { archived: true }, { new: true });
-//         return NextResponse.json(order);
-//     } catch (error) {
-//         console.error(error);
-//         return NextResponse.json({ error: 'Error archiving order' }, { status: 500 });
-//     }
-// }

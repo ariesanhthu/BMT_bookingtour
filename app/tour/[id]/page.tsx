@@ -986,31 +986,6 @@ export default function TourDetailPage() {
     }
   ]
   const tour:any = tours.find(tour => tour.id === id);
-//   console.log(tour);
-//   console.log(id);
-//   const tour = {
-//     id: '1',
-//     name: 'DU LỊCH ĐÀ LẠT – THÀNH PHỐ NGÀN HOA',
-//     category: 'Miền Nam',
-//     url: '/dalat/dalat.jpg',
-//     duration: '3 ngày 3 đêm',
-//     groupSize: '10+',
-//     price: "2.839.000",
-//     rating: 4.8,
-//     reviewCount: 124,
-//     description: 'Khám phá vẻ đẹp thơ mộng của Đà Lạt, thành phố ngàn hoa với tour du lịch hấp dẫn.',
-//     highlights: [
-//       'Đón bình minh tại thiên đường săn mây.',
-//       'Tham quan Chùa Linh Phước.',
-//       'Nông Trại Cún - Puppy Farm.',
-//       'Tham quan và vui chơi tại Mongo Land.',
-//       'Tham quan Thiền Viện Trúc Lâm, Quảng Trường Lâm Viên.',
-//       'Cafe Xóm Lèo.',
-//       'Thác Pongour Đà Lạt – Nam Thiên Đệ Nhất Thác.',
-//     ],
-//     included: ['Chi phí vận chuyển', 'Ăn theo chương trình', 'Nước suối : 1 chai/khách/ngày ', 'Khách sạn tiêu chuẩn: 2 sao 2-3 người/phòng ', 'Vé tham quan', "Hướng dẫn viên"],
-//     notIncluded: ['Hóa đơn VAT, không áp dụng lễ, Tết', 'Chí phí cá nhân ngoài chương trình'],
-//   }
 
 //-------------------------------------------------------
 const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -1161,9 +1136,6 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
                   {/* 
                   -----------------------------------------------------------------
                   */}
-                  
-
-              {/* <Button className="w-full">Đặt ngay để nhận<p className='text-white pl-1'>ƯU ĐÃI</p></Button> */}
             </CardFooter>
           </Card>
 

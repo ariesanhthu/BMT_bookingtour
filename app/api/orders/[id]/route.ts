@@ -3,7 +3,8 @@ import { NextResponse } from 'next/server';
 import Order from '@/app/lib/models/Order';
 import connectDB from '@/app/lib/connectDB';
 
-export async function DELETE(req: Request, { params }: { params: { id: any } }) {
+type Params = Promise<{ id: string }>
+export async function DELETE(req: Request, { params }: { params : Params}) {
     try {
         await connectDB();
         // const { id } = params;
