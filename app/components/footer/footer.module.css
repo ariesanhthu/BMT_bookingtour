@@ -47,18 +47,18 @@
   }
 
   .link{
-    display: inline-flex;
-    color: #FFFFFF; /* Blue color */
-    align-items: center;
+    /* display: inline-flex; */
+    /* color: #FFFFFF; */
+    /* align-items: center; */
     text-decoration: none; /* Remove underline by default */
     transition: color 0.3s ease; /* Smooth color transition on hover */
-    font-size: 14px;
-    margin-top: 5;
-    margin-bottom: 5;
+    /* font-size: 14px; */
+    /* margin-top: 5; */
+    /* margin-bottom: 5; */
   }
 
   .link:hover{
-    color: #FFFFFF; /* Lighter blue on hover */
+    /* color: #FFFFFF;  */
     text-decoration: underline; /* Add underline on hover */
   }
 
