@@ -6,6 +6,24 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 const Footer = () => {
   return (
     <footer className={`flex flex-col md:flex-row my-5 mx-auto lg:mx-40 font-bold  space-x-5 v-screen`}>
+      {/* THong tin khac */}
+      <div className={`flex-1 p-5`}>
+        <p className={`text-lg md:text-md text-[#1E90FF] mb-6`}> CÔNG TY TNHH MÔI TRƯỜNG & DU LỊCH ÁNH TRĂNG XANH</p>
+        <p className={`my-3 text-sm md:text-md`}>Blue Moonlight Travel & Environment CO., LTD</p>
+        <p className={`my-3 text-sm md:text-md`}>MÃ SỐ THUẾ (MST): 0317967773</p>
+        {/*Link gg map*/}
+        <p> 
+          <a    
+            className={`inline-flex my-3 text-sm md:text-md ${styles.link}`}
+            href="https://maps.app.goo.gl/GdHMkMAM9vXrKL789"
+            target="_blank"
+            rel="noopener noreferrer"> 
+            <img className={`mr-5 w-5 h-5 md:w-8 md:h-8 brightness-0 dark:brightness-100`} src="/icon_map.png" alt="Mail icon"/>
+            158 Bùi Quang Trinh, P. Phú Thứ, Q. Cái Răng, Tp. Cần Thơ
+          </a>
+        </p>
+      </div>
+      
       {/* Contact information */}
       <div className={`flex-1 p-5`}>
       {/* ${styles.costume_text} */}
@@ -44,17 +62,7 @@ const Footer = () => {
             0942 190022
           </a>
         </p>
-        {/*Link gg map*/}
-        <p> 
-          <a    
-            className={`inline-flex my-3 text-sm md:text-md ${styles.link}`}
-            href="https://maps.app.goo.gl/GdHMkMAM9vXrKL789"
-            target="_blank"
-            rel="noopener noreferrer"> 
-            <img className={`mr-5 w-5 h-5 md:w-8 md:h-8 brightness-0 dark:brightness-100`} src="/icon_map.png" alt="Mail icon"/>
-            158 Bùi Quang Trinh, P. Phú Thứ, Q. Cái Răng, Tp. Cần Thơ
-          </a>
-        </p>
+        
 
       </div>
       
@@ -65,12 +73,7 @@ const Footer = () => {
         </p>
         <h1 className={`text-center text-md md:text-lg lg:text-xl text-[#1E90FF] my-3`}> <i> Quét để xem ưu đãi </i> </h1>
       </div>
-      {/* THong tin khac */}
-      <div className={`flex-1 p-5`}>
-        <p className={`text-sm md:text-md text-[#1E90FF] mb-6`}> CÔNG TY TNHH MÔI TRƯỜNG & DU LỊCH ÁNH TRĂNG XANH</p>
-        <p className={`my-3 text-sm md:text-md`}>Blue Moonlight Travel & Environment CO., LTD</p>
-        <p className={`my-3 text-sm md:text-md`}>MÃ SỐ THUẾ (MST): 0317967773</p>
-      </div>
+      
     </footer>
   );
 };
