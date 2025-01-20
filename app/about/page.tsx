@@ -36,8 +36,8 @@ const AboutPage = () => {
      {/* ABOUT PAGE  */}
     <Card className="relative w-full h-[50vh] bg-center bg-cover" style={{ backgroundImage: "url('/header.jpg')" }}>
       <CardContent className={`absolute inset-0 bg-black bg-opacity-50 flex flex-col text-center justify-center items-center`}>
-        <h1 ref={addToRefs} className={`${styles.hidden} mb-2 text-md md:text-3xl font-extrabold px-5 py-2`}>Ánh Trăng Xanh: Hành Trình Trọn Niềm Vui</h1>
-        <p ref={addToRefs} className={`${styles.hidden} text-sm md:text-lg lg:w-max p-5`}>
+        <h1 ref={addToRefs} className={`${styles.hidden} text-[#F8FAFC] mb-2 text-md md:text-3xl font-extrabold px-5 py-2`}>Ánh Trăng Xanh: Hành Trình Trọn Niềm Vui</h1>
+        <p ref={addToRefs} className={`${styles.hidden} text-[#F8FAFC] text-sm md:text-lg lg:w-max p-5`}>
           Khám phá vẻ đẹp Việt Nam và thế giới cùng Ánh Trăng Xanh, nơi hành trình
           trọn vẹn niềm vui và sự an toàn.
         </p>
