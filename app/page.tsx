@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Slideshow from './components/Slideshow';
+import Contactform from "./components/contactform/Contactform";
 import HotTour from "./components/HotTour";
 import RegionTour from "./components/RegionTour";
+import ImageSlider from "./components/slider/SliderFull";
 
 export const dynamic = "force-dynamic";
 
@@ -26,16 +27,17 @@ export default async function Home() {
   const imagesCount = data.images.length;
   return (
 
-    <div className="w-full h-full p-10">
+    <div className="w-full h-full">
 
+        <ImageSlider />
       {/* section MAIN WELCOME */}
       
-      <div className="w-full flex md:flex-row gap-5 items-center justify-center flex-col">
-        <div className="flex w-full md:w-1/3 flex-col justify-items-center text-center md:text-left sm:max-2xl:gap-5 gap-2">
-          <p className="xl:text-6xl xl:leading-snug sm:max-2xl:p-0 text-3xl pl-5 pr-5 sm:max-lg:text-4xl font-bold uppercase">{data.slogan}</p>
-          <p className="lg:pr-10 text-base text-balance font-semibold sm:max-md:text-sm lg:max-2xl:text-xl">{data.subSlogan}</p>
+      <div className="w-full flex md:flex-row items-center justify-center flex-col mt-10">
+        <div className="flex w-1/2 flex-col justify-items-center text-center md:text-center sm:max-xl:gap-2">
+          <p className="xl:text-3xl xl:leading-snug sm:max-2xl:p-0 text-xl sm:max-lg:text-xl font-bold uppercase">{data.slogan}</p>
+          <p className="text-base text-balance font-semibold lg:max-sm:text-sm">{data.subSlogan}</p>
         </div>
-        <Slideshow images={data.images} count = {data.count}/>
+        <Contactform/>
       </div>
       
       {/* section HOT TOUR */}

@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import { ThemeProvider } from "./components/theme-provider";
 
+import { EdgeStoreProvider } from '../lib/edgestore';
+
 import Footer from "./components/footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,7 +30,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          {children}
+          <EdgeStoreProvider>{children}</EdgeStoreProvider>
           <Footer/>
       </ThemeProvider>
       </body>

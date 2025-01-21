@@ -1,25 +1,19 @@
 import React from 'react'
-import Image from 'next/image';
-import styles from "./contact.module.css";
-const Contactform = () => {
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
+const Contactform = (): React.JSX.Element => {
   return (
-    <div className={styles.container}>
-      <div className={styles.imgContainer}>
-        <Image src="/bannerImage.jpg" alt="" fill className={styles.img} />
-      </div>
-      <div className={styles.formContainer}>
-        {/* <HydrationTestNoSSR/> */}
-        {/* <div suppressHydrationWarning>{a}</div> */}
-        <form action="" className={styles.form}>
-          <input type="text" placeholder="Tên của bạn" />
-          <input type="text" placeholder="Số điện thoại liên hệ" />
-          <input
-            type="text"
-            placeholder="Lời nhắn"
-          ></input>
-          <button className="btn bg-red-50 justify-center">Send</button>
-        </form>
-      </div>
+    <div className="flex w-1/2 h-full justify-center">
+      {/* SỬ DỤNG FORM COMPONENT của shadcn, hook https://ui.shadcn.com/docs/components/input */}
+      <form className="justify-center grid w-3/4">
+        <Input type="text" placeholder="Tên của bạn" />
+        <Input type="text" placeholder="Số điện thoại liên hệ" className='mt-5' />
+        
+        <Button className='mt-5 justify-self-center' type="submit">
+            Liên hệ
+        </Button>
+      </form>
     </div>
   )
 }
