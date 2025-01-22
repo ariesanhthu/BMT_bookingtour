@@ -1,6 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/react-collapsible';
+import { ChevronsUpDown } from "lucide-react"
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,10 +34,21 @@ import {
 import { Product } from '@/app/lib/models/Product';
 
 import { categoryProps } from '@/app/interface';
+
 import { productProps } from '@/app/interface';
+import { BaseProduct, TourStop } from '@/app/interface';
 
 import UploadFile from '@/app/components/uploadFile/UploadFile';
 import mongoose from 'mongoose';
+
+// UPLOAD IMAGE
+import Image from 'next/image';
+import Link from "next/link";
+import { useEdgeStore } from "@/lib/edgestore";
+import { SingleImageDropzone } from '@/app/components/uploadFile/SingleImageDropzone'
+
+// preview
+import ProductShow from '@/app/components/ProductInfo/ProductShow';
 
 enum TimeOfDay {
     Morning = 'buổi sáng',
@@ -42,32 +57,16 @@ enum TimeOfDay {
     Evening = 'buổi tối',
   }
   
-interface TourStop {
-    day: number;
-    timeOfDay: TimeOfDay;
-    time?: string | null;
-    place: string;
-    description?: string | null;
-    image: string;
-  }
+// interface TourStop {
+//     day: number;
+//     timeOfDay: TimeOfDay;
+//     time?: string | null;
+//     place: string;
+//     description?: string | null;
+//     image: string;
+//   }
   
-  interface Product {
-    name: string;
-    category: string;
-    url?: string | null;
-    duration ?: string | null;
-    groupSize ?: string | null;
-    price ?: string | null;
-    rating ?: number | 0;
-    reviewCount ?: number | 0;
-    description ?: string | null;
-    highlights ?: string[];
-    included ?: string[];
-    notIncluded ?: string[];
-    tourData ?: TourStop[];
-  }
-  
-  const INITIAL_PRODUCT: Product = {
+  const INITIAL_PRODUCT: BaseProduct = {
     name: '',
     category: '',
     url: '',
@@ -83,14 +82,21 @@ interface TourStop {
     tourData: [],
   };
 export default function AdProducts() {
-    const [newProduct, setProduct] = useState<Product>(INITIAL_PRODUCT);
+    const [newProduct, setProduct] = useState<BaseProduct>(INITIAL_PRODUCT);
     
     const [products, setProducts] = useState<productProps[]>([]);
     const [categories, setCategories] = useState<categoryProps[]>([]);
     
-    const [editingProduct, setEditingProduct] = useState<Product>();
+    const [editingProduct, setEditingProduct] = useState<BaseProduct>();
 
-  
+    // ----------------------- IMAGE UPLOAD ------------------------
+    const [file, setFile] = useState<File>();
+    const [progress, setProgress] = useState(0);
+    const [urls, setUrls] = useState<string>('');
+    const { edgestore } = useEdgeStore();
+
+    // -------------------------------------------------------------
+
     // -------------------- FETCH DATA -----------------------------
     useEffect(() => {
         fetchProducts();
@@ -134,22 +140,31 @@ export default function AdProducts() {
     const handleSubmit = async (e: React.FormEvent) => {
 
     e.preventDefault();
-    try {
-      const response = await fetch('/api/product', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newProduct),
-      });
+      try {
+        
+        if(urls != '')
+          await edgestore.publicFiles.confirmUpload({
+            url: urls,
+          });
+        
+        console.log('urls: ', urls);
 
-      if (response.ok) {
-        setProduct(INITIAL_PRODUCT);
-        fetchProducts();
+
+        const response = await fetch('/api/product', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newProduct),
+        });
+
+        if (response.ok) {
+          setProduct(INITIAL_PRODUCT);
+          fetchProducts();
+        }
+      } catch (error) {
+        console.error('Failed to create product:', error);
       }
-    } catch (error) {
-      console.error('Failed to create product:', error);
-    }
     };
 
     const handleDelete = async (id: string) => {
@@ -169,8 +184,8 @@ export default function AdProducts() {
     };
     // ===================== THÊM TRƯỜNG =====================
   const addArrayItem = (
-    product: Product | typeof newProduct,
-    field: keyof Pick<Product, 'highlights' | 'included' | 'notIncluded'>,
+    product: BaseProduct | typeof newProduct,
+    field: keyof Pick<BaseProduct, 'highlights' | 'included' | 'notIncluded'>,
   ): void => {
     
     // Nếu product là null, thoát hàm
@@ -180,30 +195,30 @@ export default function AdProducts() {
     const updatedArray = [...(product[field] ?? []), ''];
     
     // Nếu product là sản phẩm mới (INITIAL_PRODUCT)
-    setProduct({ ...(product as Product), [field]: updatedArray });
+    setProduct({ ...product, [field]: updatedArray });
     
     console.log(`Updated ${field}:`, updatedArray);
   };
   
   // ===================== XÓA TRƯỜNG =====================
   const removeArrayItem = (
-    product: Product | typeof newProduct | null,
-    field: keyof Pick<Product,'highlights' | 'included' | 'notIncluded'>,
+    product: BaseProduct | typeof newProduct | null,
+    field: keyof Pick<BaseProduct,'highlights' | 'included' | 'notIncluded'>,
     index: number
   ): void => {
     if (!product) return; // Nếu product là null, thoát hàm
   
     // Sử dụng giá trị mặc định [] nếu product[field] là undefined
-    const updatedArray = (product.notIncluded ?? []).filter((_, i) => i !== index);
+    const updatedArray = (product[field] ?? []).filter((_, i) => i !== index);
 
-      setProduct({ ...(product as Product), notIncluded: updatedArray });
+      setProduct({ ...product, [field]: updatedArray });
     
       console.log(`REMOVE ${field}:`, updatedArray);
   };
   // edit
   const handleInputChangeArrayItem = (
-    product: Product | typeof newProduct,
-    field: keyof Pick<Product, 'highlights' | 'included' | 'notIncluded'>,
+    product: BaseProduct | typeof newProduct,
+    field: keyof Pick<BaseProduct, 'highlights' | 'included' | 'notIncluded'>,
     index: number,
     value: string
   ): void => {
@@ -216,14 +231,14 @@ export default function AdProducts() {
     updatedArray[index] = value;
 
     // Nếu product là sản phẩm mới (INITIAL_PRODUCT)
-    setProduct({ ...(product as Product), [field]: updatedArray });
+    setProduct({ ...product, [field]: updatedArray });
     
     console.log(`CHANGE ${field}:`, updatedArray);
   };
   
 // ===================== CRUD TOUR STOP =====================
 
-const addTourStop = (product: Product | typeof newProduct) => {
+const addTourStop = (product: BaseProduct | typeof newProduct) => {
     const updatedTourData : TourStop[] = [
       ...(product.tourData ?? []), // Provide a default empty array if tourData is undefined
       {
@@ -232,7 +247,7 @@ const addTourStop = (product: Product | typeof newProduct) => {
         time: null,
         place: '',
         description: null,
-        image: '',
+        url: '',
       },
     ];
 
@@ -241,12 +256,12 @@ const addTourStop = (product: Product | typeof newProduct) => {
     //   setEditingProduct({ ...(product as Product), tourData: updatedTourData });
     // } else if (product === INITIAL_PRODUCT) {
     //   // Nếu product là sản phẩm mới (INITIAL_PRODUCT)
-      setProduct({ ...(product as Product), tourData: updatedTourData });
+      setProduct({ ...product, tourData: updatedTourData });
     // }
   };
 
   const updateTourStop = (
-    product: Product | typeof newProduct,
+    product: BaseProduct | typeof newProduct,
     index: number,
     updates: Partial<TourStop>
   ) => {
@@ -256,18 +271,18 @@ const addTourStop = (product: Product | typeof newProduct) => {
     // if ('id' in product) {
     //   setEditingProduct({ ...(product as Product), tourData: updatedTourData });
     // } else {
-      setProduct({ ...(product as Product), tourData: updatedTourData });
+      setProduct({ ...product, tourData: updatedTourData });
     // }
   };
 
 
-  const removeTourStop = (product: Product | typeof newProduct, index: number) => {
+  const removeTourStop = (product: BaseProduct | typeof newProduct, index: number) => {
     const updatedTourData = product.tourData?.filter((_, i) => i !== index) ?? [];
 
     // if ('id' in product) {
     //   setEditingProduct({ ...(product as Product), tourData: updatedTourData });
     // } else {
-      setProduct({ ...(product as Product), tourData: updatedTourData });
+      setProduct({ ...product, tourData: updatedTourData });
     // }
   };
   const handleUploadSuccess = (url: string) => {
@@ -275,34 +290,49 @@ const addTourStop = (product: Product | typeof newProduct) => {
     console.log(newProduct);
   };
 
-  const renderProductForm = (product: Product | typeof newProduct, onSubmit: (e: React.FormEvent) => Promise<void>) => (
+  const renderProductForm = (product: BaseProduct | typeof newProduct, onSubmit: (e: React.FormEvent) => Promise<void>) => (
     <form onSubmit={onSubmit} className="space-y-8">
+
+      {/* ---------------- THÔNG TIN CHUNG ----------------- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Collapsible>
+          
+          <CollapsibleTrigger className='w-full flex flex-row items-center justify-start pb-2'>
+              <Button type = "button" variant="secondary" size="sm">
+                <ChevronsUpDown className="h-5 w-5 ml-auto text-primary" />
+                <span className="sr-only">Toggle</span>
+              </Button>
+              <Label className='text-primary text-lg pl-10'>
+                Thông tin chung
+              </Label>
+          </CollapsibleTrigger>
+
+          <CollapsibleContent>
             {/* NAME */}
             <div className="space-y-2">
-                <Label htmlFor="name">Product Name</Label>
+                <Label htmlFor="name">Tên</Label>
                     <Input
                     id="name"
                     value= {newProduct.name ?? ''}
                     onChange={(e) =>
                     //   'id' in product
                     //     ? setEditingProduct({ ...(product as Product), name: e.target.value })
-                        setProduct({ ...(newProduct as Product), name: e.target.value })
+                        setProduct({ ...newProduct, name: e.target.value })
                     }
                     required
                     />
             </div>
             {/* CATEGORIES */}
             <div className="space-y-2">
-                <Label htmlFor="category">Category</Label>
+                <Label htmlFor="category">Danh mục sản phẩm</Label>
                 <Select
                     value={product.category}
                     onValueChange={(value) =>
-                        setProduct({ ...(product as Product), category: value })
+                        setProduct({ ...product, category: value })
                     }
                 >
                     <SelectTrigger>
-                    <SelectValue placeholder="Select a category" />
+                    <SelectValue placeholder="Chọn mục" />
                     </SelectTrigger>
                     <SelectContent>
                     {categories.map((category) => (
@@ -316,27 +346,51 @@ const addTourStop = (product: Product | typeof newProduct) => {
 
             {/* Image URL */}
             <div className="space-y-2">
-              
-                <Label htmlFor="url">Image URL</Label>
-                <UploadFile onUploadSuccess={handleUploadSuccess}/>
-                <Input
-                id="url"
-                value={product.url ?? ''}
-                onChange={(e) =>
-                   setProduct({ ...(product as Product), url: e.target.value })
+                <SingleImageDropzone
+                  width={200}
+                  height={200}
+                  value={file}
+                  dropzoneOptions={{
+                    maxSize: 1024 * 1024 * 3, // 1MB
+                  }}
+                  onChange={async (file) => {
+                    await setFile(file);
+                    
+                    if(file){
+                      try {
+                        const res = await edgestore.publicFiles.upload({
+                            file,
+                            options:{
+                              temporary: true
+                            }
+                          }
+                        )
+
+                        await setUrls(res.url);
+                       
+                        await setProduct({ ...product, url: res.url });
+                      } catch (error) 
+                      {
+                        console.error('Error uploading file:', error);
+                      }
+                    }
+                  }
+                  
                 }
-                required
                 />
+               
+                
             </div>
 
             {/* Duration */}
             <div className="space-y-2">
-                <Label htmlFor="duration">Duration</Label>
+                <Label htmlFor="duration">Khoảng thời gian</Label>
                 <Input
                 id="duration"
                 value={product.duration ?? ''}
+                placeholder='2N1D'
                 onChange={(e) =>
-                    setProduct({ ...(product as Product), duration: e.target.value })
+                    setProduct({ ...product, duration: e.target.value })
                 }
                 required
                 />
@@ -344,23 +398,23 @@ const addTourStop = (product: Product | typeof newProduct) => {
 
             {/* Group Size */}
             <div className="space-y-2">
-                <Label htmlFor="groupSize">Group Size</Label>
+                <Label htmlFor="groupSize">Số lượng hành khách</Label>
                 <Input
                 id="groupSize"
                 value={product.groupSize ?? ''}
                 onChange={(e) =>
-                    setProduct({ ...(product as Product), groupSize: e.target.value })
+                    setProduct({ ...product, groupSize: e.target.value })
                 }
                 required
                 />
             </div>
             {/* Price */}
             <div className="space-y-2">
-                <Label htmlFor="price">Price</Label>
+                <Label htmlFor="price">Giá</Label>
                 <Input
                 id="price"
                 value={product.price ?? ''}
-                onChange={(e) => setProduct({ ...(product as Product), price: e.target.value })
+                onChange={(e) => setProduct({ ...product, price: e.target.value })
                 }
                 required
                 />
@@ -368,290 +422,339 @@ const addTourStop = (product: Product | typeof newProduct) => {
         
             {/* Description */}
             <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">Mô tả sản phẩm</Label>
                 <Textarea
                 id="description"
                 value={product.description ?? ''}
-                onChange={(e) => setProduct({ ...(product as Product), description: e.target.value })
+                onChange={(e) => setProduct({ ...product, description: e.target.value })
                 }
                 required
                 />
             </div>
+            </CollapsibleContent>
+        </Collapsible>
         </div>
-
-          {/* Highlights */}
-          <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <Label>Highlights</Label>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => addArrayItem(product, 'highlights')}
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add Highlight
-          </Button>
-        </div>
-        {product.highlights?.map((highlight, index) => (
-          <div key={index} className="flex gap-2">
-            <Input
-              value={highlight}
-              onChange={(e) =>
-                handleInputChangeArrayItem(product, 'highlights', index, e.target.value)
-              }
-            />
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              onClick={() => removeArrayItem(product, 'highlights', index)}
-            >
-              <Trash className="w-4 h-4" />
-            </Button>
-          </div>
-        ))}
-      </div>
-
-      {/* Included */}
-      <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <Label>Included</Label>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => addArrayItem(product, 'included')}
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add Included Item
-          </Button>
-        </div>
-        {product.included?.map((item, index) => (
-          <div key={index} className="flex gap-2">
-            <Input
-              value={item}
-              onChange={(e) =>
-                handleInputChangeArrayItem(product, 'included', index, e.target.value)
-              }
-            />
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              onClick={() => removeArrayItem(product, 'included', index)}
-            >
-              <Trash className="w-4 h-4" />
-            </Button>
-          </div>
-        ))}
-      </div>
-
-    {/* NOT INCLUDED */}
-    <div className="space-y-4">
-        <div className="flex justify-between items-center">
-            <Label>Not Included</Label>
-            <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => addArrayItem(product, 'notIncluded')}
-            >
-            <Plus className="w-4 h-4 mr-2" />
-            Add Not Included Item
-            </Button>
-        </div>
-        {product.notIncluded?.map((item, index) => (
-            <div key={index} className="flex gap-2">
-            <Input
-                value={item}
-                onChange={(e) => 
-                handleInputChangeArrayItem(product, 'notIncluded', index, e.target.value)
-                }
-            />
-            {item}
-            <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={() => removeArrayItem(product, 'notIncluded', index)}
-            >
-                <Trash className="w-4 h-4" />
-            </Button>
+      {/* ------------ THÔNG TIN NỔI BẬT ----------------- */}
+        <Collapsible>
+            <CollapsibleTrigger className='w-full flex flex-row items-center justify-start pb-2'>
+              <Button type = "button" variant="secondary" size="sm" >
+                <ChevronsUpDown className="h-5 w-5 ml-auto text-primary" />
+                <span className="sr-only">Toggle</span>
+              </Button>
+              <Label className='text-primary text-lg pl-10'>
+                Thông nổi bật
+              </Label>
+            </CollapsibleTrigger>
+          {/* ========= HIGHTLIGHTS - INCLUDED - NOTINCLUED ========= */}
+          <CollapsibleContent>
+                {/* Highlights */}
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <Label>Địa điểm nổi bật</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addArrayItem(product, 'highlights')}
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Thêm mục
+                </Button>
+              </div>
+              {product.highlights?.map((highlight, index) => (
+                <div key={index} className="flex gap-2">
+                  <Textarea
+                    value={highlight}
+                    onChange={(e) =>
+                      handleInputChangeArrayItem(product, 'highlights', index, e.target.value)
+                    }
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => removeArrayItem(product, 'highlights', index)}
+                  >
+                    <Trash className="w-4 h-4" />
+                  </Button>
+                </div>
+              ))}
             </div>
-        ))}
-    </div>
+
+            {/* Included */}
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <Label>Giá sản phẩm bao gồm</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => addArrayItem(product, 'included')}
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Thêm mục
+                </Button>
+              </div>
+              {product.included?.map((item, index) => (
+                <div key={index} className="flex gap-2">
+                  <Input
+                    value={item}
+                    onChange={(e) =>
+                      handleInputChangeArrayItem(product, 'included', index, e.target.value)
+                    }
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => removeArrayItem(product, 'included', index)}
+                  >
+                    <Trash className="w-4 h-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+
+            {/* NOT INCLUDED */}
+            <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                    <Label>Giá sản phẩm không bao gồm</Label>
+                    <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => addArrayItem(product, 'notIncluded')}
+                    >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Thêm mục
+                    </Button>
+                </div>
+                {product.notIncluded?.map((item, index) => (
+                    <div key={index} className="flex gap-2">
+                    <Input
+                        value={item}
+                        onChange={(e) => 
+                        handleInputChangeArrayItem(product, 'notIncluded', index, e.target.value)
+                        }
+                    />
+                    
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeArrayItem(product, 'notIncluded', index)}
+                    >
+                        <Trash className="w-4 h-4" />
+                    </Button>
+                    </div>
+                ))}
+            </div>
+
+          </CollapsibleContent>
+        </Collapsible>
+
   {/* Tour Data */}
   <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <Label>Tour Schedule</Label>
-          <Button
+    <div className="flex justify-between items-center">
+      <Label>Lịch trình</Label>
+      <Button
             type="button"
             variant="outline"
             size="sm"
             onClick={() => addTourStop(product)}
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add Tour Stop
-          </Button>
-        </div>
+      >
+        <Plus className="w-4 h-4 mr-2" />
+          Thêm lịch trình
+      </Button>
+    </div>
         {product.tourData?.map((stop, index) => (
           <Card key={index}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                <Input
-                  type="number"
-                  value={stop.day}
-                  onChange={(e) =>
-                    updateTourStop(product, index, { day: Number(e.target.value) })
-                  }
-                  className="w-20 inline-block mr-2"
-                  min="1"
-                />
-                Day
-              </CardTitle>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => removeTourStop(product, index)}
-              >
-                <Trash className="w-4 h-4" />
-              </Button>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>Time of Day</Label>
-                  <select
-                    value={stop.timeOfDay}
-                    onChange={(e) =>
-                      updateTourStop(product, index, {
-                        timeOfDay: e.target.value as TimeOfDay,
-                      })
-                    }
-                    className="w-full p-2 border rounded-md"
-                  >
-                    <option value="buổi sáng">Buổi sáng</option>
-                    <option value="buổi trưa">Buổi trưa</option>
-                    <option value="buổi chiều">Buổi chiều</option>
-                    <option value="buổi tối">Buổi tối</option>
-                  </select>
+            <Collapsible>
+              <div className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CollapsibleTrigger className='w-full'>
+                  <CardHeader className="flex flex-row items-center w-full justify-between space-y-0 pb-2">
+                    <div className="flex items-center space-x-2">
+                      {/* Toggle Button: Căn trái */}
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        size="sm"
+                        className="mr-2"
+                      >
+                        <ChevronsUpDown className="h-5 w-5" />
+                        <span className="sr-only">Toggle</span>
+                      </Button>
+
+                      {/* Input Field */}
+                      <Input
+                        type="number"
+                        value={stop.day}
+                        onChange={(e) =>
+                          updateTourStop(product, index, { day: Number(e.target.value) })
+                        }
+                        className="w-20"
+                        min="1"
+                      />
+                      <span>Day</span>
+                    </div>
+
+                    {/* Trash Button: Căn phải */}
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => removeTourStop(product, index)}
+                      className="ml-auto"
+                    >
+                      <Trash className="w-4 h-4" />
+                    </Button>
+                  </CardHeader>
+                </CollapsibleTrigger>
+              </div>
+          
+            <CollapsibleContent>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label>Time of Day</Label>
+                    <select
+                      value={stop.timeOfDay}
+                      onChange={(e) =>
+                        updateTourStop(product, index, {
+                          timeOfDay: e.target.value as TimeOfDay,
+                        })
+                      }
+                      className="w-full p-2 border rounded-md"
+                    >
+                      <option value="buổi sáng">Buổi sáng</option>
+                      <option value="buổi trưa">Buổi trưa</option>
+                      <option value="buổi chiều">Buổi chiều</option>
+                      <option value="buổi tối">Buổi tối</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Thời gian</Label>
+                    <Input
+                      type="text"
+                      value={stop.time || ''}
+                      onChange={(e) =>
+                        updateTourStop(product, index, { time: e.target.value })
+                      }
+                      placeholder="HH:MM"
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2">
-                  <Label>Time (optional)</Label>
+                  <Label>Địa điểm</Label>
                   <Input
-                    type="text"
-                    value={stop.time || ''}
+                    value={stop.place}
                     onChange={(e) =>
-                      updateTourStop(product, index, { time: e.target.value })
+                      updateTourStop(product, index, { place: e.target.value })
                     }
-                    placeholder="HH:MM"
+                    required
                   />
                 </div>
-              </div>
-              <div className="space-y-2">
-                <Label>Place</Label>
-                <Input
-                  value={stop.place}
-                  onChange={(e) =>
-                    updateTourStop(product, index, { place: e.target.value })
-                  }
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Description (optional)</Label>
-                <Textarea
-                  value={stop.description || ''}
-                  onChange={(e) =>
-                    updateTourStop(product, index, { description: e.target.value })
-                  }
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Image URL</Label>
-                <Input
-                  value={stop.image}
-                  onChange={(e) =>
-                    updateTourStop(product, index, { image: e.target.value })
-                  }
-                  required
-                />
-                
-                <UploadFile onUploadSuccess={handleUploadSuccess}/>
-              </div>
-            </CardContent>
+                <div className="space-y-2">
+                  <Label>Mô tả</Label>
+                  <Textarea
+                    value={stop.description || ''}
+                    onChange={(e) =>
+                      updateTourStop(product, index, { description: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Image URL</Label>
+                  <Input
+                    value={stop.url}
+                    onChange={(e) =>
+                      updateTourStop(product, index, { url: e.target.value })
+                    }
+                    required
+                  />
+                  
+                  <UploadFile onUploadSuccess={handleUploadSuccess}/>
+                </div>
+              </CardContent>
+            </CollapsibleContent>
+          </Collapsible>
           </Card>
         ))}
       </div>
 
-        <Button type="submit" className="w-full">
-            Create Product
+        <Button type="submit" className="w-full text-white">
+            Tạo mới
         </Button>
     </form>
   );
     return (
-        <div className="space-y-8">
-         
-            <Card>
-                <CardHeader>
-                    <CardTitle>Add New Product</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    {renderProductForm(newProduct, handleSubmit)}
-                </CardContent>
-            </Card>
+  <div className="flex flex-col md:flex-row gap-4 p-4">
+  
+    {/* Left Side - Product Display */}
+    <div className="flex-1 rounded-md p-4 shadow">
+      <ProductShow product={newProduct}/>
+    </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {products.map((product) => (
-                    <Card key={product._id}>
-                        <CardHeader>
-                            <CardTitle>{product.name}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="space-y-2">
-                                <p className="text-sm text-muted-foreground">{product.description}</p>
-                                <p className="text-sm">Duration: {product.duration}</p>
-                                <p className="text-sm">Price: {product.price}</p>
-                            </div>
-                        </CardContent>
+    {/* Right Side - Form */}
+    <div className="flex-1 p-4 shadow">
+      <Card>
+        <CardHeader>
+            <CardTitle>Thêm sản phẩm mới</CardTitle>
+        </CardHeader>
+        <CardContent>
+            {renderProductForm(newProduct, handleSubmit)}
+        </CardContent>
+      </Card>
 
-                        <CardFooter className="flex justify-end space-x-2">
-                          {/* <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => {
-                              setEditingProduct(product);
-                              setIsEditDialogOpen(true);
-                            }}
-                          >
-                            <Pencil className="w-4 h-4 mr-2" />
-                            Edit
-                          </Button> */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {products.map((product) => (
+                <Card key={product._id}>
+                    <CardHeader>
+                        <CardTitle>{product.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-2">
+                            <p className="text-sm text-muted-foreground">{product.description}</p>
+                            <p className="text-sm">Duration: {product.duration}</p>
+                            <p className="text-sm">Price: {product.price}</p>
+                        </div>
+                    </CardContent>
 
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleDelete(product._id)}
-                          >
-                            <Trash className="w-4 h-4 mr-2" />
-                            Delete
-                          </Button>
-                          {product._id}
-                      </CardFooter>
-                    </Card>
-                ))}
-            </div>
+                    <CardFooter className="flex justify-end space-x-2">
+                      {/* <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setEditingProduct(product);
+                          setIsEditDialogOpen(true);
+                        }}
+                      >
+                        <Pencil className="w-4 h-4 mr-2" />
+                        Edit
+                      </Button> */}
 
-            {/* <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-            <DialogContent className="max-w-4xl">
-            <DialogHeader>
-                <DialogTitle>Edit Product</DialogTitle>
-            </DialogHeader>
-            {editingProduct && renderProductForm(editingProduct, handleEdit)}
-            </DialogContent>
-            </Dialog> */}
-        </div>
-    )
-}
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDelete(product._id)}
+                      >
+                        <Trash className="w-4 h-4 mr-2" />
+                        Delete
+                      </Button>
+                      {product._id}
+                  </CardFooter>
+                </Card>
+            ))}
+    </div>
+
+        {/* <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="max-w-4xl">
+        <DialogHeader>
+            <DialogTitle>Edit Product</DialogTitle>
+        </DialogHeader>
+        {editingProduct && renderProductForm(editingProduct, handleEdit)}
+        </DialogContent>
+        </Dialog> */}
+    </div>
+  </div>
+)}

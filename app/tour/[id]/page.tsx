@@ -1,4 +1,6 @@
 'use client'
+
+// UI
 import { CalendarDays, MapPin, Users, Clock, DollarSign, Utensils, Hotel, Plane } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -6,16 +8,21 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import axios from 'axios';
 
-import Image from 'next/image'
-
-import TourTimeline from '@/app/components/content/TourTimeline'
-import TourPolicies from '@/app/components/content/TourPolicies'
-
+// react
 import { useParams, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
+// API
+import axios from 'axios';
+
+// COMPONENT CONTENT
+import TourTimeline from '@/app/components/content/TourTimeline'
+import TourPolicies from '@/app/components/content/TourPolicies'
+
+// image upload
+import Image from 'next/image'
+// ---------------------------
 
 type TimeOfDay = 'buổi sáng' | 'buổi trưa' |'buổi chiều' | 'buổi tối';
 

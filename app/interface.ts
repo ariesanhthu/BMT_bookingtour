@@ -33,20 +33,19 @@ enum TimeOfDay {
   Evening = 'buổi tối',
 }
 
-interface TourStop {
+export interface TourStop {
   day: number;
-  timeOfDay: TimeOfDay;
+  timeOfDay?: TimeOfDay;
   time?: string | null;
   place: string;
   description?: string | null;
-  image: string;
+  url: string;
 }
 
-export interface productProps {
-  _id : string;
+export interface BaseProduct {
   name: string;
   category: string;
-  url?: string | null;
+  url: string;
   duration ?: string | null;
   groupSize ?: string | null;
   price ?: string | null;
@@ -56,5 +55,26 @@ export interface productProps {
   highlights ?: string[];
   included ?: string[];
   notIncluded ?: string[];
-  tourData ?: TourStop[];
+  tourData: TourStop[];
 }
+
+export interface productProps extends BaseProduct {
+  _id: string; // Sản phẩm đã lưu trữ sẽ có _id
+}
+
+// export interface productProps {
+//   _id ?: string;
+//   name: string;
+//   category: string;
+//   url: string;
+//   duration ?: string | null;
+//   groupSize ?: string | null;
+//   price ?: string | null;
+//   rating ?: number | 0;
+//   reviewCount ?: number | 0;
+//   description ?: string | null;
+//   highlights ?: string[];
+//   included ?: string[];
+//   notIncluded ?: string[];
+//   tourData: TourStop[];
+// }

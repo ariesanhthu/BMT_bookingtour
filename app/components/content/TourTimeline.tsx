@@ -1,19 +1,20 @@
 import React from 'react';
 import { Clock, MapPin, Sun, Sunset, Moon } from 'lucide-react';
 import Image from 'next/image';
+import { TourStop } from '@/app/interface';
 
 type TimeOfDay = 'buổi sáng' | 'buổi trưa' |'buổi chiều' | 'buổi tối';
 
-interface TourStop {
-  day: number;
-  timeOfDay: TimeOfDay;
-  time?: string | null;
-  place: string;
-  description?: string | null;
-  image: string;
-}
+// interface TourStop {
+//   day: number;
+//   timeOfDay: TimeOfDay;
+//   time?: string | null;
+//   place: string;
+//   description?: string | null;
+//   image: string;
+// }
 
-const getTimeIcon = (timeOfDay: TimeOfDay) => {
+const getTimeIcon = (timeOfDay ?: TimeOfDay | undefined) => {
   switch (timeOfDay) {
     case 'buổi sáng':
     case 'buổi trưa':
@@ -57,11 +58,11 @@ const TourTimeline: React.FC<TourComponentProps> = ({ tourData }) => {
       className="bg-white rounded-lg shadow-md overflow-hidden"
     >
       <div className="lg:flex">
-        {stop.image ? (
+        {stop.url ? (
           <div className="lg:w-80 w-full flex-shrink-0 relative aspect-[4/3]">
             {/* Sử dụng Next.js Image */}
             <Image
-              src={stop.image}
+              src={stop.url}
               alt={stop.place}
               layout="fill"
               objectFit="cover"
