@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import { ThemeProvider } from "./components/theme-provider";
 
 import Footer from "./components/footer/Footer";
+import ContactBar from "./components/contactbar/ContactBar"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+          <ContactBar/>
           <Footer/>
       </ThemeProvider>
       </body>
