@@ -9,7 +9,7 @@ export async function GET() {
     const users = await User.find().select('username roles'); // Lấy thông tin cơ bản của User
     return NextResponse.json({ success: true, data: users });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 500 });
   }
 }
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const newUser = await User.create(body);
     return NextResponse.json({ success: true, data: newUser, id: newUser._id });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }
 
@@ -39,7 +39,7 @@ export async function PUT(req: Request) {
     }
     return NextResponse.json({ success: true, data: updatedRole });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }
 
@@ -54,6 +54,6 @@ export async function DELETE(req: Request) {
     }
     return NextResponse.json({ success: true, data: deletedRole });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
 }

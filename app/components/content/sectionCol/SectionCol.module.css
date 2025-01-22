@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+.section {
+  padding: 2rem;
+  background-color: #f5f7ff; /* Màu nền nhạt */
+  border-radius: 8px; /* Bo góc */
+  margin: 2rem auto;
+  max-width: 1200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}

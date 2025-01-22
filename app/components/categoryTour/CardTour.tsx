@@ -9,13 +9,28 @@ interface ImageComponentProps {
   text: string;
   description: string;
   price: number;
-  oldPrice?: number;
+  oldPrice: number;
   salePercentage?: number;
   link: string;
+}
+function formatCurrency(value: number): string {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  }).format(value).replace(/\sVND$/, ' VND'); // Đảm bảo có dấu cách trước VND
+}
+function calculateDiscountPercentage(oldPrice: number, price: number): string {
+  if (oldPrice <= 0 || price <= 0) {
+    throw new Error("Prices must be greater than 0.");
+  }
+
+  const discount = ((oldPrice - price) / oldPrice) * 100;
+  return `${discount.toFixed(2)}%`; // Làm tròn đến 2 chữ số thập phân
 }
 
 const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, description, price, oldPrice, salePercentage, link }) => {
   const [hovered, setHovered] = useState(false);
+
 
   return (
     <Link href={link} passHref>
@@ -47,7 +62,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, descrip
               zIndex: '2',
             }}
           >
-            -{salePercentage}%
+            -{calculateDiscountPercentage(oldPrice, price)}
           </div>
         )}
         <div className="relative w-full h-full">
@@ -58,7 +73,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, descrip
               bottom: '0',
               left: '0',
               width: '100%',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              backgroundColor: 'rgba(0, 0, 0, 0.65)',
               padding: '10px',
               boxSizing: 'border-box',
               textAlign: 'left',
@@ -75,10 +90,10 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, descrip
               <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
                 {oldPrice && (
                   <div style={{ textDecoration: 'line-through', fontSize: '0.8rem', color: '#ddd' }}>
-                    {oldPrice} ₫
+                    {formatCurrency(oldPrice)}
                   </div>
                 )}
-                <div style={{ color: '#FF9800', fontSize: '0.8rem', marginLeft: '3px', marginTop: '0.5rem',fontWeight: 'bold'}}>{price} ₫</div>
+                <div style={{ color: '#FF9800', marginLeft: '3px', marginTop: '0.5rem',fontWeight: 'bold'}} className='xl:text-base '>{formatCurrency(price)}</div>
               </div>
             </div>
           </div>

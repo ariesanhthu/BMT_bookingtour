@@ -6,16 +6,16 @@ const MoreTab: React.FC<{}> = () => {
     return (
     <div style={{ display: 'flex', justifyContent: 'space-around', gap: '10px', flexWrap: 'wrap', marginTop: '20px'}}>
       <ImageComponent
-  src="/diatrunghai.jpg"
+  src="/mienbac/mienbac.jpg"
   alt="Image 1"
-  text="Địa Trung Hải"
-  description="Trải nghiệm tour cano 3 đảo"
-  price={800000}
-  oldPrice={900000}
+  text="TOUR DU LỊCH MIỀN BẮC"
+  description="5 ngày 4 đêm: HÀ NỘI – HẠ LONG – NINH BÌNH - SAPA"
+  price={6979000}
+  oldPrice={7000000}
   salePercentage={20}
-  link="/mienbac"
+  link="/tour/6"
 />
-<ImageComponent
+{/* <ImageComponent
   src="/captreohonthom.jpg"
   alt="Image 3"
   text="Hòn Thơm"
@@ -34,7 +34,7 @@ const MoreTab: React.FC<{}> = () => {
   oldPrice={790000}
   salePercentage={13}
   link="/miennam"
-/>
+/> */}
     </div>
 
   );
