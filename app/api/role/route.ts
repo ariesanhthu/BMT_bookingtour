@@ -3,6 +3,27 @@ import connectDB from 'app/lib/connectDB';
 import { Role } from 'app/lib/models/Role';
 
 // GET: Lấy danh sách Role
+export async function GETIDUSER() {
+  try {
+    await connectDB();
+    const role_user_id = await Role.findOne({name : "user"}).select("_id");
+    return NextResponse.json({ success: true, data: role_user_id });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
+
+export async function GETIDADMIN() {
+  try {
+    await connectDB();
+    const role_admin_id = await Role.findOne({name : "admin"}).select("_id");
+    return NextResponse.json({ success: true, data: role_admin_id });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
+
+// GET: Lấy danh sách Role
 export async function GET() {
   try {
     await connectDB();
