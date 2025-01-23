@@ -1,41 +1,151 @@
-'use client'
+// 'use client';
+//  
+// import * as React from 'react';
+// import { useEdgeStore } from '@/lib/edgestore';
+//  import { useState } from "react";
+
+// export default function Page() {
+//   const [file, setFile] = React.useState<File>();
+//   const { edgestore } = useEdgeStore();
+
+//   const [urls, setUrls] = useState<
+//     string  | undefined
+//   >();
+//  
+//   return (
+//     <div>
+//       <input
+//         type="file"
+//         onChange={(e) => {
+//           setFile(e.target.files?.[0]);
+//         }}
+//       />
+//       <button
+//         onClick={async () => {
+//           if (file) {
+//             const res = await edgestore.publicFiles.upload({
+//               file,
+//               onProgressChange: (progress) => {
+//                 // you can use this to show a progress bar
+//                 console.log(progress);
+//               },
+//             });
+//             // you can run some server action or api here
+//             // to add the necessary data to your database
+//             console.log(res);
+
+//             setUrls(
+//                 res.url
+//               );
+//           }
+//         }}
+//       >
+//         Upload
+//       </button>
+//         <div>
+//             {urls ? (
+//             <img src={urls} alt="uploaded image" />
+//             ) : null}
+//         </div>
+//     </div>
+//   );
+// }
+
+// -------------------------------------
+'use client';
+
+import {
+  MultiImageDropzone,
+  type FileState,
+} from '@/app/components/uploadFile/MultiImageDropzone';
+import { useEdgeStore } from '@/lib/edgestore';
 import { useState } from 'react';
-import UploadFile from '@/app/components/uploadFile/UploadFile';
 
-export default function ProductForm() {
-  const [product, setProduct] = useState({
-    name: '',
-    url: '',
-    // Các trường khác
-  });
+export default function MultiImageDropzoneUsage() {
+  const [fileStates, setFileStates] = useState<FileState[]>([]);
+  const { edgestore } = useEdgeStore();
 
-  const handleUploadSuccess = (url: string) => {
-    setProduct((prev) => ({ ...prev, url }));
-  };
+  const [urls, setUrls] = useState<string[]>([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isCancelled, setIsCancelled] = useState(false);
 
-  const handleSubmit = async () => {
-    // Gửi product đến API lưu sản phẩm
-    try {
-      const response = await fetch('/api/products', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(product),
-      });
+  if (isSubmitted) {
+    return <div className="flex flex-col items-center m-6">COMPLETE!!!</div>;
+  }
+  if (isCancelled) {
+    return <div className="flex flex-col items-center m-6">CANCELLED!!!</div>;
+  }
 
-      if (!response.ok) throw new Error('Failed to save product.');
-      alert('Product saved successfully.');
-    } catch (error) {
-      console.error('Save product error:', error);
-      alert('Failed to save product.');
-    }
-  };
+
+  function updateFileProgress(key: string, progress: FileState['progress']) {
+    setFileStates((fileStates) => {
+      const newFileStates = structuredClone(fileStates);
+      const fileState = newFileStates.find(
+        (fileState) => fileState.key === key,
+      );
+      if (fileState) {
+        fileState.progress = progress;
+      }
+      return newFileStates;
+    });
+  }
+  
 
   return (
-    <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-      <UploadFile onUploadSuccess={handleUploadSuccess} />
-      <button type="submit" onClick={handleSubmit}>
-        Save Product
-      </button>
-    </form>
+    <div className='h-full w-full'>
+
+      <MultiImageDropzone
+        value={fileStates}
+        dropzoneOptions={{
+          maxFiles: 6,
+        }}
+        onChange={(files) => {
+          setFileStates(files);
+        }}
+        onFilesAdded={async (addedFiles) => {
+          setFileStates([...fileStates, ...addedFiles]);
+          await Promise.all(
+            addedFiles.map(async (addedFileState) => {
+              try {
+                const res = await edgestore.publicFiles.upload(
+                  {
+                  file: (addedFileState.file as File),
+                  options:{
+                    temporary: true
+                  },
+                  onProgressChange: async (progress) => {
+                    updateFileProgress(addedFileState.key, progress);
+                    if (progress === 100) {
+                      // wait 1 second to set it to complete
+                      // so that the user can see the progress bar at 100%
+                      await new Promise((resolve) => setTimeout(resolve, 1000));
+                      updateFileProgress(addedFileState.key, 'COMPLETE');
+                    }
+                  },
+                });
+
+                setUrls((prev) => [...prev, res.url]);
+                console.log(res);
+              } catch (err) {
+                updateFileProgress(addedFileState.key, 'ERROR');
+              }
+            }),
+          );
+        }}
+      />
+ <button
+              className="bg-white text-black rounded px-3 py-1 hover:opacity-80"
+              onClick={async () => {
+                for (const url of urls) {
+                  await edgestore.publicFiles.confirmUpload({
+                    url,
+                  });
+                }
+                setIsSubmitted(true);
+              }}
+            >
+              Submit
+            </button>
+    </div>
   );
 }

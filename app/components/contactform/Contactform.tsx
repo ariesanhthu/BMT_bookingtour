@@ -1,25 +1,63 @@
+'use client'
 import React from 'react'
-import Image from 'next/image';
-import styles from "./contact.module.css";
-const Contactform = () => {
+import axios from 'axios';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
+
+
+const Contactform = (): React.JSX.Element => {
+  const [formData, setFormData] = useState({
+            name: '',
+            phone: '',
+            email: '',
+            request: '',
+        });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => 
+    setFormData({ ...formData, [e.target.name]: e.target.value,});
+  
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    try {
+        await axios.post('/api/orders', { ...formData, tourId: '' });
+
+        alert('Thông tin đã được gửi thành công! Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất!');
+        setFormData({ name: '', phone: '', email: '', request: '' });
+        // router.refresh(); // Refresh lại trang để cập nhật thông tin nếu cần.
+    } catch (error) {
+        console.error('Lỗi khi gửi thông tin:', error);
+        alert('Đã xảy ra lỗi. Vui lòng thử lại!');
+    }
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={styles.imgContainer}>
-        <Image src="/bannerImage.jpg" alt="" fill className={styles.img} />
-      </div>
-      <div className={styles.formContainer}>
-        {/* <HydrationTestNoSSR/> */}
-        {/* <div suppressHydrationWarning>{a}</div> */}
-        <form action="" className={styles.form}>
-          <input type="text" placeholder="Tên của bạn" />
-          <input type="text" placeholder="Số điện thoại liên hệ" />
-          <input
-            type="text"
-            placeholder="Lời nhắn"
-          ></input>
-          <button className="btn bg-red-50 justify-center">Send</button>
-        </form>
-      </div>
+    <div className="flex flex-col w-full md:w-1/2 h-full justify-center items-center">
+      <form className="justify-center grid w-3/4" onSubmit={handleFormSubmit}>
+        <Input 
+              type="text" 
+              name = "name"
+              value = {formData.name}
+              onChange = {handleInputChange}
+              placeholder="Tên của bạn"
+              className='mt-5 border-[#000000] dark:border-[#ffffff]'
+              required
+        />
+        <Input 
+              type="text" 
+              name = "phone"
+              value = {formData.phone}
+              onChange = {handleInputChange}
+              placeholder="Số điện thoại liên hệ" 
+              className='mt-5 border-[#000000] dark:border-[#ffffff]' 
+              required
+        />
+        
+        <Button className='mt-5 justify-self-center' type="submit">
+            Liên hệ
+        </Button>
+      </form>
     </div>
   )
 }

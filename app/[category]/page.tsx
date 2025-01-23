@@ -72,7 +72,6 @@
 // Trong file mienbac.js
 
 import React from "react";
-import Slideshow from '../components/Slideshow';
 import Contactform from "../components/contactform/Contactform";
 import TourPage from "../components/schedule/TourPage";
 
