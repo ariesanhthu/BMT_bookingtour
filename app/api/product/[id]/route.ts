@@ -3,7 +3,6 @@ import connectDB from '@/app/lib/connectDB';
 import {Product} from '@/app/lib/models/Product';
 import mongoose from 'mongoose';
 
-
 type Params = Promise<{ id: string }>
 
 export async function GET(

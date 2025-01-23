@@ -2,12 +2,21 @@
 
 import { useState, useEffect } from "react"
 
-export default function TagPage ({ params }: { params: { id: string } }) {
-  const [tag, setTag] = useState(null);
+import { useParams } from 'next/navigation';
+type Tag = {
+  _id: string,
+  name: string,
+  description: string
+}
+
+export default function TagPage () {
+  const [tag, setTag] = useState<Tag>({ _id: '', name: '', description: '' });
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<string | null>(null);
-  const { id } = params  
+
+  const { id } = useParams();
+  
   useEffect (() => {
     fetchData();
   }, [id])  
@@ -18,7 +27,7 @@ export default function TagPage ({ params }: { params: { id: string } }) {
         const tagData = await tagRes.json();
         setTag(tagData.data);
       }
-      catch (error) {
+      catch (error: any) {
         console.log(error.message)
       }
   }  
@@ -54,7 +63,7 @@ export default function TagPage ({ params }: { params: { id: string } }) {
             setStatus(data.error || 'Failed to save Name');
           }
       }
-      catch (error){
+      catch (error: any){
         setStatus(error.message)
       }
   } 
@@ -84,7 +93,7 @@ export default function TagPage ({ params }: { params: { id: string } }) {
         setStatus(data.error || 'Failed to save description');
       }
     }
-    catch (error){
+    catch (error : any){
       setStatus(error.message);
     }
   } 

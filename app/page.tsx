@@ -60,14 +60,15 @@ export default async function Home() {
     <div className="w-full h-full">
 
         <ImageSlider />
-      {/* section MAIN WELCOME */}
-      <div className="flex flex-col mt-10 justify-center items-center"> 
-        <Contactform/>
-      </div>
       <div className="w-full flex flex-col items-center justify-center mt-10">
-        <div className="flex flex-col justify-items-center text-center md:text-center sm:max-xl:gap-2">
-          <p className="xl:text-3xl xl:leading-snug sm:max-2xl:p-0 text-xl sm:max-lg:text-xl font-bold uppercase">{data.slogan}</p>
-          <p className="text-base text-balance font-semibold lg:max-sm:text-sm">{data.subSlogan}</p>
+
+        {/* section MAIN WELCOME */}
+          <Contactform/>
+        <div className="w-1/2 flex flex-col items-center justify-center mt-10">
+          <div className="flex flex-col justify-items-center text-center md:text-center sm:max-xl:gap-2">
+            <p className="xl:text-3xl xl:leading-snug sm:max-2xl:p-0 text-xl sm:max-lg:text-xl font-bold uppercase">{data.slogan}</p>
+            <p className="text-base text-balance font-semibold lg:max-sm:text-sm">{data.subSlogan}</p>
+          </div>
         </div>
         
       </div>

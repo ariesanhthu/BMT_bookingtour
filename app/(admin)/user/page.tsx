@@ -60,7 +60,7 @@ export default function RolePage() {
           userId,
         }),
       });
-    
+
       const data = await res.json();
     
       // if (data.success) {
@@ -68,7 +68,7 @@ export default function RolePage() {
       // } else {
       //   setStatus(data.error);
       // }
-    } catch (error){
+    } catch (error: any){
       setStatus(error.message)
     }
   };
