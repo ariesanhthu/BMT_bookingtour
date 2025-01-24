@@ -36,7 +36,7 @@ enum TimeOfDay {
 
 export interface TourStop {
   day: number;
-  timeOfDay?: string | '';
+  timeOfDay?: TimeOfDay;
   time?: string | null;
   place: string;
   description?: string | null;
@@ -80,18 +80,20 @@ export interface productProps extends BaseProduct {
 //   tourData: TourStop[];
 // }
 
-export interface ProductObject {
-  name: string;
-  category: mongoose.Types.ObjectId;
-  url: string;
-  duration ?: string | null;
-  groupSize ?: string | null;
-  price ?: string | null;
-  rating ?: number | 0;
-  reviewCount ?: number | 0;
-  description ?: string | null;
-  highlights ?: string[];
-  included ?: string[];
-  notIncluded ?: string[];
-  tourData: TourStop[];
-}
+// for push data
+
+// export interface ProductObject {
+//   name: string;
+//   category: mongoose.Types.ObjectId;
+//   url: string;
+//   duration ?: string | null;
+//   groupSize ?: string | null;
+//   price ?: string | null;
+//   rating ?: number | 0;
+//   reviewCount ?: number | 0;
+//   description ?: string | null;
+//   highlights ?: string[];
+//   included ?: string[];
+//   notIncluded ?: string[];
+//   tourData: TourStop[];
+// }
