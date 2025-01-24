@@ -132,6 +132,7 @@ export default function RolePage() {
             <strong>{role.name}</strong> - {role.description || 'No description'}
             <button onClick={() => handleEdit(role._id)}>Edit</button>
             <button onClick={() => handleDelete(role._id)}>Delete</button>
+            <a href={`role/${role._id}`}>Go to Edit Page</a>
           </li>
         ))}
       </ul>

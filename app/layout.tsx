@@ -7,6 +7,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import { EdgeStoreProvider } from '../lib/edgestore';
 
 import Footer from "./components/footer/Footer";
+import ContactBar from "./components/contactbar/ContactBar"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
         >
           <Navbar />
           <EdgeStoreProvider>{children}</EdgeStoreProvider>
+          <ContactBar/>
           <Footer/>
       </ThemeProvider>
       </body>

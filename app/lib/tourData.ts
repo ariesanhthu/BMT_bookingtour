@@ -1,53 +1,8 @@
-'use client'
-
-// UI
-import { CalendarDays, MapPin, Users, Clock, DollarSign, Utensils, Hotel, Plane } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-
-// react
-import { useParams, useRouter } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
-
-// API
-import axios from 'axios';
-
-// COMPONENT CONTENT
-import TourTimeline from '@/app/components/content/TourTimeline'
-import TourPolicies from '@/app/components/content/TourPolicies'
-
-// image upload
-import Image from 'next/image'
-// ---------------------------
-
-import { productProps } from '@/app/interface'
-import { set } from 'mongoose'
-
-type TimeOfDay = 'buổi sáng' | 'buổi trưa' |'buổi chiều' | 'buổi tối';
-
-interface TourStop {
-    day: number;
-    timeOfDay: TimeOfDay;
-    time?: string | null;
-    place: string;
-    description?: string | null;
-    image: string;
-  }
-export default function TourDetailPage() {
-
-  const [product, setProduct] = useState<productProps>();
-
-    const { id } = useParams();
-  // In a real application, you would fetch this data based on the tour ID
-  const tours = [
+const tourDatas = [
     {
-        id: '1',
+        // id: '1',
         name: 'DU LỊCH ĐÀ LẠT – THÀNH PHỐ NGÀN HOA',
-        category: 'Miền Nam',
+        category: '6782b1ad0cf0a980a16c16bd',
         url: '/dalat/dalat.jpg',
         duration: '3 ngày 3 đêm',
         groupSize: '10+',
@@ -206,9 +161,9 @@ export default function TourDetailPage() {
           ],
     },
     {
-        id: '2',
+        // id: '2',
         name: 'DU LỊCH NAM DU - VẺ ĐẸP HOANG SƠ',
-        category: 'Miền Nam',
+        category: '6782b1ad0cf0a980a16c16bd',
         url: '/namdu/namdu1.jpg',
         duration: '2 ngày 1 đêm',
         groupSize: '10+',
@@ -343,9 +298,9 @@ export default function TourDetailPage() {
           ],
     },
     {
-        id: '3',
+        // id: '3',
         name: 'DU LỊCH HÒN SƠN – THIÊN NHIÊN TƯƠI ĐẸP',
-        category: 'Miền Nam',
+        category: '6782b1ad0cf0a980a16c16bd',
         url: '/honson/honson.jpg',
         duration: '2 ngày 1 đêm',
         groupSize: '10+',
@@ -472,9 +427,9 @@ export default function TourDetailPage() {
           ],
     },
     {
-      id: '6',
+    //   id: '6',
       name: 'DU LỊCH HÀ NỘI – HẠ LONG – NINH BÌNH - SAPA',
-      category: 'Miền Bắc',
+      category: '6782b19f0cf0a980a16c16b8',
       url: '/mienbac/mienbac.jpg',
       duration: '5 ngày 4 đêm',
       groupSize: '10+',
@@ -693,9 +648,9 @@ export default function TourDetailPage() {
         ],
     },
     {
-      id: '4',
+    //   id: '4',
       name: 'DU LỊCH PHÚ QUỐC – THÀNH PHỐ HOÀNG HÔN',
-      category: 'Miền Bắc',
+      category: '6782b19f0cf0a980a16c16b8',
       url: '/phuquoc.jpg',
       duration: '3 ngày 2 đêm',
       groupSize: '10+',
@@ -872,9 +827,9 @@ export default function TourDetailPage() {
         ],
     },
     {
-      id: '5',
+    //   id: '5',
       name: 'PHAN THIẾT – MŨI NÉ BIỂN XANH CÁT TRẮNG NẮNG VÀNG',
-      category: 'Miền Nam',
+      category: '6782b1ad0cf0a980a16c16bd',
       url: '/phanthiet/phanthiet.jpg',
       duration: '3 ngày 3 đêm',
       groupSize: '10+',
@@ -998,217 +953,4 @@ export default function TourDetailPage() {
         ],
     }
   ]
-  const tour:any = tours.find(tour => tour.id === id);
-
-//-------------------------------------------------------
-const [isDialogOpen, setIsDialogOpen] = useState(false);
-const [formData, setFormData] = useState({
-        name: '',
-        phone: '',
-        email: '',
-        request: '',
-    });
-
-const router = useRouter();
-// -------------------------------------------------------
-// FETCH DATA
-
-const fetchProduct = async () => {
-  if (!confirm('Are you sure you want to delete this product?')) return;
-  console.log(id);
-  try {
-    const response = await fetch(`/api/product/${id}`, {
-      method: 'GET',
-    });
-
-    if (response.ok) {
-      // SET USESTAE
-      const data = await response.json();
-      setProduct(data.data);
-    }
-  } catch (error) {
-    console.error('Failed to delete product:', error);
-  }
-};
-
-useEffect(() => {
-  fetchProduct();
-}, []);
-// -------------------------------------------------------
-
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => 
-  setFormData({ ...formData, [e.target.name]: e.target.value,});
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  try {
-      await axios.post('/api/orders', { ...formData, tourId: id });
-
-      alert('Thông tin đã được gửi thành công!');
-      setFormData({ name: '', phone: '', email: '', request: '' });
-      setIsDialogOpen(false);
-      router.refresh(); // Refresh lại trang để cập nhật thông tin nếu cần.
-  } catch (error) {
-      console.error('Lỗi khi gửi thông tin:', error);
-      alert('Đã xảy ra lỗi. Vui lòng thử lại!');
-  }
-};
-
-//-------------------------------------------------------
-
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2">
-          <h1 className="text-3xl font-bold mb-4">{tour.name}</h1>
-          <div className="flex items-center space-x-4 mb-4">
-            <Badge variant="secondary"><Clock className="w-4 h-4 inline mr-1" />{tour.duration}</Badge>
-            <Badge variant="secondary"><Users className="w-4 h-4 inline mr-1" />{tour.groupSize}</Badge>
-            <div className="flex items-center">
-              <span className="text-yellow-400">★</span>
-              <span className="ml-1">{tour.rating} ({tour.reviewCount} reviews)</span>
-            </div>
-          </div>
-          <Image 
-            src={tour.url} 
-            alt={tour.name} 
-            width={800} 
-            height={400} 
-            className="rounded-lg mb-6 max-h-80"
-          />
-          <p className="text-white mb-6">{tour.description}</p>
-          
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle className='text-primary'>Những địa điểm nổi bật</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc pl-5 space-y-2">
-                {tour.highlights.map((highlight: any, index : any) => (
-                  <li key={index}>{highlight}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-          {/* -------- LỊCH TRÌNH ------------ */}
-
-          <TourTimeline tourData={tour.tourData}/>
-
-          {/* THÔNG TIN ĐIỀU KHOẢN */}
-          <TourPolicies />
-        </div>
-
-        <div>
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>Giá vé</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold">{tour.price} đ</p>
-              <p className="text-gray-600">mỗi người</p>
-            </CardContent>
-            <CardFooter>
-                  
-                  {/* 
-                  -----------------------------------------------------------------
-                  */}
-                    <Button className="w-full" onClick={() => setIsDialogOpen(true)}>
-                        Đặt ngay để nhận <p className="text-white pl-1">ƯU ĐÃI</p>
-                    </Button>
-                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                        <DialogContent>
-                            <DialogHeader>
-                                <DialogTitle>Đặt Tour</DialogTitle>
-                            </DialogHeader>
-                            <form onSubmit={handleFormSubmit}>
-                                <div className="space-y-4 py-4">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="name">Họ Tên</Label>
-                                        <Input
-                                            id="name"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="phone">Số Điện Thoại</Label>
-                                        <Input
-                                            id="phone"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleInputChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="email">Email</Label>
-                                        <Input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            value={formData.email}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="request">Yêu Cầu</Label>
-                                        <textarea
-                                            id="request"
-                                            name="request"
-                                            value={formData.request}
-                                            onChange={handleInputChange}
-                                            className="w-full p-2 border rounded"
-                                        />
-                                    </div>
-                                </div>
-                                <DialogFooter>
-                                    <Button type="submit">Gửi Thông Tin</Button>
-                                </DialogFooter>
-                            </form>
-                        </DialogContent>
-                    </Dialog>
-                  
-                  {/* 
-                  -----------------------------------------------------------------
-                  */}
-            </CardFooter>
-          </Card>
-
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>Chuyến đi gồm</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {tour.included.map((item : any, index : any) => (
-                  <li key={index} className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> {item}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Không bao gồm</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {tour.notIncluded.map((item : any, index: any) => (
-                  <li key={index} className="flex items-center">
-                    <span className="text-red-500 mr-2">✗</span> {item}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </div>
-  )
-}
-
+export default tourDatas;

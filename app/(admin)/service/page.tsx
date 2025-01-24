@@ -130,8 +130,9 @@ export default function ServicePage() {
         {Services.map((service: any) => (
           <li key={service._id}>
             <strong>{service.name}</strong> - {service.description || 'No description'}
-            <button onClick={() => handleEdit(service._id)}>Edit</button>
+            {/* <button onClick={() => handleEdit(service._id)}>Edit</button> */}
             <button onClick={() => handleDelete(service._id)}>Delete</button>
+            <a href={`service/${service._id}`}>Edit</a>
           </li>
         ))}
       </ul>

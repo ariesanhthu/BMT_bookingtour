@@ -18,8 +18,8 @@ export async function POST(req: Request) {
   try {
     await connectDB();
     const body = await req.json();
-    const newRole = await User.create(body);
-    return NextResponse.json({ success: true, data: newRole });
+    const newUser = await User.create(body);
+    return NextResponse.json({ success: true, data: newUser, id: newUser._id });
   } catch (error) {
     return NextResponse.json({ success: false, error: "error.message" }, { status: 400 });
   }
