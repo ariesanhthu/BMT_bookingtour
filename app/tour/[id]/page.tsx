@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 
 // react
 import { useParams, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // API
 import axios from 'axios';
@@ -24,6 +24,9 @@ import TourPolicies from '@/app/components/content/TourPolicies'
 import Image from 'next/image'
 // ---------------------------
 
+import { productProps } from '@/app/interface'
+import { set } from 'mongoose'
+
 type TimeOfDay = 'buổi sáng' | 'buổi trưa' |'buổi chiều' | 'buổi tối';
 
 interface TourStop {
@@ -35,6 +38,9 @@ interface TourStop {
     image: string;
   }
 export default function TourDetailPage() {
+
+  const [product, setProduct] = useState<productProps>();
+
     const { id } = useParams();
   // In a real application, you would fetch this data based on the tour ID
   const tours = [
@@ -1003,7 +1009,32 @@ const [formData, setFormData] = useState({
         request: '',
     });
 
-    const router = useRouter();
+const router = useRouter();
+// -------------------------------------------------------
+// FETCH DATA
+
+const fetchProduct = async () => {
+  if (!confirm('Are you sure you want to delete this product?')) return;
+  console.log(id);
+  try {
+    const response = await fetch(`/api/product/${id}`, {
+      method: 'GET',
+    });
+
+    if (response.ok) {
+      // SET USESTAE
+      const data = await response.json();
+      setProduct(data.data);
+    }
+  } catch (error) {
+    console.error('Failed to delete product:', error);
+  }
+};
+
+useEffect(() => {
+  fetchProduct();
+}, []);
+// -------------------------------------------------------
 
 const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => 
   setFormData({ ...formData, [e.target.name]: e.target.value,});
