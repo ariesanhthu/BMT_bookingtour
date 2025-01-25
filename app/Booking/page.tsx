@@ -1,26 +1,12 @@
 import React from 'react'
-import Image from 'next/image';
-import styles from "./booking.module.css";
 import Contactform from '../components/contactform/Contactform';
 const BookingPage = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.imgContainer}>
-        <Image src="/contact.png" alt="" fill className={styles.img} />
-      </div>
-      <div className={styles.formContainer}>
-        {/* <HydrationTestNoSSR/> */}
-        {/* <div suppressHydrationWarning>{a}</div> */}
-        <form action="" className={styles.form}>
-          <input type="text" placeholder="Tên của bạn" />
-          <input type="text" placeholder="Số điện thoại liên hệ" />
-          <input
-            type="text"
-            placeholder="Lời nhắn"
-          ></input>
-          <button className="btn bg-red-50 justify-center">Send</button>
-        </form>
-      </div>
+   <div className='rounded-2xl bg-gradient-to-r from-primary/50 via-[#5c7bf7]/20 to-[#3a56d6]/20 animate-gradient flex w-full flex-col md:flex-row justify-center items-center space-y-5 md:space-y-0 md:space-x-5'>
+   <div className='w-1/2'>
+      <img src="contact.png" alt="contact image" className="flex-[1] hidden md:block md:object-cover"/>
+    </div>
+      <Contactform/>
     </div>
   )
 }

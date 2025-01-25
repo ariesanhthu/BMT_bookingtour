@@ -74,11 +74,19 @@ const config = {
           '75%': { transform: 'rotate(-15deg)' },
           '100%': { transform: 'rotate(0deg)' },
         },
+        gradient: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        swing: 'swing 2s infinite ease-in-out',
+        swing: 'swing 8s infinite',
+        ping: 'ping 2s infinite',
+        gradient: 'gradient 8s ease infinite',
+        
       },
     },
   },
