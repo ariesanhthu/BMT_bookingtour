@@ -1014,8 +1014,6 @@ const router = useRouter();
 // FETCH DATA
 
 const fetchProduct = async () => {
-  if (!confirm('Are you sure you want to delete this product?')) return;
-  console.log(id);
   try {
     const response = await fetch(`/api/product/${id}`, {
       method: 'GET',
