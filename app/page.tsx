@@ -1,45 +1,13 @@
-'use client'
 import Image from "next/image";
 import Contactform from "./components/contactform/Contactform";
 import HotTour from "./components/HotTour";
 import RegionTour from "./components/RegionTour";
 import ImageSlider from "./components/slider/SliderFull";
-import { useState } from "react";
-import axios from 'axios';
-import { devNull } from "node:os";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-
-  const [formData, setFormData] = useState({
-          name: '',
-          phone: '',
-          email: '',
-          request: '',
-      });
-  
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => 
-    setFormData({ ...formData, [e.target.name]: e.target.value,});
-  
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-  
-    try {
-        await axios.post('/api/orders', { ...formData, tourId: '' });
-  
-        alert('Thông tin đã được gửi thành công!');
-        setFormData({ name: '', phone: '', email: '', request: '' });
-        // router.refresh(); // Refresh lại trang để cập nhật thông tin nếu cần.
-    } catch (error) {
-        console.error('Lỗi khi gửi thông tin:', error);
-        alert('Đã xảy ra lỗi. Vui lòng thử lại!');
-    }
-  };
-
-
-  // const data = await getData();
-  // data.ts
   const data = {
     slogan:"Du lịch cùng chúng tôi",
     subSlogan: "Đồng hành cùng bạn tham quan các địa điểm nổi tiếng ở khắp Việt Nam",
@@ -56,29 +24,36 @@ export default async function Home() {
 // export default data;
   const imagesCount = data.images.length;
   return (
-
     <div className="w-full h-full">
 
-        <ImageSlider />
-      <div className="w-full flex flex-col items-center justify-center mt-10">
-
+      <ImageSlider />
+      <div className="w-full flex flex-col md:flex-row items-center justify-center mt-10">
         {/* section MAIN WELCOME */}
-          <Contactform/>
-        <div className="w-1/2 flex flex-col items-center justify-center mt-10">
-          <div className="flex flex-col justify-items-center text-center md:text-center sm:max-xl:gap-2">
-            <p className="xl:text-3xl xl:leading-snug sm:max-2xl:p-0 text-xl sm:max-lg:text-xl font-bold uppercase">{data.slogan}</p>
-            <p className="text-base text-balance font-semibold lg:max-sm:text-sm">{data.subSlogan}</p>
-          </div>
+        <div className="flex flex-col justify-center items-center text-center md:text-center sm:max-xl:gap-2 p-2">
+          <p className="xl:text-3xl xl:leading-snug sm:max-2xl:p-0 text-xl sm:max-lg:text-xl font-bold uppercase">{data.slogan}</p>
+          <p className="text-base text-balance font-semibold lg:max-sm:text-sm">{data.subSlogan}</p>
         </div>
-        
+
       </div>
       
       {/* section HOT TOUR */}
+      <HotTour/>
 
-        <HotTour/>
+      {/* <Card className="flex justify-center items-center p-0 md:p-5 mt-10 mx-5 md:mx-20">
+        <CardContent className="p-3 md:p-5 ">
+          <div className="flex flex-row justify-center items-center space-x-5">
+            <img src="contact.png" className="flex-[2]  hidden md:block md:w-1/2"/>
+            <div className="flex-[1] flex flex-col justify-center items-center space-y-2">
+              <h1 className={`font-bold text-lg md:text-3xl text-[#3a56d6] text-center`}>Liên hệ tư vấn</h1>
+              <Contactform/>  
+            </div>
+          </div>
+        </CardContent>        
+      </Card> */}
+      <Contactform/>
+      {/* </div> */}
 
-        <RegionTour/>
-        
+      <RegionTour/>
 
     </div>
 
