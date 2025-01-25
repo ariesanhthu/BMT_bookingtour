@@ -1,7 +1,7 @@
 ### Installation Command:
 
 ```bash
-npm i --force
+npm i
 ```
 
 ## Deploy on Vercel
