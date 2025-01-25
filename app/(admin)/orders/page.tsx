@@ -10,6 +10,7 @@ import { Trash, Archive } from 'lucide-react';
 interface Order {
     _id: string;
     tourId: string;
+    tourName: string;
     name: string;
     phone: string;
     email?: string;
@@ -77,7 +78,7 @@ const OrdersPage = () => {
                         <CardTitle>
                             <span className="text-lg font-bold">{order.name}</span>
                         </CardTitle>
-                        <p className="text-sm text-gray-600">Tour ID: {order.tourId}</p>
+                        <p className="text-sm text-gray-600">Tour ID: {order.tourName}</p>
                         <p className="text-sm text-gray-600">Ngày đặt: {new Date(order.createdAt).toLocaleString()}</p>
                     </CardHeader>
                     <CardContent>
