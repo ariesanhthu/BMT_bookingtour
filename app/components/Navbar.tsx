@@ -105,7 +105,7 @@ const links = [
   { name: "Trang chủ", href: "/" },
   { name: "Giới thiệu", href: "/about" },
   { name: "Sản phẩm", href: "/Tour", sublinks: ["Miền Bắc", "Miền Trung", "Miền Nam", "Khác"] },
-  { name: "Đặt vé", href: "/Booking" },
+  { name: "Liên hệ", href: "/Booking" },
   { name: "Ưu đãi", href: "/Discount" },
 ];
 
