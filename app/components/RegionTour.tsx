@@ -39,7 +39,7 @@ const ImageRegion: React.FC<ImageProps> = ({ src, alt, text, link }) => {
 
 const RegionTour: React.FC = () => {
   return (
-    <div className='mt-20 ml-10'>
+    <div className='mt-10 mx-10'>
          <h4 className="bold text-xl font-bold">Tour hằng ngày 🚌</h4>
 
     <div className="flex justify-around gap-10 flex-wrap mt-5">
