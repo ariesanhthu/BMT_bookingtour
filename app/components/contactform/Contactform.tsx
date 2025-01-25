@@ -32,51 +32,61 @@ const Contactform = (): React.JSX.Element => {
   };
 
   return (
-    <div>
-      <Card className="flex justify-center items-center p-0 md:p-5 mt-10 mx-5 md:mx-20">
-        <CardContent className="p-3 md:p-0 ">
-          <div className="flex flex-row justify-center items-center space-x-5">
-            <img src="contact.png" className="flex-[1]  hidden md:block md:w-1/2"/>
-            <div className="flex-[1] flex flex-col justify-center items-center space-y-2">
-              <h1 className={`font-bold text-lg md:text-3xl text-[#3a56d6] text-center`}>Liên hệ tư vấn</h1>
-              <div className="flex flex-col w-full h-full justify-center items-center p-1 md:p-4">
-                <form className="justify-center grid" onSubmit={handleFormSubmit}>
-                  <Input 
-                        type="text" 
-                        name = "name"
-                        value = {formData.name}
-                        onChange = {handleInputChange}
-                        placeholder="Tên của bạn"
-                        className='mt-5 border-[#000000] dark:border-[#ffffff]'
-                        required
-                  />
-                  <Input 
-                        type="text" 
-                        name = "phone"
-                        value = {formData.phone}
-                        onChange = {handleInputChange}
-                        placeholder="Số điện thoại liên hệ" 
-                        className='mt-5 border-[#000000] dark:border-[#ffffff]' 
-                        required
-                  />
-                  <textarea
-                    name = "request"
-                    value = {formData.request}
-                    onChange = {handleInputChange}
-                    placeholder="Lời nhắn"
-                    // className='mt-5 border-[#000000] dark:border-[#ffffff] h-40 p-2 border border-input rounded-md'
-                    className="mt-5 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                  />
-                  <Button className='text-bold mt-5 justify-self-center bg-[#3a56d6]' type="submit">
-                      Liên hệ
-                  </Button>
-                </form>
+  <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-4">
+  <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
+    <Card className="w-full relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden glow-card">
+      <div className="absolute inset-0 bg-gradient-to-r"></div>
+      <CardContent className="w-full p-6 sm:p-8 lg:p-10 relative z-10 backdrop-blur-sm">
+        <div className="flex flex-col items-center w-full">
+          <div className="w-full space-y-8">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary text-center drop-shadow-glow">
+              Liên hệ tư vấn
+            </h1>
+            
+            <form onSubmit={handleFormSubmit} className="space-y-6 w-full max-w-md mx-auto">
+              <Input 
+                type="text" 
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                placeholder="Tên của bạn"
+                className="w-full backdrop-blur-sm border-[#3a56d6]/30 focus:border-[#3a56d6] text-base sm:text-sm transition-all duration-200 hover:border-[#3a56d6]/50"
+                required
+              />
+              
+              <Input 
+                type="text" 
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                placeholder="Số điện thoại liên hệ" 
+                className="w-full backdrop-blur-sm border-[#3a56d6]/30 focus:border-[#3a56d6] text-base sm:text-sm transition-all duration-200 hover:border-[#3a56d6]/50"
+                required
+              />
+              
+              <textarea
+                name="request"
+                value={formData.request}
+                onChange={handleInputChange}
+                placeholder="Lời nhắn"
+                className="w-full min-h-[160px] rounded-md backdrop-blur-sm border border-[#3a56d6]/30 focus:border-[#3a56d6] px-3 py-2 text-base sm:text-sm transition-all duration-200 hover:border-[#3a56d6]/50 focus:ring-2 focus:ring-[#3a56d6]/30 focus:outline-none"
+              />
+              
+              <div className="flex justify-center">
+                <Button 
+                  className="bg-primary text-white hover:bg-[#2a46c6]  font-semibold px-8 py-2 shadow-glow transition-all duration-300 hover:shadow-glow-hover"
+                  type="submit"
+                >
+                  Liên hệ
+                </Button>
               </div>
-            </div>
+            </form>
           </div>
-        </CardContent>        
-      </Card>
-    </div>
+        </div>
+      </CardContent>        
+    </Card>
+  </div>
+</div>
   )
 }
 

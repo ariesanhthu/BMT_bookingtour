@@ -15,7 +15,7 @@ const ContactBar: React.FC = () => {
         {/* <MessageSquare className="w-6 h-6" /> */}
         <div className="relative">
             {/* Glowing ring */}
-            <span className="animate-ping absolute h-full w-full rounded-full bg-[#BD93F9] opacity-100"></span>
+            <span className="animate-ping delay-1000 absolute h-full w-full rounded-full bg-[#BD93F9] opacity-100"></span>
             <span className="animate-pulse absolute h-full w-full rounded-full bg-[#BD93F9]"></span>
             {/* Icon */}
             <img className={`relative w-5 h-5 md:w-10 md:h-10 animate-swing`} src="/ICON/icon_messenger_color.png" alt="Messenger icon"/>
@@ -33,7 +33,7 @@ const ContactBar: React.FC = () => {
       >
         <div className="relative">
             {/* Glowing ring */}
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full border bg-[#8BE9FD] opacity-100"></span>
+            <span className="animate-ping delay-1000 absolute inline-flex h-full w-full rounded-full border bg-[#8BE9FD] opacity-100"></span>
             <span className="animate-pulse absolute h-full w-full rounded-full bg-[#8BE9FD]"></span>
 
             {/* Icon */}
@@ -48,7 +48,7 @@ const ContactBar: React.FC = () => {
       >
         <div className="relative">
             {/* Glowing ring */}
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFB86C] opacity-100"></span>
+            <span className="animate-ping delay-1000 absolute inline-flex h-full w-full rounded-full bg-[#FFB86C] opacity-100"></span>
             <span className="animate-pulse absolute h-full w-full rounded-full bg-[#FFB86C]"></span>
             {/* Icon */}
             <img className={`relative w-5 h-5 md:w-10 md:h-10 animate-swing`} src="/ICON/icon_phone_color.png" alt="Phone icon"/>
