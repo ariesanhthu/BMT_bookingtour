@@ -20,7 +20,7 @@ const SectionCol: React.FC<SectionColProps> =
   return (
     <section className={`${styles.section}`}>
       {/* Tiêu đề lớn */}
-      <h1 ref={titleRef} className={`${titleStyle} font-bold text-lg md:text-4xl text-[#3a56d6] text-left px-4 pb-5`}>{title}</h1>
+      <h1 ref={titleRef} className={`${titleStyle} font-bold text-lg md:text-4xl text-primary text-left px-4 pb-5`}>{title}</h1>
 
       {/* Nội dung 2 cột */}
       <div className={`flex flex-col md:flex-row md:space-x-1`}>
