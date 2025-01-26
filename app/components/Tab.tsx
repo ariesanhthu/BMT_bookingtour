@@ -8,6 +8,7 @@ interface TabProps {
   tabs: categoryProps[];
 }
 
+
 const Tab: React.FC<TabProps> = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(0);
   

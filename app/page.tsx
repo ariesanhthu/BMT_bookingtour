@@ -14,6 +14,15 @@ import Tab from "./components/Tab";
 
 export const dynamic = "force-dynamic";
 
+function getMatchingCategories(data: simplifiedProduct[], cateList: categoryProps[]): categoryProps[] {
+  return cateList.filter((category) => {
+    return data.some((product) => {
+      return product.categories.some((productCategory : any) => {
+        return productCategory.name === category.name;
+      });
+    });
+  });
+}
 
 export default function Home() {
   const [categories, setCategories] = useState<categoryProps[]>([]);
@@ -64,8 +73,13 @@ export default function Home() {
       
       {/* section HOT TOUR */}
       {/* <HotTour/> */}
-      <Tab tabs = {categories}/>
+      <div className="m-10">
+        <h4 className="text-2xl bold font-bold">Tour HOT 🔥</h4>
+        <Tab tabs = {categories}/>
+      </div>
+      
       <Contactform/>
+
       <RegionTour/>
 
     </div>
