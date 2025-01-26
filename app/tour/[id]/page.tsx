@@ -1025,7 +1025,7 @@ const fetchProduct = async () => {
       setProduct(data.data);
     }
   } catch (error) {
-    console.error('Failed to delete product:', error);
+    console.error('Failed to fetch product:', error);
   }
 };
 

@@ -6,8 +6,11 @@ import { Category } from '@/app/lib/models/Category';
 export async function GET() {
   try {
     await connectDB();
-    const categorys = await Category.find().select('name slug'); // Lấy thông tin cơ bản của Category
-    return NextResponse.json({ success: true, data: categorys });
+    const categories = await Category.find();//.select('_id'); // Lấy thông tin cơ bản của Category
+    
+    console.log(categories);
+
+    return NextResponse.json({ success: true, data: categories });
   } catch (error) {
     return NextResponse.json({ success: false, error: "error.message" }, { status: 500 });
   }

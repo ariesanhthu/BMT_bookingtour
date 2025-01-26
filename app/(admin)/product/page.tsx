@@ -104,22 +104,22 @@ export default function AdProducts() {
       }, []);
 
     const fetchCategories = async () => {
-    try {
-        console.log('fetch categories');
+      try {
+          console.log('fetch categories');
 
-        const res = await fetch('/api/category');
-        if (!res.ok) {
-        throw new Error(`Failed to fetch categories: ${res.statusText}`);
-        }
-        const data = await res.json();
-        if (data.success) {
-        setCategories(data.data || []);
-        } else {
-        console.error('Error fetching categories: Invalid response format');
-        }
-    } catch (error) {
-        console.error('Error fetching categories:', error);
-    }
+          const res = await fetch('/api/category');
+          if (!res.ok) {
+          throw new Error(`Failed to fetch categories: ${res.statusText}`);
+          }
+          const data = await res.json();
+          if (data.success) {
+          setCategories(data.data || []);
+          } else {
+          console.error('Error fetching categories: Invalid response format');
+          }
+      } catch (error) {
+          console.error('Error fetching categories:', error);
+      }
     };
     
     const fetchProducts = async () => {
@@ -247,7 +247,7 @@ const addTourStop = (product: BaseProduct | typeof newProduct) => {
         time: null,
         place: '',
         description: null,
-        url: '',
+        image: '',
       },
     ];
 
@@ -666,9 +666,9 @@ const addTourStop = (product: BaseProduct | typeof newProduct) => {
                 <div className="space-y-2">
                   <Label>Image URL</Label>
                   <Input
-                    value={stop.url}
+                    value={stop.image}
                     onChange={(e) =>
-                      updateTourStop(product, index, { url: e.target.value })
+                      updateTourStop(product, index, { image: e.target.value })
                     }
                     required
                   />

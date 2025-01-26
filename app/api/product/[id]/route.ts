@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/app/lib/connectDB';
 import {Product} from '@/app/lib/models/Product';
+import { Category } from '@/app/lib/models/Category';
 import mongoose from 'mongoose';
 
 type Params = Promise<{ id: string }>
@@ -13,13 +14,27 @@ export async function GET(
     await connectDB();
 
     const {id} = await params;
+     
+    const productID = new mongoose.Types.ObjectId(id);
 
-    const product = await Product.findById(id).populate('category');
+    if(!mongoose.Types.ObjectId.isValid(productID)){
+      return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
+    }
+
+    console.log("id: --------- ", productID);
+
+    const product = await Product.findById(productID);
+
+    console.log("san phan" ,product);
+
     if (!product) {
+     
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
     return NextResponse.json({ success: true, data: product });
   } catch (error) {
+    
+    console.error('Error fetching product by ID:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

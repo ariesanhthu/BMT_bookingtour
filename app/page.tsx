@@ -1,13 +1,22 @@
+'use client';
+
 import Image from "next/image";
 import Contactform from "./components/contactform/Contactform";
 import HotTour from "./components/HotTour";
 import RegionTour from "./components/RegionTour";
 import ImageSlider from "./components/slider/SliderFull";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { simplifiedProduct, categoryProps } from "./interface";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Tab from "./components/Tab";
 
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
+
+export default function Home() {
+  const [categories, setCategories] = useState<categoryProps[]>([]);
+  
   const data = {
     slogan:"Du lịch cùng chúng tôi",
     subSlogan: "Đồng hành cùng bạn tham quan các địa điểm nổi tiếng ở khắp Việt Nam",
@@ -19,6 +28,20 @@ export default async function Home() {
       '/slide5.jpg',
     ],
     count: 5,
+  };
+  
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () =>{
+    try {
+      const res = await axios.get('/api/category');
+      // console.log(res.data);
+      setCategories(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
 // export default data;
@@ -37,8 +60,13 @@ export default async function Home() {
       </div>
       
       {/* section HOT TOUR */}
-      <HotTour/>
-
+      {/* <HotTour/> */}
+      <div className="m-10">
+        
+        <h4 className="text-2xl bold font-bold">Tour HOT 🔥</h4>
+        
+        <Tab tabs = {categories}/>
+      </div>
       {/* <Card className="flex justify-center items-center p-0 md:p-5 mt-10 mx-5 md:mx-20">
         <CardContent className="p-3 md:p-5 ">
           <div className="flex flex-row justify-center items-center space-x-5">

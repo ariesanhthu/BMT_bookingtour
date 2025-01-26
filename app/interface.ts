@@ -40,7 +40,7 @@ export interface TourStop {
   time?: string | null;
   place: string;
   description?: string | null;
-  url?: string;
+  image?: string;
 }
 
 export interface BaseProduct {
