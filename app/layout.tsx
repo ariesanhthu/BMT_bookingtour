@@ -8,7 +8,6 @@ import { EdgeStoreProvider } from '../lib/edgestore';
 
 import Footer from "./components/footer/Footer";
 import ContactBar from "./components/contactbar/ContactBar"
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,17 +23,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          <EdgeStoreProvider>{children}</EdgeStoreProvider>
-          <ContactBar/>
-          <Footer/>
-      </ThemeProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem 
+            disableTransitionOnChange
+          >
+            <Navbar />
+            <EdgeStoreProvider>{children}</EdgeStoreProvider>
+            <ContactBar/>
+            <Footer/>
+        </ThemeProvider>
       </body>
     </html>
   );

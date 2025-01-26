@@ -3,10 +3,11 @@ import Contactform from "./components/contactform/Contactform";
 import HotTour from "./components/HotTour";
 import RegionTour from "./components/RegionTour";
 import ImageSlider from "./components/slider/SliderFull";
-
+import Slogan from "./components/Slogan";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
+
   const data = {
     slogan:"Du lịch cùng chúng tôi",
     subSlogan: "Đồng hành cùng bạn tham quan các địa điểm nổi tiếng ở khắp Việt Nam",
@@ -26,14 +27,7 @@ export default async function Home() {
     <div className="w-full h-full">
 
       <ImageSlider />
-      <div className="w-full flex flex-col md:flex-row items-center justify-center mt-10">
-        {/* section MAIN WELCOME */}
-        <div className="flex flex-col justify-center items-center text-center md:text-center sm:max-xl:gap-2 p-2">
-          <p className="xl:text-3xl xl:leading-snug sm:max-2xl:p-0 text-xl sm:max-lg:text-xl font-bold uppercase">{data.slogan}</p>
-          <p className="text-base text-balance font-semibold lg:max-sm:text-sm">{data.subSlogan}</p>
-        </div>
-
-      </div>
+      <Slogan/>
       
       {/* section HOT TOUR */}
       <HotTour/>
