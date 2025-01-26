@@ -58,11 +58,11 @@ const TourTimeline: React.FC<TourComponentProps> = ({ tourData }) => {
       className="bg-white rounded-lg shadow-md overflow-hidden"
     >
       <div className="lg:flex">
-        {stop.url ? (
+        {stop.image ? (
           <div className="lg:w-80 w-full flex-shrink-0 relative aspect-[4/3]">
             {/* Sử dụng Next.js Image */}
             <Image
-              src={stop.url}
+              src={stop.image}
               alt={stop.place}
               layout="fill"
               objectFit="cover"

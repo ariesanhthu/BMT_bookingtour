@@ -6,7 +6,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Trash, Archive } from 'lucide-react';
-
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+  } from "@/components/ui/table"
+  
 interface Order {
     _id: string;
     tourId: string;
@@ -71,35 +80,45 @@ const OrdersPage = () => {
 
     // Render order cards
     const renderOrders = (orderList: Order[]) => (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {orderList.map((order) => (
-                <Card key={order._id} className="border shadow-md">
-                    <CardHeader>
-                        <CardTitle>
-                            <span className="text-lg font-bold">{order.name}</span>
-                        </CardTitle>
-                        <p className="text-sm text-gray-600">Tour ID: {order.tourName}</p>
-                        <p className="text-sm text-gray-600">Ngày đặt: {new Date(order.createdAt).toLocaleString()}</p>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-sm">SĐT: {order.phone}</p>
-                        {order.email && <p className="text-sm">Email: {order.email}</p>}
-                        {order.request && <p className="text-sm">Yêu cầu: {order.request}</p>}
-                    </CardContent>
-                    <CardFooter className="flex justify-end space-x-2">
-                       {
-                        
-                       
-                        <Button variant="outline" size="sm" onClick={() => handleArchive(order._id)}>
-                            <Archive className="w-4 h-4 mr-2" /> {!order.archived ? 'Lưu trữ' : 'Bỏ lưu trữ'}
-                        </Button>
-                        }
-                        <Button variant="destructive" size="sm" onClick={() => handleDelete(order._id)}>
-                            <Trash className="w-4 h-4 mr-2" /> Xóa
-                        </Button>
-                    </CardFooter>
-                </Card>
-            ))}
+        <div className="flex">
+            <Table className="w-full border items-center justify-center">
+                <TableCaption>Danh sách đơn hàng</TableCaption>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Tour ID</TableHead>
+                        <TableHead>Ngày đặt (M/D/Y)</TableHead>
+                        <TableHead>Tên khách hàng</TableHead>
+                        <TableHead>SDT</TableHead>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Yêu cầu</TableHead>
+                        <TableHead>Trạng thái</TableHead>
+                        <TableHead>Xóa</TableHead>
+                    </TableRow>
+                </TableHeader>
+
+                <TableBody>
+                    {orderList.map((order) => (
+                        <TableRow key={order._id}>
+                            <TableCell className='w-[7rem]'>{order.tourName}</TableCell>
+                            <TableCell className='w-[13rem]'>{new Date(order.createdAt).toLocaleString()}</TableCell>
+                            <TableCell className='w-[13rem]'>{order.name}</TableCell>
+                            <TableCell className='w-[10rem]'>{order.phone}</TableCell>
+                            <TableCell className='w-[10rem]'>{order.email}</TableCell>
+                            <TableCell className='w-[20rem]'>{order.request}</TableCell>
+                            <TableCell> 
+                                <Button variant="outline" size="sm" onClick={() => handleArchive(order._id)}>
+                                    <Archive className="w-4 h-4 mr-2" /> {!order.archived ? 'Lưu trữ' : 'Bỏ lưu trữ'}
+                                </Button>
+                            </TableCell>
+                            <TableCell>
+                                <Button variant="destructive" size="sm" onClick={() => handleDelete(order._id)}>
+                                    <Trash className="w-4 h-4 mr-2" /> Xóa
+                                </Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
         </div>
     );
 

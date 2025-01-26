@@ -21,7 +21,6 @@ const Contactform = (): React.JSX.Element => {
   
     try {
         await axios.post('/api/orders', { ...formData, tourId: '' });
-
         alert('Thông tin đã được gửi thành công! Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất!');
         setFormData({ name: '', phone: '', email: '', request: '' });
         // router.refresh(); // Refresh lại trang để cập nhật thông tin nếu cần.
@@ -32,9 +31,8 @@ const Contactform = (): React.JSX.Element => {
   };
 
   return (
-  <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-4">
-  <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
-    <Card className="w-full relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden glow-card">
+  <div className="rounded-xl w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-4 mt-10">
+    <Card className="relative w-3/4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden glow-card">
       <div className="absolute inset-0 bg-gradient-to-r"></div>
       <CardContent className="w-full p-6 sm:p-8 lg:p-10 relative z-10 backdrop-blur-sm">
         <div className="flex flex-col items-center w-full">
@@ -85,10 +83,7 @@ const Contactform = (): React.JSX.Element => {
         </div>
       </CardContent>        
     </Card>
-  </div>
 </div>
   )
 }
-
 export default Contactform;
-        
