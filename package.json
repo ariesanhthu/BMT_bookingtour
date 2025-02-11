@@ -11,6 +11,7 @@
     "createCollections": "ts-node createCollection.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.11.2",
     "@edgestore/react": "^0.2.2",
     "@edgestore/server": "^0.2.2",
     "@radix-ui/react-collapsible": "^1.1.2",
@@ -41,6 +42,7 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.3.5",
+    "resend": "^4.1.2",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
