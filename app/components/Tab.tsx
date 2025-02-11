@@ -20,7 +20,7 @@ const Tab: React.FC<TabProps> = ({ categories, onSelect }) => {
       {categories.map((category) => (
         <button
           key={category._id}
-          className={`px-4 py-2 font-bold md:text-lg text-sm ${
+          className={`hover:text-slate-400 px-4 py-2 font-bold md:text-lg text-sm ${
             activeTab === category._id ? "border-b-2 border-blue-500" : "text-gray-500"
           }`}
           onClick={() => handleTabClick(category._id)}

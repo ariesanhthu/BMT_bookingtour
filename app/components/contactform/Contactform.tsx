@@ -32,9 +32,9 @@ const Contactform = (): React.JSX.Element => {
 
   return (
   <div className="rounded-xl w-full min-h-screen flex items-center justify-center p-4 mt-10">
-    <Card className="relative w-3/4 bg-primary/2 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden glow-card">
-      <div className="absolute inset-0 bg-gradient-to-r"></div>
-      <CardContent className="w-full p-6 sm:p-8 lg:p-10 relative z-10 backdrop-blur-sm">
+    <Card className="relative w-3/4 bg-primary/2 border border-white/20 rounded-xl overflow-hidden glow-card hover:shadow-glow-hover">
+      
+      <CardContent className="w-full p-6 sm:p-8 lg:p-10 relative z-10 ">
         <div className="flex flex-col items-center w-full">
           <div className="w-full space-y-8">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center drop-shadow-glow">
