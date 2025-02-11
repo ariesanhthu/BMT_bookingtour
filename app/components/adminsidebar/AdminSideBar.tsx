@@ -12,16 +12,16 @@ import {
 
 // Menu items.
 const items = [
-  { name: "Dashboard", href: "/home" },
-  { name: "Role Management", href: "/role" },
-  { name:"User Management", href: "/user" },
-  { name:"Customer Management", href: "/custmer" },
-  { name:"Product Management", href: "/product" },
-  { name:"Service Management", href: "/service" },
-  { name:"Category Management", href: "/category" },
-  { name:"Order Management", href: "/orders" },
-  { name:"Test Management", href: "/test" },
-  { name:"HomePage Management", href: "/homePageContent" },
+  { name: "Dashboard", href: "home" },
+  { name: "Role Management", href: "role" },
+  { name:"User Management", href: "user" },
+  { name:"Customer Management", href: "custmer" },
+  { name:"Product Management", href: "product" },
+  { name:"Service Management", href: "service" },
+  { name:"Category Management", href: "category" },
+  { name:"Order Management", href: "orders" },
+  // { name:"Test Management", href: "/test" },
+  { name:"HomePage Management", href: "homePageContent" },
 ]
 
 export function AdminSideBar() {

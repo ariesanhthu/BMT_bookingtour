@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from 'react';
 import Layout from '../layout';
 const links = [
-    { name: "Role Management", href: "/role" },
+    { name: "Role Management", href: "role" },
     { name:"User Management", href: "/user" },
     { name:"Customer Management", href: "/custmer" },
     { name:"Product Management", href: "/product" },
