@@ -38,3 +38,6 @@ next-env.d.ts
 
 .embold/
 
+
+# clerk configuration (can include secrets)
+/.clerk/

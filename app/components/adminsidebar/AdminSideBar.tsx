@@ -18,9 +18,9 @@ const items = [
   { name:"Customer Management", href: "custmer" },
   { name:"Product Management", href: "product" },
   { name:"Service Management", href: "service" },
+  { name:"Tag Management", href: "tag" },
   { name:"Category Management", href: "category" },
   { name:"Order Management", href: "orders" },
-  // { name:"Test Management", href: "/test" },
   { name:"HomePage Management", href: "homePageContent" },
 ]
 

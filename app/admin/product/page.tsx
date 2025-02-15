@@ -23,6 +23,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Plus, Trash, Sun, Sunset, Moon, Pencil } from "lucide-react";
 import {
   Dialog,
@@ -688,73 +698,68 @@ const addTourStop = (product: BaseProduct | typeof newProduct) => {
     </form>
   );
     return (
-  <div className="flex flex-col md:flex-row gap-4 p-4">
-  
-    {/* Left Side - Product Display */}
-    <div className="flex-1 rounded-md p-4 shadow">
-      <ProductShow product={newProduct}/>
-    </div>
+  <div className="p-6 justify-center h-full w-full">
+    <Tabs defaultValue="product" className='h-full w-full'>
+      <TabsList>
+        <TabsTrigger value="create">Tạo tour</TabsTrigger>
+        <TabsTrigger value="list">Tour đã tạo</TabsTrigger>
+      </TabsList>
+      {/* Tab dành cho tạo tour */}
+      <TabsContent value="create">
+        <div className="flex flex-col md:flex-row gap-4 p-4">
+          {/* Left Side - Product Display */}
+          <div className="flex-1 rounded-md p-4 shadow">
+            <ProductShow product={newProduct}/>
+          </div>
 
-    {/* Right Side - Form */}
-    <div className="flex-1 p-4 shadow">
-      <Card>
-        <CardHeader>
-            <CardTitle>Thêm sản phẩm mới</CardTitle>
-        </CardHeader>
-        <CardContent>
-            {renderProductForm(newProduct, handleSubmit)}
-        </CardContent>
-      </Card>
-
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Right Side - Form */}
+          <div className="flex-1 p-4 shadow">
+            <Card>
+              <CardHeader>
+                  <CardTitle>Thêm sản phẩm mới</CardTitle>
+              </CardHeader>
+              <CardContent>
+                  {renderProductForm(newProduct, handleSubmit)}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </TabsContent>
+      
+      {/* Tab dành cho danh sách tour */}
+      <TabsContent value="list">
+        <Table className='border'>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Tên sản phẩm</TableHead>
+              <TableHead>Thời gian</TableHead>
+              <TableHead>Giá</TableHead>
+              <TableHead>Mô tả</TableHead>
+              <TableHead>Xóa</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {products.map((product) => (
-                <Card key={product._id}>
-                    <CardHeader>
-                        <CardTitle>{product.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="space-y-2">
-                            <p className="text-sm text-muted-foreground">{product.description}</p>
-                            <p className="text-sm">Duration: {product.duration}</p>
-                            <p className="text-sm">Price: {product.price}</p>
-                        </div>
-                    </CardContent>
-
-                    <CardFooter className="flex justify-end space-x-2">
-                      {/* <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          setEditingProduct(product);
-                          setIsEditDialogOpen(true);
-                        }}
-                      >
-                        <Pencil className="w-4 h-4 mr-2" />
-                        Edit
-                      </Button> */}
-
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => handleDelete(product._id)}
-                      >
-                        <Trash className="w-4 h-4 mr-2" />
-                        Delete
-                      </Button>
-                      {product._id}
-                  </CardFooter>
-                </Card>
-            ))}
-    </div>
-
-        {/* <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-4xl">
-        <DialogHeader>
-            <DialogTitle>Edit Product</DialogTitle>
-        </DialogHeader>
-        {editingProduct && renderProductForm(editingProduct, handleEdit)}
-        </DialogContent>
-        </Dialog> */}
-    </div>
+              <TableRow key={product._id}>
+                <TableCell className='min-w-[20rem]'>{product.name}</TableCell>
+                <TableCell className='min-w-[10rem]'>{product.duration}</TableCell>
+                <TableCell className='min-w-[10rem]'>{product.price}</TableCell>
+                <TableCell className='min-w-[20rem] max-w-[30rem]'>{product.description}</TableCell>
+                <TableCell className='min-w-[10rem]'>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => handleDelete(product._id)}
+                  >
+                    <Trash className="w-4 h-4 mr-2" />
+                    Xóa
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))} 
+          </TableBody>
+        </Table>
+      </TabsContent>
+    </Tabs>
   </div>
 )}

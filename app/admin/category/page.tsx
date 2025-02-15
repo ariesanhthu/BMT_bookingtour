@@ -250,6 +250,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { Plus, Pencil, Trash } from "lucide-react";
 import {
   Dialog,
@@ -355,11 +364,11 @@ export default function AdminCategoryPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="flex flex-row gap-10 p-6 justify-center">
       {/* Status Message */}
       {status && <p className="text-red-500">{status}</p>}
 
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>{editingCategory ? 'Edit Category' : 'Add New Category'}</CardTitle>
         </CardHeader>
@@ -396,36 +405,37 @@ export default function AdminCategoryPage() {
         </form>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {categories.map((category) => (
-          <Card key={category._id}>
-            <CardHeader>
-              <CardTitle>{category.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">Slug: {category.slug}</p>
-            </CardContent>
-            <CardFooter className="flex justify-end space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleEdit(category)}
-              >
-                <Pencil className="w-4 h-4 mr-2" />
-                Edit
-              </Button>
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={() => handleDelete(category._id)}
-              >
-                <Trash className="w-4 h-4 mr-2" />
-                Delete
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      <Table className="w-full border items-center justify-center">
+        <TableCaption>Danh sách category</TableCaption>
+        <TableHeader>
+            <TableRow>
+                <TableHead>Tên</TableHead>
+                <TableHead>Slug</TableHead>
+                <TableHead>Sửa</TableHead>
+                <TableHead>Xóa</TableHead>
+            </TableRow>
+        </TableHeader>
+
+        <TableBody>
+            {categories.map((category) => (
+                <TableRow key={category._id}>
+                    <TableCell className='w-[20rem]'>{category.name}</TableCell>
+                    <TableCell className='w-[20rem]'>{category.slug}</TableCell>
+                    <TableCell className='w-[10rem]'> 
+                        <Button variant="outline" size="sm" onClick={() => handleEdit(category)}>
+                            <Pencil className="w-4 h-4 mr-2" /> Sửa
+                        </Button>
+                    </TableCell >
+                    <TableCell className='w-[10rem]'>
+                        <Button variant="destructive" size="sm" onClick={() => handleDelete(category._id)}>
+                            <Trash className="w-4 h-4 mr-2" /> Xóa
+                        </Button>
+                    </TableCell>
+                </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+
 
       {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>

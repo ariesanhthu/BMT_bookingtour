@@ -11,7 +11,7 @@
     "createCollections": "ts-node createCollection.ts"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.11.2",
+    "@clerk/nextjs": "^6.11.3",
     "@edgestore/react": "^0.2.2",
     "@edgestore/server": "^0.2.2",
     "@radix-ui/react-collapsible": "^1.1.2",

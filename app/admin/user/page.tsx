@@ -2,11 +2,44 @@
 
 import { useState, useEffect } from 'react';
 
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Plus, Trash, Pencil } from "lucide-react";
+
+type Role = {
+  _id: string;
+  name: string;
+};
+
+type User = {
+  _id: string;
+  username: string;
+  password?: string;
+  roles: string[];
+};
+
 export default function RolePage() {
-  const [roles, setRoles] = useState([]);
+  const [roles, setRoles] = useState<Role[]>([]);
   const [selectedRole, setSelectedRole] = useState('');
 
-  const [users, setUser] = useState([]);
+  const [users, setUser] = useState<User[]>([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [editUsername, setEditUser] = useState<string | null>(null);
@@ -26,10 +59,10 @@ export default function RolePage() {
         setRoles(data.data || []);
         setStatus(null); // Clear any previous status
       } else {
-        setStatus('Failed to fetch users');
+        setStatus('Failed to fetch roles');
       }
     } catch (error) {
-      setStatus('Error fetching users');
+      setStatus('Error fetching roles');
     }
   }
 
@@ -48,8 +81,14 @@ export default function RolePage() {
     }
   };
 
+  const findRoleUser = (roleIds: string[]) => {
+    console.log("ID", roleIds[0]);
+    if (!roleIds || roleIds.length === 0) return 'Unknown Role';
+    const role = roles.find((role: Role) => role._id === roleIds[0]);
+    return role ? role.name : 'Unknown Role';
+  };
+
   const assignRoleToUser = async (userId: string, roleId: string) => {
-    // console.log("id: ", userId)
     try {
       const res = await fetch(`/api/role/${roleId}`, {
         method: 'POST',
@@ -62,14 +101,11 @@ export default function RolePage() {
       });
 
       const data = await res.json();
-    
-      // if (data.success) {
-      //   setStatus('Role assigned successfully');
-      // } else {
-      //   setStatus(data.error);
-      // }
-    } catch (error: any){
-      setStatus(error.message)
+      if (!data.success) {
+        setStatus(data.error);
+      }
+    } catch (error: any) {
+      setStatus(error.message);
     }
   };
 
@@ -83,7 +119,6 @@ export default function RolePage() {
     const url = '/api/user';
     const method = editUsername ? 'PUT' : 'POST';
     const body = JSON.stringify({
-      // _id: editUsername,
       username,
       password,
     });
@@ -96,12 +131,10 @@ export default function RolePage() {
       });
       const data = await res.json();
       if (data.success) {
-        console.log('New User:', data);  // Access the _id
         assignRoleToUser(data.data._id, selectedRole);
         fetchUsers();
         resetForm();
         setStatus(editUsername ? 'User updated successfully' : 'User created successfully');
-
       } else {
         setStatus(data.error || 'Failed to save user');
       }
@@ -131,9 +164,9 @@ export default function RolePage() {
   };
 
   // Edit role (populate form fields)
-  const handleEdit = (user: any) => {
+  const handleEdit = (user: User) => {
     setEditUser(user._id);
-    setUsername(user.name);
+    setUsername(user.username);
     setPassword(user.password || '');
     setStatus(null);
   };
@@ -146,51 +179,108 @@ export default function RolePage() {
   };
 
   return (
-    <div>
-      <h1>User Management</h1>
-
-      {/* Status Message */}
-      {status && <p style={{ color: 'red'}}>{status}</p>}
-
-      {/* Form for Create/Update */}
-      <div>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <select onChange={(e) => setSelectedRole(e.target.value)} value={selectedRole}>
-          <option value="">Select Role</option>
-          {roles.map((role: any) => (
-            <option key={role._id} value={role._id}>
-              {role.name}
-            </option>
-        ))}
-        </select>
-        <button onClick={handleCreateOrUpdate}>
-          {editUsername ? 'Update user' : 'Create user'}
-        </button>
-        {editUsername && <button onClick={resetForm}>Cancel</button>}
+    <div className="m-10">
+      <h1>Quản lý người dùng</h1>
+      <div className="flex flex-row gap-10 p-10 mx-20 justify-center">
+        {/* User Form */}
+        <Card className="flex-1 min-w-[30rem]">
+          {status && <p style={{ color: 'red'}}>{status}</p>}
+          <CardHeader>
+            <CardTitle>{editUsername ? 'Chỉnh sửa vai trò' : 'Thêm người dùng'}</CardTitle>
+          </CardHeader>
+          <form>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  value={username}
+                  type='text'
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="username"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Mật khẩu </Label>
+                <Input
+                  id="password"
+                  value={password}
+                  type='text'
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Mật khẩu"
+                />
+              </div>
+              <div className="space-y-2 flex flex-col">
+                <Label htmlFor="role">Vai trò</Label>
+                <select
+                  id="role"
+                  value={selectedRole}
+                  onChange={(e) => setSelectedRole(e.target.value)}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                >
+                  <option value="">Chọn vai trò</option>
+                  {roles.map((role: Role) => (
+                    <option key={role._id} value={role._id}>
+                      {role.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </CardContent>
+            <CardFooter className="justify-center">
+              <Button onClick={handleCreateOrUpdate} className="text-white">
+                <Plus className="w-4 h-4 mr-2 text-white" />
+                {editUsername ? 'Save Changes' : 'Thêm người dùng'}
+              </Button>
+              {/* <Button onClick={resetForm} className="text-white">
+                <Plus className="w-4 h-4 mr-2 text-white" />
+                Reset form
+              </Button> */}
+            </CardFooter>
+          </form>
+        </Card>
+        {/* User List */}
+        <Table className="flex-1 w-full border rounded-md">
+          <TableCaption>Danh sách người dùng</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableCell>Username</TableCell>
+              <TableCell>Role</TableCell>
+              <TableCell>Chỉnh sửa</TableCell>
+              <TableCell>Xóa</TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {users.map((user: User) => (
+              <TableRow key={user._id}>
+                <TableCell className='min-w-[10rem]'>{user.username}</TableCell>
+                <TableCell className='min-w-[10rem]'>{findRoleUser(user.roles)}</TableCell>
+                <TableCell className='min-w-[10rem]'>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={() => handleEdit(user)}
+                  >
+                    <Pencil className="w-4 h-4 mr-2" />
+                    Chỉnh sửa
+                  </Button>
+                </TableCell>
+                <TableCell className='min-w-[10rem]'>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => handleDelete(user._id)}
+                  >
+                    <Trash className="w-4 h-4 mr-2" />
+                    Xóa
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
-
-      {/* Role List */}
-      <ul>
-        {users.map((user: any) => (
-          <li key={user._id}>
-            <strong>Username:  {user.username}</strong>
-            <button onClick={() => handleEdit(user._id)}>Edit</button> 
-            <button onClick={() => handleDelete(user._id)}>Delete</button>
-            <a href={`user/${user._id}`}>Go to Edit Page</a>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
