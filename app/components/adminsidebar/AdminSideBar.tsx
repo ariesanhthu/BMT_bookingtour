@@ -26,9 +26,9 @@ const items = [
 
 export function AdminSideBar() {
   return (
-    <Sidebar className="z-50">
+    <Sidebar className="z-50 top-[70px]">
       <SidebarTrigger />
-      <SidebarContent>
+      <SidebarContent className="">
         <SidebarGroup>
           <SidebarGroupLabel>Management</SidebarGroupLabel>
           <SidebarGroupContent>
