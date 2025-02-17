@@ -1,9 +1,29 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Plus, Trash, Pencil } from "lucide-react";
 
 export default function ServicePage() {
-  const [Services, setServices] = useState([]);
+  const [services, setServices] = useState([]);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [editserviceId, setEditService] = useState<string | null>(null);
@@ -99,43 +119,91 @@ export default function ServicePage() {
   };
 
   return (
-    <div>
-      <h1>service Management</h1>
-
-      {/* Status Message */}
-      {status && <p style={{ color: 'red'}}>{status}</p>}
-
-      {/* Form for Create/Update */}
-      <div>
-        <input
-          type="text"
-          placeholder="Service Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <button onClick={handleCreateOrUpdate}>
-          {editserviceId ? 'Update service' : 'Create service'}
-        </button>
-        {editserviceId && <button onClick={resetForm}>Cancel</button>}
+<div className="m-10">
+      <h1>Quản lý dịch vụ</h1>
+      <div className="flex flex-row gap-10 p-10 mx-20 justify-center">
+        <Card className="flex-1 min-w-[30rem]">
+          {status && <p style={{ color: 'red'}}>{status}</p>}
+          <CardHeader>
+            <CardTitle>{editserviceId ? 'Chỉnh sửa dịch vụ' : 'Thêm dịch vụ'}</CardTitle>
+          </CardHeader>
+          <form>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="roleName">Dịch vụ</Label>
+                <Input
+                  id="roleName"
+                  value={name}
+                  type='text'
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Dịch vụ"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="roleDescription">Mô tả dịch vụ </Label>
+                <Input
+                  id="roleDescription"
+                  value={description}
+                  type='text'
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Mô tả"
+                />
+              </div>
+            </CardContent>
+            <CardFooter className="justify-center">
+              <Button onClick={handleCreateOrUpdate} className="text-white">
+                <Plus className="w-4 h-4 mr-2 text-white" />
+                {editserviceId ? 'Save Changes' : 'Thêm dịch vụ'}
+              </Button>
+              {/* <Button onClick={resetForm} className="text-white">
+                <Plus className="w-4 h-4 mr-2 text-white" />
+                Reset form
+              </Button> */}
+            </CardFooter>
+          </form>
+        </Card>
+        {/* Role List */}
+        <Table className="flex-1 w-full border rounded-md">
+          <TableCaption>Danh sách dịch vụ</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableCell>Dịch vụ</TableCell>
+              <TableCell> Mô tả </TableCell>
+              <TableCell>Chỉnh sửa</TableCell>
+              <TableCell>Xóa</TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {services.map((role: any) => (
+              <TableRow key={role._id}>
+                <TableCell className='min-w-[10rem]'>{role.name}</TableCell>
+                <TableCell className='min-w-[10rem]'>{role.description || "Khong có mô tả"}</TableCell>
+                <TableCell className='min-w-[10rem]'> 
+                  <Button
+                      variant="default"
+                      size="sm"
+                      onClick={() => handleEdit(role._id)}
+                    >
+                      <Pencil className="w-4 h-4 mr-2" />
+                      Chỉnh sửa
+                    </Button>
+                </TableCell>
+                <TableCell className='min-w-[10rem]'>
+                  <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDelete(role._id)}
+                    >
+                      <Trash className="w-4 h-4 mr-2" />
+                      Xóa
+                    </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
-
-      {/* service List */}
-      <ul>
-        {Services.map((service: any) => (
-          <li key={service._id}>
-            <strong>{service.name}</strong> - {service.description || 'No description'}
-            {/* <button onClick={() => handleEdit(service._id)}>Edit</button> */}
-            <button onClick={() => handleDelete(service._id)}>Delete</button>
-            <a href={`service/${service._id}`}>Edit</a>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

@@ -18,17 +18,17 @@ const items = [
   { name:"Customer Management", href: "custmer" },
   { name:"Product Management", href: "product" },
   { name:"Service Management", href: "service" },
+  { name:"Tag Management", href: "tag" },
   { name:"Category Management", href: "category" },
   { name:"Order Management", href: "orders" },
-  // { name:"Test Management", href: "/test" },
   { name:"HomePage Management", href: "homePageContent" },
 ]
 
 export function AdminSideBar() {
   return (
-    <Sidebar className="z-50">
+    <Sidebar className="z-50 top-[70px]">
       <SidebarTrigger />
-      <SidebarContent>
+      <SidebarContent className="">
         <SidebarGroup>
           <SidebarGroupLabel>Management</SidebarGroupLabel>
           <SidebarGroupContent>

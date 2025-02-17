@@ -1,7 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Plus, Trash, Pencil } from "lucide-react";
 export default function RolePage() {
   const [roles, setRoles] = useState([]);
   const [name, setName] = useState('');
@@ -99,43 +118,91 @@ export default function RolePage() {
   };
 
   return (
-    <div>
-      <h1>Role Management</h1>
-
-      {/* Status Message */}
-      {status && <p style={{ color: 'red'}}>{status}</p>}
-
-      {/* Form for Create/Update */}
-      <div>
-        <input
-          type="text"
-          placeholder="Role Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <button onClick={handleCreateOrUpdate}>
-          {editRoleId ? 'Update Role' : 'Create Role'}
-        </button>
-        {editRoleId && <button onClick={resetForm}>Cancel</button>}
+    <div className="m-10">
+      <h1>Quản lý vai trò</h1>
+      <div className="flex flex-row gap-10 p-10 mx-20 justify-center">
+        <Card className="flex-1 min-w-[30rem]">
+          {status && <p style={{ color: 'red'}}>{status}</p>}
+          <CardHeader>
+            <CardTitle>{editRoleId ? 'Chỉnh sửa vai trò' : 'Thêm vai trò'}</CardTitle>
+          </CardHeader>
+          <form>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="roleName">Vai trò</Label>
+                <Input
+                  id="roleName"
+                  value={name}
+                  type='text'
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Vai trò"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="roleDescription">Mô tả vai trò </Label>
+                <Input
+                  id="roleDescription"
+                  value={description}
+                  type='text'
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Mô tả"
+                />
+              </div>
+            </CardContent>
+            <CardFooter className="justify-center">
+              <Button onClick={handleCreateOrUpdate} className="text-white">
+                <Plus className="w-4 h-4 mr-2 text-white" />
+                {editRoleId ? 'Save Changes' : 'Thêm vai trò'}
+              </Button>
+              {/* <Button onClick={resetForm} className="text-white">
+                <Plus className="w-4 h-4 mr-2 text-white" />
+                Reset form
+              </Button> */}
+            </CardFooter>
+          </form>
+        </Card>
+        {/* Role List */}
+        <Table className="flex-1 w-full border rounded-md">
+          <TableCaption>User List</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableCell>Vai trò</TableCell>
+              <TableCell> Mô tả </TableCell>
+              <TableCell>Chỉnh sửa</TableCell>
+              <TableCell>Xóa</TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {roles.map((role: any) => (
+              <TableRow key={role._id}>
+                <TableCell className='min-w-[10rem]'>{role.name}</TableCell>
+                <TableCell className='min-w-[10rem]'>{role.description || "Khong có mô tả"}</TableCell>
+                <TableCell className='min-w-[10rem]'> 
+                  <Button
+                      variant="default"
+                      size="sm"
+                      onClick={() => handleEdit(role._id)}
+                    >
+                      <Pencil className="w-4 h-4 mr-2" />
+                      Chỉnh sửa
+                    </Button>
+                </TableCell>
+                <TableCell className='min-w-[10rem]'>
+                  <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDelete(role._id)}
+                    >
+                      <Trash className="w-4 h-4 mr-2" />
+                      Xóa
+                    </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
-
-      {/* Role List */}
-      <ul>
-        {roles.map((role: any) => (
-          <li key={role._id}>
-            <strong>{role.name}</strong> - {role.description || 'No description'}
-            <button onClick={() => handleEdit(role._id)}>Edit</button>
-            <button onClick={() => handleDelete(role._id)}>Delete</button>
-            <a href={`role/${role._id}`}>Go to Edit Page</a>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
