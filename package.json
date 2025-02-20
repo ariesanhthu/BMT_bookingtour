@@ -56,6 +56,9 @@
     "typescript": "^5.7.3"
   },
   "overrides": {
-    "cookie": "0.7.0"
+    "cookie": "0.7.0",
+    "@clerk/nextjs": {
+        "next": "15.1.7"
+    }
   }
 }
