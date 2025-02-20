@@ -12,7 +12,7 @@ import  ProductList  from "./components/ProductList";
 import seedData from '@/app/lib/seedData';
 export const dynamic = "force-dynamic";
 
-export const experimental_ppr = true;
+// export const experimental_ppr = true;
 
 export default function Home() {
   const [categories, setCategories] = useState<categoryProps[]>([]);

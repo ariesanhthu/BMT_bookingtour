@@ -23,8 +23,9 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    ppr: 'incremental',
-  },
+  // bản thử nghiệm
+  // experimental: {
+  //   ppr: 'incremental',
+  // },
 };
 module.exports = nextConfig;
