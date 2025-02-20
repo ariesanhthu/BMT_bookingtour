@@ -1,9 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // images: {
+  //   domains: ['images.unsplash.com',  'plus.unsplash.com', 'files.edgestore.dev'],
+  // },
   images: {
-    domains: ['images.unsplash.com',  'plus.unsplash.com', 'files.edgestore.dev'],
-  },
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'plus.unsplash.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'files.edgestore.dev',
+        pathname: '**',
+      },
+    ],
+  }
 };
-
 module.exports = nextConfig;

@@ -1,42 +1,34 @@
 "use client"
 import React, { useState } from 'react';
-import { categoryProps } from '../interface'; // Assuming you have imported the categoryProps interface from the correct file
-import NhatrangTab from './categoryTour/NhaTrangTab';
-import MoreTab from './categoryTour/MoreTab';
-import PhuquocTab from './categoryTour/PhuquocTab';
+
 interface TabProps {
-  tabs: categoryProps[];
+  categories: { _id: string; name: string }[];
+  onSelect: (categoryId: string) => void;
 }
 
-const Tab: React.FC<TabProps> = ({ tabs }) => {
-  const [activeTab, setActiveTab] = useState(0);
+const Tab: React.FC<TabProps> = ({ categories, onSelect }) => {
+  // const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(categories[0]?._id || "");
   
-  const handleTabClick = (index: number) => {
-    setActiveTab(index);
+  const handleTabClick = (categoryId: string) => {
+    setActiveTab(categoryId);
+    onSelect(categoryId);
   };
 
   return (
-    <>
-        <div className="flex justify-evenly">
-          {tabs.map((tab, index) => (
-            <button
-            key={index}
-            onClick={() => handleTabClick(index)}
-            className={`${
-              index === activeTab
-              ? 'text-gray-800 text-primary border-b-white'
-              : 'text-gray-500 hover:text-gray-800'
-            } py-4 px-6 block border-b-2 font-semibold`}
-            >
-              {tab.name}
-            </button>
-          ))}
-        </div>
-
-        {activeTab == 0  && <PhuquocTab/> }
-        {activeTab == 1 && <NhatrangTab/> }
-        {activeTab == 2 && <MoreTab/> }
-      </>
+    <div className="flex space-x-4 border-b justify-evenly">
+      {categories.map((category) => (
+        <button
+          key={category._id}
+          className={`hover:text-slate-400 px-4 py-2 font-bold md:text-lg text-sm ${
+            activeTab === category._id ? "border-b-2 border-blue-500" : "text-gray-500"
+          }`}
+          onClick={() => handleTabClick(category._id)}
+        >
+          {category.name}
+        </button>
+      ))}
+    </div>
   );
 };
 

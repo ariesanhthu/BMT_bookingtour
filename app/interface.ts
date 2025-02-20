@@ -62,6 +62,9 @@ export interface BaseProduct {
 export interface productProps extends BaseProduct {
   _id: string; // Sản phẩm đã lưu trữ sẽ có _id
 }
+export interface DBproductProps extends BaseProduct {
+  _id: mongoose.Types.ObjectId; // Sản phẩm đã lưu trữ sẽ có _id
+}
 
 // export interface productProps {
 //   _id ?: string;

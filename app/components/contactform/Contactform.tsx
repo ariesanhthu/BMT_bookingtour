@@ -31,13 +31,13 @@ const Contactform = (): React.JSX.Element => {
   };
 
   return (
-  <div className="rounded-xl w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-4 mt-10">
-    <Card className="relative w-3/4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden glow-card">
-      <div className="absolute inset-0 bg-gradient-to-r"></div>
-      <CardContent className="w-full p-6 sm:p-8 lg:p-10 relative z-10 backdrop-blur-sm">
+  <div className="rounded-xl w-full min-h-screen flex items-center justify-center p-4 mt-10">
+    <Card className="relative w-3/4 bg-primary/2 border border-white/20 rounded-xl overflow-hidden glow-card hover:shadow-glow-hover">
+      
+      <CardContent className="w-full p-6 sm:p-8 lg:p-10 relative z-10 ">
         <div className="flex flex-col items-center w-full">
           <div className="w-full space-y-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary text-center drop-shadow-glow">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center drop-shadow-glow">
               Liên hệ tư vấn
             </h1>
             
@@ -72,7 +72,7 @@ const Contactform = (): React.JSX.Element => {
               
               <div className="flex justify-center">
                 <Button 
-                  className="bg-primary text-white hover:bg-[#2a46c6]  font-semibold px-8 py-2 shadow-glow transition-all duration-300 hover:shadow-glow-hover"
+                  className="bg-primary text-white hover:bg-[#2a46c6] font-semibold px-8 py-2 shadow-glow transition-all duration-300 hover:shadow-glow-hover"
                   type="submit"
                 >
                   Liên hệ

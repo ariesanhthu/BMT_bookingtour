@@ -6,6 +6,15 @@ import { ThemeProvider } from "./components/theme-provider";
 
 import { EdgeStoreProvider } from '../lib/edgestore';
 
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+
 import Footer from "./components/footer/Footer";
 import ContactBar from "./components/contactbar/ContactBar"
 const inter = Inter({ subsets: ["latin"] });
@@ -21,20 +30,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem 
-            disableTransitionOnChange
-          >
-            <Navbar />
-            <EdgeStoreProvider>{children}</EdgeStoreProvider>
-            <ContactBar/>
-            <Footer/>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem 
+              disableTransitionOnChange
+            >
+              <Navbar />
+              <EdgeStoreProvider>{children}</EdgeStoreProvider>
+              <ContactBar/>
+              <Footer/>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

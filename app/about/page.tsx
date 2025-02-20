@@ -60,29 +60,29 @@ const AboutPage = () => {
     </section>  
     
     {/* Section 2 */}
-    <Card className={`${styles['even-sec']}`}>
+    <Card className={`${styles['even-sec']} rounded-none`}>
       <CardContent>
-        <div className={`p-[2rem] bg-[#f5f7ff] m-auto my-[2rem] max-w-[1200px] shadow-lg rounded-lg`}>
-          <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-[#3a56d6] text-left px-4 pb-6`}>Chúng tôi cung cấp các chuyến đi</h1>
+        <div className={`p-[2rem] bg-[#f5f7ff] m-auto my-[2rem] max-w-[1200px] shadow-xl rounded-lg`}>
+          <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-primary text-left px-4 pb-6`}>Chúng tôi cung cấp các chuyến đi</h1>
           <div className={`flex flex-col md:flex-row md:space-x-1`}>
             {/* Nội dung bên trái */}
             <div className={`flex-1 p-4`}>
               <div className={`mb-[2rem]`}>
-                <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Chất Lượng & An Toàn</h3>
+                <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Chất Lượng & An Toàn</h3>
                 <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>
                   Cung cấp các tour du lịch chất lượng, đảm bảo an toàn tuyệt đối
                   cho khách hàng.
                 </p>
               </div>
               <div className={`mb-[2rem]`}>
-                <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Đối Tác Đáng Tin Cậy</h3>
+                <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Đối Tác Đáng Tin Cậy</h3>
                 <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>
                   Lựa chọn những đối tác đáng tin cậy, mang lại dịch vụ tốt nhất với
                   mức giá hợp lý.
                 </p>
               </div>
               <div className={`mb-[2rem]`}>
-                <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Bền Vững & Bảo Vệ Môi Trường</h3>
+                <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Bền Vững & Bảo Vệ Môi Trường</h3>
                 <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>
                   Hướng tới các giá trị bền vững bằng việc giảm thiểu tác động đến
                   môi trường và khuyến khích du khách tham gia vào các hoạt động bảo
@@ -90,7 +90,7 @@ const AboutPage = () => {
                 </p>
               </div>
               <div className={`mb-[2rem]`}>
-                <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Cải Tiến & Đổi Mới</h3>
+                <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Cải Tiến & Đổi Mới</h3>
                 <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>
                   Không ngừng cải tiến, đổi mới để đem đến những trải nghiệm tốt nhất
                   cho khách hàng.
@@ -109,7 +109,7 @@ const AboutPage = () => {
     
     {/* Section 3 */}
     {/* TẦM NHÌN VÀ SỨ MỆNH*/}
-    <Card className={`${styles['odd-sec']}`}>
+    <Card className={`${styles['odd-sec']} rounded-none`}>
       <CardContent>
         <SectionCol
           titleRef={addToRefs}
@@ -127,14 +127,14 @@ const AboutPage = () => {
     
     {/* Section 4 */}
     {/* GIÁ TRỊ CỐT LỖI  */}
-    <Card className={`${styles['even-sec']}`}>
+    <Card className={`${styles['even-sec']} bg-black rounded-none`}>
       <CardContent>
-        <div className={`p-[2rem] bg-[#f5f7ff] m-auto my-[2rem] max-w-[1200px] shadow-lg rounded-lg`}> 
-          <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-[#3a56d6] text-left px-4 pb-6`}>Giá Trị Cốt Lõi</h1>
+        <div className={`p-[2rem] bg-slate-100 m-auto my-[2rem] max-w-[1200px] shadow-lg rounded-lg`}> 
+          <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-primary text-left px-4 pb-6`}>Giá Trị Cốt Lõi</h1>
           <div className={`grid grid-cols-1 md:grid-cols-2 gap-4`}>
-            <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
+            <Card className="bg-slate-100 p-6 shadow-lg border-0">
               <CardContent className='p-0'>
-                <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Chất Lượng Dịch Vụ</h3>
+                <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Chất Lượng Dịch Vụ</h3>
                 <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>
                   Chúng tôi luôn nỗ lực mang đến dịch vụ tốt nhất, với đội ngũ nhân
                   viên chuyên nghiệp và tận tâm.
@@ -143,7 +143,7 @@ const AboutPage = () => {
             </Card>
             <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
               <CardContent className='p-0'>
-                <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>An Toàn Tuyệt Đối</h3>
+                <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>An Toàn Tuyệt Đối</h3>
                 <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>
                   Đặt an toàn của khách hàng lên hàng đầu, chúng tôi luôn tuân thủ các
                   tiêu chuẩn và quy định khắt khe về an toàn trong mọi hành trình.
@@ -152,7 +152,7 @@ const AboutPage = () => {
             </Card>
             <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
               <CardContent className='p-0'>
-                <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Bảo Vệ Môi Trường</h3>
+                <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Bảo Vệ Môi Trường</h3>
                 <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>
                   Chúng tôi cam kết thực hiện các tour du lịch thân thiện với môi
                   trường, giảm thiểu rác thải và tăng cường các hoạt động bảo vệ thiên
@@ -162,7 +162,7 @@ const AboutPage = () => {
             </Card>
             <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
               <CardContent className='p-0'>
-                <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Sáng Tạo & Đổi Mới</h3>
+                <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Sáng Tạo & Đổi Mới</h3>
                 <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}> 
                   Luôn tìm kiếm những điều mới mẻ và sáng tạo để mang đến cho khách
                   hàng những trải nghiệm du lịch độc đáo và thú vị.
@@ -176,10 +176,10 @@ const AboutPage = () => {
     
     {/* Section 5 */}
     {/* DỊCH VỤ CỦA CHÚNG TÔI */}
-    <Card className={`${styles['odd-sec']}`}>
+    <Card className={`${styles['odd-sec']} rounded-none`}>
       <CardContent>
         <div className={`p-[2rem] bg-[#f5f7ff] m-auto my-[2rem] max-w-[1200px] shadow-lg rounded-lg`}>
-          <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-[#3a56d6] text-left px-4 pb-6`}>Dịch Vụ Của Chúng Tôi</h1>
+          <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-primary text-left px-4 pb-6`}>Dịch Vụ Của Chúng Tôi</h1>
           <div className={`flex flex-col md:flex-row md:space-x-1`}>
             {/* Nội dung bên trái */}
             <div className={`flex-auto p-4`}>
@@ -187,36 +187,36 @@ const AboutPage = () => {
               <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
                   <CardContent className='p-0'>
                     <div ref={addToRefs} className={`${styles.hidden}`}>
-                      <Mountain  className={`text-[#3a56d6] w-8 h-8 md:w-14 md:h-14`}/>
+                      <Mountain  className={`text-primary w-8 h-8 md:w-14 md:h-14`}/>
                     </div>
-                    <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Tour Trong Nước</h3>
+                    <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Tour Trong Nước</h3>
                     <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>Khám phá vẻ đẹp của đất nước Việt Nam với các hành trình từ miền núi hùng vĩ đến bãi biển tuyệt đẹp.</p>
                   </CardContent>
                 </Card>
                 <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
                   <CardContent className='p-0'>
                     <div ref={addToRefs} className={`${styles.hidden}`}>
-                      <Globe className={`text-[#3a56d6] w-8 h-8 md:w-14 md:h-14`}/>
+                      <Globe className={`text-primary w-8 h-8 md:w-14 md:h-14`}/>
                     </div>
-                    <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Tour Quốc Tế</h3>
+                    <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Tour Quốc Tế</h3>
                     <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>Đưa bạn trải nghiệm các nền văn hóa đặc sắc trên khắp thế giới với các tour du lịch chất lượng và độc đáo.</p>
                   </CardContent>
                 </Card>
                 <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
                   <CardContent className='p-0'>
                     <div ref={addToRefs} className={`${styles.hidden}`}>
-                      <Trees className={`text-[#3a56d6] w-8 h-8 md:w-14 md:h-14`}/>
+                      <Trees className={`text-primary w-8 h-8 md:w-14 md:h-14`}/>
                     </div>
-                    <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Tour Sinh Thái</h3>
+                    <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Tour Sinh Thái</h3>
                     <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>Hành trình khám phá thiên nhiên, hướng đến việc bảo vệ và gìn giữ môi trường, kết nối cộng đồng địa phương với du khách.</p>
                   </CardContent>
                 </Card>
                 <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
                   <CardContent className='p-0'>
                     <div ref={addToRefs} className={`${styles.hidden}`}>
-                      <Crown className={`text-[#3a56d6] w-8 h-8 md:w-14 md:h-14`}/>
+                      <Crown className={`text-primary w-8 h-8 md:w-14 md:h-14`}/>
                     </div>
-                    <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Tour Nghỉ Dưỡng Cao Cấp</h3>
+                    <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Tour Nghỉ Dưỡng Cao Cấp</h3>
                     <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>Đáp ứng nhu cầu thư giãn, nghỉ dưỡng với các tour thiết kế đặc biệt tại các khu resort, spa sang trọng.</p>
                   </CardContent>
                 </Card>
@@ -234,10 +234,10 @@ const AboutPage = () => {
     
     {/* Section 6 */}
     {/* CAM KẾT CỦA CHÚNG TÔI */}
-    <Card className={`${styles['even-sec']}`}>
+    <Card className={`${styles['even-sec']} rounded-none`}>
       <CardContent>
         <div className={`p-[2rem] bg-[#f5f7ff] m-auto my-[2rem] max-w-[1200px] shadow-lg rounded-lg`}>
-          <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-[#3a56d6] text-left px-4 pb-6`}> Cam Kết Của Chúng Tôi</h1>
+          <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-primary text-left px-4 pb-6`}> Cam Kết Của Chúng Tôi</h1>
           <div className={`flex flex-col md:flex-row md:space-x-3`}>
             {/* Nội dung bên trái */}
             <div className={`flex-auto p-4`}>
@@ -245,20 +245,20 @@ const AboutPage = () => {
                 <div className={`flex flex-col md:flex-row space-y-5 md:space-y-0 md:space-x-5`}> 
                   <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
                     <CardContent className='p-0'>
-                      <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Uy Tín & Chuyên Nghiệp</h3>
+                      <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Uy Tín & Chuyên Nghiệp</h3>
                       <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>Chúng tôi luôn đặt chữ tín lên hàng đầu, cam kết cung cấp dịch vụ với tiêu chuẩn tốt nhất với những gì quý khách hàng bỏ ra.</p>
                     </CardContent>
                   </Card>
                   <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
                     <CardContent className='p-0'>
-                      <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Trải Nghiệm Đa Dạng</h3>
+                      <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Trải Nghiệm Đa Dạng</h3>
                     <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>Ánh Trăng Xanh mang đến những hành trình phong phú, từ các chuyến phiêu lưu mạo hiểm đến các kỳ nghỉ thư giãn nhẹ nhàng.</p>
                     </CardContent>
                   </Card>
                 </div>
                 <Card className={`bg-[#f2f3fa] p-6 shadow-lg border-0`}>
                   <CardContent className='p-0'>
-                    <h3 ref={addToRefs} className={`${styles.hidden} text-[#3a56d6] font-semibold text-md md:text-[1.5rem] mb-2`}>Hỗ Trợ 24/7</h3>
+                    <h3 ref={addToRefs} className={`${styles.hidden} text-primary font-semibold text-md md:text-[1.5rem] mb-2`}>Hỗ Trợ 24/7</h3>
                     <p ref={addToRefs} className={`${styles.hidden} text-[#555] font-medium text-sm md:text-base text-justify`}>Chúng tôi luôn sẵn sàng hỗ trợ và đồng hành cùng khách hàng trong suốt chuyến đi, đảm bảo mọi yêu cầu và thắc mắc được giải quyết kịp thời.</p>
                   </CardContent>
                 </Card>
@@ -276,7 +276,7 @@ const AboutPage = () => {
 
     {/* Section 7 */}
     {/* TRẢI NGHIỆM ÁNH SÁNG */}
-    <Card className={`${styles['odd-sec']}`}>
+    <Card className={`${styles['odd-sec']}  rounded-none`}>
       <CardContent>
         <SectionTextImage
           titleRef={addToRefs}
@@ -294,11 +294,11 @@ const AboutPage = () => {
     
     {/* Section 8 */}
     {/* CẢM ƠN */}
-    <Card className={`${styles['even-sec']}`}>
+    <Card className={`${styles['even-sec']} rounded-none`}>
         <CardContent>
       <div className={`p-[2rem] bg-[#f5f7ff] m-auto my-[2rem] max-w-[1200px] shadow-lg rounded-lg`}>
         {/* Tiêu đề lớn */}
-        <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-[#3a56d6] text-left px-4 pb-6`}>LỜI CẢM ƠN</h1>
+        <h1 ref={addToRefs} className={`${styles.hidden} font-bold text-lg md:text-4xl text-primary text-left px-4 pb-6`}>LỜI CẢM ƠN</h1>
 
         {/* Nội dung 2 cột */}
         <div className={`flex flex-col md:flex-row md:space-x-1`}>
@@ -315,7 +315,7 @@ const AboutPage = () => {
 
     {/* Section 9 */}
     {/* LIÊN HỆ VỚI CHÚNG TÔI*/}
-    <Card className={`${styles['odd-sec']}`}>
+    <Card className={`${styles['odd-sec']}  rounded-none`}>
       <CardContent>
         <SectionTextImage
           titleRef={addToRefs}

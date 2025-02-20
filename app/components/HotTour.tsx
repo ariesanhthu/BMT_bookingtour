@@ -49,7 +49,7 @@ export default async function HotTour() {
         
         <h4 className="text-2xl bold font-bold">Tour HOT 🔥</h4>
         
-        <Tab tabs = {Categories}/>
+        {/* <Tab tabs = {Categories}/> */}
     </div>
   );
 }

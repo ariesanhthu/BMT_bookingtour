@@ -5,51 +5,13 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import seedData from '@/app/lib/seedData';
 
-export default function ImageSlider(): JSX.Element {
-  const [homePageData, setHomePageData] = useState({
-    _id: '',
-    images: [] as string[],
-    navbar: [
-      {
-        name: '',
-        href: '',
-        sublinks: [{ name: '', href: '' }]
-      }
-    ],
-    logo: '',
-    slogan: '',
-    subSlogan: '',
-    footer: {
-      email: '',
-      phone: '',
-      address: '',
-    },
-  });
+interface ImageSliderPros {
+  images: string[];
+}
 
-    // Lấy dữ liệu từ server
-  const fetchHomePageData = async () => {
-    try {
-      const response = await fetch('/api/homepage');
-      if (response.ok) {
-        const data = await response.json();
-        setHomePageData(data.data);
-      } else {
-        // Không có dữ liệu, tạo mới
-        const newResponse = await fetch('/api/homepage', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(seedData),
-        });
-        const newData = await newResponse.json();
-        setHomePageData(newData.data);
-      }
-    } catch (error) {
-      console.error('Error fetching homepage data:', error);
-    }
-  };
+export default function ImageSlider({images} : ImageSliderPros): JSX.Element {
     
   useEffect(() => {
-    fetchHomePageData();
     setCurrentIndex(0);
   }, []);
 
@@ -64,13 +26,13 @@ export default function ImageSlider(): JSX.Element {
   // Function to show the previous slide
   const prevSlide = (): void => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + homePageData.images.length) % homePageData.images.length
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length
     );
   };
 
   // Function to show the next slide
   const nextSlide = (): void => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % homePageData.images.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
   // useEffect hook to handle automatic slide transition
@@ -105,9 +67,9 @@ export default function ImageSlider(): JSX.Element {
         onMouseOver={handleMouseOver}
         onMouseLeave={handleMouseLeave}
       >
-        {homePageData.images[currentIndex]?.trim() ? (
+        {images[currentIndex]?.trim() ? (
           <Image
-            src={homePageData.images[currentIndex]}
+            src={images[currentIndex]}
             alt={`Slider Image ${currentIndex + 1}`}
             layout="fill"
             objectFit="cover"
@@ -128,7 +90,7 @@ export default function ImageSlider(): JSX.Element {
         <ChevronRight className="text-white group-hover:text-white" />
       </button>
       <div className="flex justify-center mt-4">
-        {homePageData.images.map((_, index) => (
+        {images.map((_, index) => (
           <div
             key={index}
             className={`z-0 h-1 w-10 mx-1 ${

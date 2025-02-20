@@ -5,53 +5,57 @@ import styles from "./footer.module.css";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import seedData from '@/app/lib/seedData';
 
-
+export const  footer = {
+  email: "bluemoonlight.travel@gmail.com",
+  phone: "0942190022",
+  address: "158 Bùi Quang Trinh, P. Phú Thứ, Q. Cái Răng, Tp. Cần Thơ",
+}
 const Footer = () => {
-  const [homePageData, setHomePageData] = useState({
-    _id: '',
-    images: [] as string[],
-    navbar: [
-      {
-        name: '',
-        href: '',
-        sublinks: [{ name: '', href: '' }]
-      }
-    ],
-    logo: '',
-    slogan: '',
-    subSlogan: '',
-    footer: {
-      email: '',
-      phone: '',
-      address: '',
-    },
-  });
+  // const [homePageData, setHomePageData] = useState({
+  //   _id: '',
+  //   images: [] as string[],
+  //   navbar: [
+  //     {
+  //       name: '',
+  //       href: '',
+  //       sublinks: [{ name: '', href: '' }]
+  //     }
+  //   ],
+  //   logo: '',
+  //   slogan: '',
+  //   subSlogan: '',
+  //   footer: {
+  //     email: '',
+  //     phone: '',
+  //     address: '',
+  //   },
+  // });
     
     // Lấy dữ liệu từ server
-  const fetchHomePageData = async () => {
-    try {
-      const response = await fetch('/api/homepage');
-      if (response.ok) {
-        const data = await response.json();
-        setHomePageData(data.data);
-      } else {
-        // Không có dữ liệu, tạo mới
-        const newResponse = await fetch('/api/homepage', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(seedData),
-        });
-        const newData = await newResponse.json();
-        setHomePageData(newData.data);
-      }
-    } catch (error) {
-      console.error('Error fetching homepage data:', error);
-    }
-  };
+  // const fetchHomePageData = async () => {
+  //   try {
+  //     const response = await fetch('/api/homepage');
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setHomePageData(data.data);
+  //     } else {
+  //       // Không có dữ liệu, tạo mới
+  //       const newResponse = await fetch('/api/homepage', {
+  //           method: 'POST',
+  //           headers: { 'Content-Type': 'application/json' },
+  //           body: JSON.stringify(seedData),
+  //       });
+  //       const newData = await newResponse.json();
+  //       setHomePageData(newData.data);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching homepage data:', error);
+  //   }
+  // };
     
-  useEffect(() => {
-    fetchHomePageData();
-  }, []);
+  // useEffect(() => {
+  //   fetchHomePageData();
+  // }, []);
 
   return (
     <footer className={`flex flex-col md:flex-row my-5 mx-auto lg:mx-40 font-bold  space-x-5 v-screen`}>
@@ -75,7 +79,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"> 
             <img className={`mr-5 w-5 h-5 md:w-8 md:h-8 brightness-0 dark:brightness-100`} src="/icon_mail.png" alt="Mail icon"/>
-            {homePageData.footer.email}
+            {footer.email}
           </a>
         </p>
         {/*Link facebook*/}
@@ -97,7 +101,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer">
             <img className={`mr-5 w-5 h-5 md:w-8 md:h-8 brightness-0 dark:brightness-100`} src="/icon_phone.png" alt="Mail icon"/>
-            {homePageData.footer.phone}
+            {footer.phone}
           </a>
         </p>
         {/*Link gg map*/}
@@ -108,7 +112,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"> 
             <img className={`mr-5 w-5 h-5 md:w-8 md:h-8 brightness-0 dark:brightness-100`} src="/icon_map.png" alt="Mail icon"/>
-            {homePageData.footer.address}
+            {footer.address}
           </a>
         </p>
 
