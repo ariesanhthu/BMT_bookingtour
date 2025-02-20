@@ -67,7 +67,14 @@ export default function ImageSlider({images} : ImageSliderPros): JSX.Element {
         onMouseOver={handleMouseOver}
         onMouseLeave={handleMouseLeave}
       >
-        {images[currentIndex]?.trim() ? (
+        <Image
+            src={images[currentIndex] || '/slide1.jpg'}
+            alt={`Slider Image ${currentIndex + 1}`}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-b-3xl transition-all duration-500 ease-in-out cursor-pointer"
+          />
+        {/* {images[currentIndex]?.trim() ? (
           <Image
             src={images[currentIndex]}
             alt={`Slider Image ${currentIndex + 1}`}
@@ -75,7 +82,14 @@ export default function ImageSlider({images} : ImageSliderPros): JSX.Element {
             objectFit="cover"
             className="rounded-b-3xl transition-all duration-500 ease-in-out cursor-pointer"
           />
-        ) : null}
+        ) : 
+        <Image
+            src={'/slide1.jpg'}
+            alt={`Slider Image ${currentIndex + 1}`}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-b-3xl transition-all duration-500 ease-in-out cursor-pointer"
+          />} */}
       </div>
       <button
         className="absolute left-0 top-1/2 transform h-1/4 rounded-xl hover:bg-[#1a222f] mx-1 -mt-[10px] -translate-y-1/2 bg-slate-950 bg-opacity-20 p-2 group"

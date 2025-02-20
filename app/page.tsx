@@ -17,11 +17,15 @@ export default function Home() {
   const [products, setProducts] = useState<productProps[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [loadingHomePage, setLoadingHomePage] = useState(false);
 
+
+  useEffect(() => {
+    fetchHomePageData();
+  }, []);
   // Fetch categories khi component mount
   useEffect(() => {
     fetchCategories();
-    fetchHomePageData();
   }, []);
 
   // Fetch products khi selectedCategory thay đổi
@@ -51,6 +55,7 @@ export default function Home() {
     try {
       const { data } = await axios.get(`/api/product/category/${categoryId}`);
       setProducts(data);
+      console.log('Product  data created:', data);
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -78,6 +83,7 @@ export default function Home() {
     },
   });
   const fetchHomePageData = async () => {
+    setLoadingHomePage(true);
     try {
       const response = await fetch('/api/homepage');
       if (response.ok) {
@@ -93,14 +99,25 @@ export default function Home() {
         const newData = await newResponse.json();
         setHomePageData(newData.data);
       }
+      if (homePageData.images.length <= 0) {
+        const response = await fetch('/api/homepage');
+        if (response.ok) {
+          const data = await response.json();
+          setHomePageData(data.data);
+        }
+      }
     } catch (error) {
       console.error('Error fetching homepage data:', error);
+    } finally {
+      setLoadingHomePage(false);
     }
   };
 
   return (
     <div className="w-full h-full">
-      <ImageSlider images={homePageData.images}/>
+      {loadingHomePage 
+      ? <div className="text-center text-gray-500 mt-4">Loading...</div>
+      : <ImageSlider images={homePageData.images}/> } 
       <Slogan slogan={homePageData.slogan} subSlogan={homePageData.subSlogan}/>
       <div className="m-10">
         <h4 className="text-2xl bold font-bold mb-5 max-md:ml-10 flex max-md:justify-start max-sm:justify-center">🔥 Tour được yêu thích </h4>
