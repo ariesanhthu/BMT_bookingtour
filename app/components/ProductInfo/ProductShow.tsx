@@ -9,6 +9,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 import { Badge } from "@/components/ui/badge"
 
+const formatCurrency = (value: any): string => {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  }).format(value).replace(/\sVND$/, ' VND');
+};
 const ProductShow: React.FC<{ product: BaseProduct }> = ({ product }) => {
     return (
       <div>
@@ -35,7 +41,7 @@ const ProductShow: React.FC<{ product: BaseProduct }> = ({ product }) => {
               <CardTitle>Giá vé</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold">{product.price} đ</p>
+              <p className="text-3xl font-bold">{formatCurrency(product.price)}</p>
               <p className="text-gray-600">mỗi người</p>
             </CardContent>
         </Card>

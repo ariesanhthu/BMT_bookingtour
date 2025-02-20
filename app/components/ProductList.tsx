@@ -9,20 +9,16 @@ interface ProductListProps {
     products: productProps[];
 
     title?: string;
-    isLoading?: boolean;
+    isLoading: boolean;
     error?: string;  
 }
   
 const ProductList : React.FC<ProductListProps> = ({ 
     products, 
     title,
-    isLoading = false,
+    isLoading, 
     error 
 }: ProductListProps) => {
-
-    if (products.length === 0) {
-      return <div className="text-center text-gray-500">No products found</div>;
-    }
   
 // const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, description, price, oldPrice, salePercentage, link }) => {
 //     const [hovered, setHovered] = useState(false);
@@ -106,7 +102,7 @@ if (isLoading) {
     </div>
   );
 }
-
+if (products.length !== 0) {
 return (
   <div className="w-full relative">
     {title && (
@@ -156,6 +152,7 @@ return (
               text={product.name}
               description={product.description}
               price={product.price}
+              oldPrice={Number(product.price) + 250000}
               link = {`/product/${product._id}`}
             />
           </motion.div>
@@ -164,6 +161,10 @@ return (
     </div>
   </div>
 );
+  }
+
+  return <div className="text-center text-gray-500 font-bold">No products found</div>;
+
 };
 
 export default ProductList;

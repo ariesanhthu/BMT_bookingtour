@@ -22,6 +22,10 @@ const nextConfig = {
         pathname: '**',
       },
     ],
-  }
+  },
+  // bản thử nghiệm
+  // experimental: {
+  //   ppr: 'incremental',
+  // },
 };
 module.exports = nextConfig;

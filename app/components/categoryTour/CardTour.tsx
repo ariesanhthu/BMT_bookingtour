@@ -115,7 +115,7 @@ interface ImageComponentProps {
   text: string;
   description?: string | null | undefined;
   price?: string | null | undefined;
-  oldPrice?: number;
+  oldPrice: number;
   salePercentage?: number;
   link: string;
 }
@@ -128,6 +128,7 @@ const formatCurrency = (value: any): string => {
 };
 
 const calculateDiscountPercentage = (oldPrice: any, price: any): string => {
+
   if (oldPrice <= 0 || price <= 0) {
     throw new Error("Prices must be greater than 0.");
   }
@@ -142,80 +143,13 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
   text,
   description,
   price,
-  oldPrice = 2230000,
+  oldPrice,
   salePercentage,
   link
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-
+  
   return (
-    // <Link href={link} className="block w-[300px] rounded-lg">
-    //   <motion.div
-    //     className="relative h-[200px] rounded-lg overflow-hidden group"
-    //     whileHover={{ scale: 1.05 }}
-    //     transition={{ duration: 0.3, ease: 'easeOut' }}
-    //     onMouseEnter={() => setIsHovered(true)}
-    //     onMouseLeave={() => setIsHovered(false)}
-    //   >
-    //     {/* Discount Badge */}
-    //     {salePercentage && (
-    //       <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded-md text-sm font-medium z-10 shadow-md">
-    //         -{calculateDiscountPercentage(oldPrice, price)}
-    //       </div>
-    //     )}
-
-    //     {/* Image Container */}
-    //     <div className="relative w-full h-full">
-    //       <Image
-    //         src={src}
-    //         alt={alt}
-    //         fill
-    //         className="object-cover transition-transform duration-300"
-    //         sizes="300px"
-    //         priority={false}
-    //       />
-
-    //       {/* Content Overlay */}
-    //       <div className="absolute bottom-0 left-0 w-full bg-black/75 p-4 backdrop-blur-sm">
-    //         <div className="flex justify-between items-start gap-4">
-    //           {/* Left Content */}
-    //           <div className="flex-1 min-w-0"> {/* min-w-0 helps with text truncation */}
-    //             <h3 className="text-white font-bold text-base ">
-    //               {text}
-    //             </h3>
-    //             <p className="text-gray-200 text-sm mt-1 line-clamp-2 min-h-[2.5rem]">
-    //               {description}
-    //             </p>
-                
-    //             {/* Services - Animated on hover */}
-    //             <div
-    //               className={`
-    //                 text-gray-300 text-sm mt-1
-    //                 transition-all duration-300 ease-in-out
-    //                 ${isHovered ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}
-    //                 overflow-hidden
-    //               `}
-    //             >
-    //               <span className="font-medium">Dịch vụ:</span> đưa đón, ăn trưa
-    //             </div>
-    //           </div>
-
-    //           {/* Price Section */}
-    //           <div className="flex flex-col items-end space-y-1 min-w-[100px]">
-    //             {oldPrice > 0 && (
-    //               <span className="text-gray-400 line-through text-sm">
-    //                 {formatCurrency(oldPrice)}
-    //               </span>
-    //             )}
-    //             <span className="text-orange-400 font-bold whitespace-nowrap">
-    //               {formatCurrency(price)}
-    //             </span>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </motion.div>
-    // </Link>
     <Link href={link} className="block w-80">
       <motion.div
         className="relative h-[200px] rounded-lg overflow-hidden group"
@@ -225,11 +159,11 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Discount Badge */}
-        {salePercentage && (
-          <div className="absolute top-2 right-2 bg-red-600 text-white px-1.5 py-0.5 rounded text-xs font-medium z-10 shadow-md">
+        {/* {salePercentage && ( */}
+          <div className="absolute top right-0 bg-red-600 text-white px-1.5 py-1 rounded-s-md text-xs font-medium z-10 shadow-md">
             -{calculateDiscountPercentage(oldPrice, price)}
           </div>
-        )}
+        {/* )} */}
 
         {/* Image Container */}
         <div className="relative w-full h-full">
@@ -279,8 +213,9 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
                     {formatCurrency(oldPrice)}
                   </span>
                 )}
-                <span className="text-orange-400 font-semibold text-sm whitespace-nowrap">
+                <span className="text-orange-400 font-semibold text-sm whitespace-nowrap text-wrap">
                   {formatCurrency(price)}
+                  {/* {price} */}
                 </span>
               </div>
             </div>
