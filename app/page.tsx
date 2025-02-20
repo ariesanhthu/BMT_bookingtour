@@ -18,11 +18,6 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [loadingHomePage, setLoadingHomePage] = useState(false);
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 8312a2853c28d6c2abeb56649a4d4c2bafe5a770
   useEffect(() => {
     fetchHomePageData();
   }, []);
