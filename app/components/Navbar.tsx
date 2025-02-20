@@ -2,7 +2,7 @@
 
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,62 +11,62 @@ import seedData from '@/app/lib/seedData';
 import { ModeToggle } from "./ModeToggle";
 
 const links = [
-  { name: "Trang chủ", href: "/" },
-  { name: "Giới thiệu", href: "/about" },
-  { name: "Sản phẩm", href: "/Tour", sublinks: ["Miền Bắc", "Miền Trung", "Miền Nam", "Khác"] },
-  { name: "Liên hệ", href: "/Booking" },
-  { name: "Ưu đãi", href: "/Discount" },
+  { name: "Trang chủ", href: "/", sublinks: [{name : "", href: "" }] },
+  { name: "Giới thiệu", href: "/about", sublinks: [{name : "", href: "" }] },
+  { name: "Đặt vé", href: "/Booking", sublinks: [{name : "", href: "" }]  },
 ];
+// { name: "Sản phẩm", href: "/Tour", sublinks: ["Miền Bắc", "Miền Trung", "Miền Nam", "Khác"] },
+// { name: "Ưu đãi", href: "/Discount" },
 
 export default function Navbar() {
   
   const { isSignedIn } = useUser();
   
-  const [homePageData, setHomePageData] = useState({
-    _id: '',
-    images: [] as string[],
-    navbar: [
-      {
-        name: '',
-        href: '',
-        sublinks: [{ name: '', href: '' }]
-      }
-    ],
-    logo: '',
-    slogan: '',
-    subSlogan: '',
-    footer: {
-      email: '',
-      phone: '',
-      address: '',
-    },
-  });
+  // const [homePageData, setHomePageData] = useState({
+  //   _id: '',
+  //   images: [] as string[],
+  //   navbar: [
+  //     {
+  //       name: '',
+  //       href: '',
+  //       sublinks: [{ name: '', href: '' }]
+  //     }
+  //   ],
+  //   logo: '',
+  //   slogan: '',
+  //   subSlogan: '',
+  //   footer: {
+  //     email: '',
+  //     phone: '',
+  //     address: '',
+  //   },
+  // });
     
     // Lấy dữ liệu từ server
-  const fetchHomePageData = async () => {
-    try {
-      const response = await fetch('/api/homepage');
-      if (response.ok) {
-        const data = await response.json();
-        setHomePageData(data.data);
-      } else {
-        // Không có dữ liệu, tạo mới
-        const newResponse = await fetch('/api/homepage', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(seedData),
-        });
-        const newData = await newResponse.json();
-        setHomePageData(newData.data);
-      }
-    } catch (error) {
-      console.error('Error fetching homepage data:', error);
-    }
-  };
+  // const fetchHomePageData = async () => {
+  //   try {
+  //     const response = await fetch('/api/homepage');
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setHomePageData(data.data);
+  //     } else {
+  //       // Không có dữ liệu, tạo mới
+  //       const newResponse = await fetch('/api/homepage', {
+  //           method: 'POST',
+  //           headers: { 'Content-Type': 'application/json' },
+  //           body: JSON.stringify(seedData),
+  //       });
+  //       const newData = await newResponse.json();
+  //       setHomePageData(newData.data);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching homepage data:', error);
+  //   }
+  // };
     
-  useEffect(() => {
-    fetchHomePageData();
-  }, []);
+  // useEffect(() => {
+  //   fetchHomePageData();
+  // }, []);
 
   const pathname = usePathname();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -105,14 +105,14 @@ export default function Navbar() {
         </Link>
         
         <nav className="hidden gap-8 lg:flex 2xl:ml-16">
-          {homePageData.navbar.map((link) => (
+          {links.map((link) => (
             <div
               key={link.href}
               className="relative"
               onMouseEnter={() => handleMouseEnter(link.href)}
               onMouseLeave={handleMouseLeave}
             >
-              {link.sublinks.length > 0 ? (
+              {link.sublinks?.length > 0 ? (
                 <>
                   <span 
                     className={`text-lg font-semibold transition duration-200 cursor-pointer ${
