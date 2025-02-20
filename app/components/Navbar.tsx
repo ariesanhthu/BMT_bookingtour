@@ -1,4 +1,7 @@
 "use client";
+
+import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
+
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -16,6 +19,9 @@ const links = [
 ];
 
 export default function Navbar() {
+  
+  const { isSignedIn } = useUser();
+  
   const [homePageData, setHomePageData] = useState({
     _id: '',
     images: [] as string[],
@@ -154,7 +160,23 @@ export default function Navbar() {
             </div>
           ))}
         </nav>
-        
+        {!isSignedIn ? (
+            <div className="flex gap-4">
+                <div className="text-white btn rounded-lg bg-gray-950 py-2 px-4 hover:bg-gray-900 transition">
+                    <SignInButton fallbackRedirectUrl="/" signUpFallbackRedirectUrl="/">
+                        Sign In
+                    </SignInButton>
+                </div>
+
+                <div className="px-4 py-2 border-gray-950 border text-black rounded-lg hover:bg-gray-200 transition">
+                    <SignUpButton signInFallbackRedirectUrl="/" fallbackRedirectUrl="/">
+                        Sign Up
+                    </SignUpButton>
+                </div>
+          </div>
+        ) : (
+          <UserButton afterSignOutUrl="/" />
+        )}
         <div className="flex items-center gap-4">
             <ModeToggle/>
         </div>
