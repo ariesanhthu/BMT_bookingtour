@@ -1,3 +1,8 @@
+"use client"
+import Link from "next/link";
+
+import React, { useState } from "react";
+
 import {
   Sidebar,
   SidebarContent,
@@ -23,29 +28,127 @@ const items = [
   { name:"Order Management", href: "orders" },
   { name:"HomePage Management", href: "homePageContent" },
 ]
+// src/lib/sidebarItems.ts
+import {
+  LayoutDashboard,
+  UserCheck,
+  Users,
+  UserPlus,
+  Box,
+  Settings,
+  Tag,
+  Folder,
+  ShoppingCart,
+  Home,
+} from "lucide-react";
+
+export const sidebarItems = [
+  {
+    group: "Tổng Quan",
+    items: [
+      { name: "Bảng điều khiển", href: "home", icon: LayoutDashboard },
+    ],
+  },
+  {
+    group: "Đơn hàng & Trang chủ",
+    items: [
+      { name: "Quản lý đơn hàng", href: "orders", icon: ShoppingCart },
+      { name: "Quản lý trang chủ", href: "homePageContent", icon: Home },
+    ],
+  },
+  {
+    group: "Quản trị người dùng",
+    items: [
+      { name: "Quản lý vai trò", href: "role", icon: UserCheck },
+      { name: "Quản lý người dùng", href: "user", icon: Users },
+      { name: "Quản lý khách hàng", href: "customer", icon: UserPlus },
+    ],
+  },
+  {
+    group: "Sản phẩm & dịch vụ",
+    items: [
+      { name: "Quản lý sản phẩm", href: "product", icon: Box },
+      { name: "Quản lý dịch vụ", href: "service", icon: Settings },
+      { name: "Quản lý thẻ", href: "tag", icon: Tag },
+      { name: "Quản lý danh mục", href: "category", icon: Folder },
+    ],
+  },
+];
 
 export function AdminSideBar() {
+  
+  const [open, setOpen] = useState(false);
   return (
-    <Sidebar className="z-50 top-[70px]">
-      <SidebarTrigger />
-      <SidebarContent className="">
-        <SidebarGroup>
-          <SidebarGroupLabel>Management</SidebarGroupLabel>
+    // <Sidebar className="z-50 top-[70px]">
+    //   <SidebarTrigger />
+    //   <SidebarContent className="">
+    //     <SidebarGroup>
+    //       <SidebarGroupLabel>Management</SidebarGroupLabel>
+    //       <SidebarGroupContent>
+    //         <SidebarMenu>
+    //           {items.map((item) => (
+    //             <SidebarMenuItem key={item.name}>
+    //               <SidebarMenuButton asChild>
+    //                 <a href={item.href}>
+    //                   <span>{item.name}</span>
+    //                 </a>
+    //               </SidebarMenuButton>
+    //             </SidebarMenuItem>
+    //           ))}
+    //         </SidebarMenu>
+    //       </SidebarGroupContent>
+    //     </SidebarGroup>
+    //   </SidebarContent>
+    // </Sidebar>
+
+    <Sidebar>
+    {/* Mobile Trigger */}
+    {/* <SidebarTrigger onClick={() => setOpen(!open)} className="md:hidden p-2">
+      <span className="sr-only">Toggle Menu</span>
+      {/* Example hamburger icon */}
+      {/* <svg
+        className="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        ></path>
+      </svg> */}
+    {/* </SidebarTrigger> */}
+    <SidebarTrigger />
+    {/* Sidebar content */}
+    <SidebarContent className="w-64 p-4 border-r md:block">
+      {sidebarItems.map((group) => (
+        <SidebarGroup key={group.group} className="mb-6">
+          <SidebarGroupLabel className="mb-2 text-xs font-semibold text-primary uppercase tracking-wide">
+            {group.group}
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.href}>
+              {group.items.map((item) => (
+                <SidebarMenuItem key={item.href}>
+                  <Link href={`/admin/${item.href}`} passHref>
+                    <SidebarMenuButton
+                      onClick={() => setOpen(false)} // Close sidebar on mobile when a link is clicked
+                      className="flex items-center p-2 hover:bg-gray-100 hover:text-black rounded-md"
+                    >
+                      <item.icon className="w-5 h-5 mr-2" />
                       <span>{item.name}</span>
-                    </a>
-                  </SidebarMenuButton>
+                    </SidebarMenuButton>
+                  </Link>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-      </SidebarContent>
-    </Sidebar>
-  )
+      ))}
+    </SidebarContent>
+  </Sidebar>
+);
 }
