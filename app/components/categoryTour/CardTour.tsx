@@ -115,7 +115,7 @@ interface ImageComponentProps {
   text: string;
   description?: string | null | undefined;
   price?: string | null | undefined;
-  oldPrice?: number;
+  oldPrice: number;
   salePercentage?: number;
   link: string;
 }
