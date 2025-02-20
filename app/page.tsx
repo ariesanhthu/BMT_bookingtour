@@ -12,12 +12,14 @@ import  ProductList  from "./components/ProductList";
 import seedData from '@/app/lib/seedData';
 export const dynamic = "force-dynamic";
 
+export const experimental_ppr = true;
+
 export default function Home() {
   const [categories, setCategories] = useState<categoryProps[]>([]);
   const [products, setProducts] = useState<productProps[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [loadingHomePage, setLoadingHomePage] = useState(false);
+  const [loadingHomePage, setLoadingHomePage] = useState(true);
   useEffect(() => {
     fetchHomePageData();
   }, []);
@@ -112,29 +114,31 @@ export default function Home() {
 
   return (
     <div className="w-full h-full">
-      {loadingHomePage 
+      {/* {loadingHomePage
       ? <div className="text-center text-gray-500 mt-4">Loading...</div>
-      : <ImageSlider images={homePageData.images}/> } 
+      :  */}
+      <ImageSlider images={homePageData.images}/> 
+      {/* } */}
       <Slogan slogan={homePageData.slogan} subSlogan={homePageData.subSlogan}/>
       <div className="m-10">
         <h4 className="text-2xl bold font-bold mb-5 max-md:ml-10 flex max-md:justify-start max-sm:justify-center">🔥 Tour được yêu thích </h4>
-        
+
         {categories.length > 0 && (
-          <Tab 
-            categories={categories} 
+          <Tab
+            categories={categories}
             onSelect={(categoryId) => {
               setSelectedCategory(categoryId);
-            }} 
+            }}
           />
         )}
 
-        {loading ? (
+        {/* {loading ? (
           <div className="text-center text-gray-500 mt-4">Loading...</div>
-        ) : (
-          <ProductList products={products} />
-        )}
+        ) : ( */}
+          <ProductList products={products} isLoading={loadingHomePage} />
+        {/* )} */}
       </div>
-      
+
       <Contactform/>
       <RegionTour/>
     </div>

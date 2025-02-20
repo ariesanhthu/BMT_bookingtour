@@ -15,8 +15,6 @@ export default function ImageSlider({images} : ImageSliderPros): JSX.Element {
     setCurrentIndex(0);
   }, []);
 
-
-
   // State to keep track of the current image index
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -67,13 +65,14 @@ export default function ImageSlider({images} : ImageSliderPros): JSX.Element {
         onMouseOver={handleMouseOver}
         onMouseLeave={handleMouseLeave}
       >
-        <Image
-            src={images[currentIndex] || '/slide1.jpg'}
-            alt={`Slider Image ${currentIndex + 1}`}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-b-3xl transition-all duration-500 ease-in-out cursor-pointer"
-          />
+       <Image
+          src={images[currentIndex] || '/slide1.jpg'}
+          alt={`Slider Image ${currentIndex + 1}`}
+          fill
+          style={{ objectFit: 'cover' }}
+          className="rounded-b-3xl transition-all duration-500 ease-in-out cursor-pointer"
+        />
+
         {/* {images[currentIndex]?.trim() ? (
           <Image
             src={images[currentIndex]}
