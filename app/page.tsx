@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Tab from "./components/Tab";
 import  ProductList  from "./components/ProductList";
+import seedData from '@/app/lib/seedData';
 export const dynamic = "force-dynamic";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
   // Fetch categories khi component mount
   useEffect(() => {
     fetchCategories();
+    fetchHomePageData();
   }, []);
 
   // Fetch products khi selectedCategory thay đổi
@@ -56,10 +58,50 @@ export default function Home() {
     }
   };
 
+  const [homePageData, setHomePageData] = useState({
+    _id: '',
+    images: [] as string[],
+    navbar: [
+      {
+        name: '',
+        href: '',
+        sublinks: [{ name: '', href: '' }]
+      }
+    ],
+    logo: '',
+    slogan: '' as string,
+    subSlogan: '' as string,
+    footer: {
+      email: '',
+      phone: '',
+      address: '',
+    },
+  });
+  const fetchHomePageData = async () => {
+    try {
+      const response = await fetch('/api/homepage');
+      if (response.ok) {
+        const data = await response.json();
+        setHomePageData(data.data);
+      } else {
+        // Không có dữ liệu, tạo mới
+        const newResponse = await fetch('/api/homepage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(seedData),
+        });
+        const newData = await newResponse.json();
+        setHomePageData(newData.data);
+      }
+    } catch (error) {
+      console.error('Error fetching homepage data:', error);
+    }
+  };
+
   return (
     <div className="w-full h-full">
-      <ImageSlider />
-      <Slogan/>
+      <ImageSlider images={homePageData.images}/>
+      <Slogan slogan={homePageData.slogan} subSlogan={homePageData.subSlogan}/>
       <div className="m-10">
         <h4 className="text-2xl bold font-bold mb-5 max-md:ml-10 flex max-md:justify-start max-sm:justify-center">🔥 Tour được yêu thích </h4>
         
