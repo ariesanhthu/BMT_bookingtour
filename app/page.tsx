@@ -18,12 +18,13 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    fetchHomePageData();
+  }, []);
   // Fetch categories khi component mount
   useEffect(() => {
     fetchCategories();
-    fetchHomePageData();
   }, []);
-
   // Fetch products khi selectedCategory thay đổi
   useEffect(() => {
     if (selectedCategory) {
