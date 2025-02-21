@@ -19,44 +19,6 @@ const ProductList : React.FC<ProductListProps> = ({
     isLoading, 
     error 
 }: ProductListProps) => {
-  
-// const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, text, description, price, oldPrice, salePercentage, link }) => {
-//     const [hovered, setHovered] = useState(false);
-// export interface BaseProduct {
-//     name: string;
-//     category: string;
-//     url: string;
-//     duration ?: string | null;
-//     groupSize ?: string | null;
-//     price ?: string | null;
-//     rating ?: number | 0;
-//     reviewCount ?: number | 0;
-//     description ?: string | null;
-//     highlights ?: string[];
-//     included ?: string[];
-//     notIncluded ?: string[];
-//     tourData: TourStop[];
-//   }
-//     return (
-//       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-//         {products.map((product) => (
-            
-//           <div key={product._id} className="">
-//             <ImageComponent
-//                 src = {product.url}
-//                 alt = {product.name}
-//                 text = {product.name}
-//                 description = {product.description}
-//                 price = {Number(product.price)}
-//                 oldPrice = {Number(product.price)}
-//                 salePercentage = {0}
-//                 link = {`/product/${product._id}`}
-//             />
-//           </div>
-//         ))}
-//       </div>
-//     );
-//   }
 const scrollContainerRef = useRef<HTMLDivElement>(null);
 const [showLeftButton, setShowLeftButton] = useState(false);
 const [showRightButton, setShowRightButton] = useState(true);

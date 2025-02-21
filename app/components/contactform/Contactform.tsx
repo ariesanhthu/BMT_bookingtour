@@ -31,7 +31,7 @@ const Contactform = (): React.JSX.Element => {
   };
 
   return (
-  <div className="rounded-xl w-full min-h-screen flex items-center justify-center p-4 mt-10">
+  <div className="rounded-xl w-full min-h-screen flex items-center justify-center px-4">
     <Card className="relative w-3/4 bg-primary/2 border border-white/20 rounded-xl overflow-hidden glow-card hover:shadow-glow-hover">
       
       <CardContent className="w-full p-6 sm:p-8 lg:p-10 relative z-10 ">

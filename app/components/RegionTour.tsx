@@ -40,14 +40,14 @@ const ImageRegion: React.FC<ImageProps> = ({ src, alt, text, link }) => {
 const RegionTour: React.FC = () => {
   return (
     <div className='mt-10 mx-10'>
-         <h4 className="bold text-xl font-bold">Tour hằng ngày 🚌</h4>
+         <h4 className="title">Tour hằng ngày 🚌</h4>
 
-    <div className="flex justify-around gap-10 flex-wrap mt-5">
+    <div className="flex justify-around gap-10 flex-wrap mt-10">
     
       <ImageRegion src="/mienbac.jpg" alt="Image 1" text="Miền Bắc" link="/mienbac" />
       <ImageRegion src="/mientrung.jpg" alt="Image 2" text="Miền Trung" link="/mientrung" />
       <ImageRegion src="/miennam.jpg" alt="Image 3" text="Miền Nam" link="/miennam" />
-      <ImageRegion src="/servicetour.jpg" alt="Image 4" text="Dịch vụ" link="/dichvu" />
+      {/* <ImageRegion src="/servicetour.jpg" alt="Image 4" text="Dịch vụ" link="/dichvu" /> */}
     </div>
     </div>
   );

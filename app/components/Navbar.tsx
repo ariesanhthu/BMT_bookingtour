@@ -11,9 +11,9 @@ import seedData from '@/app/lib/seedData';
 import { ModeToggle } from "./ModeToggle";
 
 const links = [
-  { name: "Trang chủ", href: "/", sublinks: [{name : "", href: "" }] },
-  { name: "Giới thiệu", href: "/about", sublinks: [{name : "", href: "" }] },
-  { name: "Đặt vé", href: "/Booking", sublinks: [{name : "", href: "" }]  },
+  { name: "Trang chủ", href: "/" },
+  { name: "Giới thiệu", href: "/about"},
+  { name: "Liên hệ", href: "/Booking"  },
 ];
 // { name: "Sản phẩm", href: "/Tour", sublinks: ["Miền Bắc", "Miền Trung", "Miền Nam", "Khác"] },
 // { name: "Ưu đãi", href: "/Discount" },
@@ -112,7 +112,8 @@ export default function Navbar() {
               onMouseEnter={() => handleMouseEnter(link.href)}
               onMouseLeave={handleMouseLeave}
             >
-              {link.sublinks?.length > 0 ? (
+              {/* UNCOMMENT SUBLINKS */}
+              {/* {link.sublinks?.length > 0 ? (
                 <>
                   <span 
                     className={`text-lg font-semibold transition duration-200 cursor-pointer ${
@@ -126,7 +127,7 @@ export default function Navbar() {
                   
                   {activeDropdown === link.href && (
                     <div className="absolute top-full left-0 mt-1 py-2 px-4 bg-card rounded-lg shadow-lg border z-50 min-w-[140px]">
-                      {link.sublinks.map((sublink) => {
+                      {link.sublinks?.map((sublink) => {
                         const sublinkHref = `/${sublink.href.toLowerCase().replace(/\s/g, '')}`;
                         return (
                           <Link
@@ -145,7 +146,7 @@ export default function Navbar() {
                     </div>
                   )}
                 </>
-              ) : (
+              ) : ( */}
                 <Link
                   href={link.href}
                   className={`text-lg font-semibold transition duration-200 ${
@@ -156,7 +157,8 @@ export default function Navbar() {
                 >
                   {link.name}
                 </Link>
-              )}
+               {/* )
+               } */}
             </div>
           ))}
         </nav>

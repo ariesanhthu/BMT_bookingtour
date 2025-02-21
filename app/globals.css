@@ -77,6 +77,16 @@
 
 
 @layer utilities {
+
+  /* TEXT */
+  .slogan {
+    @apply xl:text-3xl xl:leading-snug sm:max-2xl:p-0 text-xl sm:max-lg:text-xl font-bold uppercase;
+  }
+  /* Title */
+  .title {
+    @apply text-2xl font-bold mb-5 flex justify-center;
+  }
+
   .glow-card {
     box-shadow: 0 0 20px 0 rgba(58, 86, 214, 0.5),
                 inset 0 0 20px 0 rgba(58, 86, 214, 0.2);

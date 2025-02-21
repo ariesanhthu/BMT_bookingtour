@@ -17,7 +17,7 @@ export default function Home() {
   const [categories, setCategories] = useState<categoryProps[]>([]);
   const [products, setProducts] = useState<productProps[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [loadingProducts, setLoadingProducts] = useState(false);
+  const [loadingProducts, setLoadingProducts] = useState(true);
   const [loadingHomePage, setLoadingHomePage] = useState(true);
   const [homePageData, setHomePageData] = useState({
     _id: "",
@@ -57,7 +57,7 @@ export default function Home() {
             [
               {'_id': "6782b1ad0cf0a980a16c16bd", 'slug': "mien-nam", 'name': "Miền Nam"},
               {'_id': "6782b19f0cf0a980a16c16b8", 'slug': "mien-bac", 'name': "Miền Bắc"},
-              // {'_id': "678e5aa8f160f6e25546f998", 'slug': "mien-trung", 'name': "Miền Trung"},
+              {'_id': "678e5aa8f160f6e25546f998", 'slug': "mien-trung", 'name': "Miền Trung"},
             ]);
   //       // Fetch homepage data
           const homeRes = await fetch("/api/homepage");
@@ -109,7 +109,8 @@ export default function Home() {
       <Slogan slogan={homePageData.slogan} subSlogan={homePageData.subSlogan} />
 
       <div className="m-10">
-        <h4 className="text-2xl font-bold mb-5 flex justify-center">
+
+        <h4 className="title">
           🔥 Tour được yêu thích
         </h4>
 
@@ -120,11 +121,8 @@ export default function Home() {
           />
         )}
 
-        {loadingProducts ? (
-          <div className="text-center text-gray-500 mt-4">Loading...</div>
-        ) : (
-          <ProductList products={products} isLoading={loadingHomePage} />
-        )}
+        <ProductList products={products} isLoading={loadingProducts} />
+
       </div>
 
       <Contactform />
