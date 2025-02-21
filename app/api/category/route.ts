@@ -5,10 +5,14 @@ import { Category } from '@/app/lib/models/Category';
 // GET: Lấy danh sách tất cả Users
 export async function GET() {
   try {
+    console.time("dbConnect");
     await connectDB();
-    const categories = await Category.find();//.select('_id'); // Lấy thông tin cơ bản của Category
+    console.timeEnd("dbConnect");
+
+    // await connectDB();
+    const categories = await Category.findOne().where('name', 'hottour');// Lấy thông tin cơ bản của Category
     
-    console.log(categories);
+    // console.log(categories);
 
     return NextResponse.json({ success: true, data: categories });
   } catch (error) {
