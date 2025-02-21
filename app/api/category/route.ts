@@ -10,7 +10,7 @@ export async function GET() {
     console.timeEnd("dbConnect");
 
     // await connectDB();
-    const categories = await Category.find()// Lấy thông tin cơ bản của Category
+    const categories = await Category.findOne().where('name', 'hottour');// Lấy thông tin cơ bản của Category
     
     // console.log(categories);
 
