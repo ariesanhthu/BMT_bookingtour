@@ -57,7 +57,7 @@ export default function Home() {
             [
               {'_id': "6782b1ad0cf0a980a16c16bd", 'slug': "mien-nam", 'name': "Miền Nam"},
               {'_id': "6782b19f0cf0a980a16c16b8", 'slug': "mien-bac", 'name': "Miền Bắc"},
-              // {'_id': "678e5aa8f160f6e25546f998", 'slug': "mien-trung", 'name': "Miền Trung"},
+              {'_id': "678e5aa8f160f6e25546f998", 'slug': "mien-trung", 'name': "Miền Trung"},
             ]);
   //       // Fetch homepage data
           const homeRes = await fetch("/api/homepage");
