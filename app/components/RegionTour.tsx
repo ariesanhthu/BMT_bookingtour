@@ -44,9 +44,9 @@ const RegionTour: React.FC = () => {
 
     <div className="flex justify-around gap-10 flex-wrap mt-10">
     
-      <ImageRegion src="/mienbac.jpg" alt="Image 1" text="Miền Bắc" link="/mienbac" />
-      <ImageRegion src="/mientrung.jpg" alt="Image 2" text="Miền Trung" link="/mientrung" />
-      <ImageRegion src="/miennam.jpg" alt="Image 3" text="Miền Nam" link="/miennam" />
+      <ImageRegion src="/mienbac.jpg" alt="Image 1" text="Miền Bắc" link="/6782b19f0cf0a980a16c16b8" />
+      <ImageRegion src="/mientrung.jpg" alt="Image 2" text="Miền Trung" link="/678e5aa8f160f6e25546f998" />
+      <ImageRegion src="/miennam.jpg" alt="Image 3" text="Miền Nam" link="/6782b1ad0cf0a980a16c16bd" />
       {/* <ImageRegion src="/servicetour.jpg" alt="Image 4" text="Dịch vụ" link="/dichvu" /> */}
     </div>
     </div>

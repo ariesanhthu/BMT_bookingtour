@@ -1,38 +1,3 @@
-// // import AddToBag from "@/app/components/AddToBag";
-// // import CheckoutNow from "@/app/components/CheckoutNow";
-// // import ImageGallery from "@/app/components/ImageGallery";
-// // import { fullProduct } from "@/app/interface";
-// // import { client } from "@/app/lib/sanity";
-// // import { Button } from "@/components/ui/button";
-// // import { Star, Truck } from "lucide-react";
-
-// // async function getData(slug: string) {
-// //   const query = `*[_type == "product" && slug.current == "${slug}"][0] {
-// //         _id,
-// //           images,
-// //           price,
-// //           name,
-// //           description,
-// //           "slug": slug.current,
-// //           "categoryName": category->name,
-// //           price_id
-// //       }`;
-
-// //   const data = await client.fetch(query);
-
-// //   return data;
-// // }
-
-// // export const dynamic = "force-dynamic";
-
-// export default async function ProductPge() {
-
-//   return (
-//     <h1>
-//       product
-//     </h1>
-//   );
-// }
 'use client'
 
 // UI
@@ -59,10 +24,10 @@ import TourPolicies from '@/app/components/content/TourPolicies'
 import Image from 'next/image'
 // ---------------------------
 
-import { productProps } from '@/app/interface'
-import { set } from 'mongoose'
+// utils
+import { formatCurrency } from "@/utils/formatCurrency";
 
-type TimeOfDay = 'buổi sáng' | 'buổi trưa' |'buổi chiều' | 'buổi tối';
+import { productProps } from '@/app/interface'
 
   const INITIAL_PRODUCT: productProps = {
     _id: '',
@@ -145,7 +110,9 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2">
+          {/* --------- basic info ------------ */}
           <h1 className="text-3xl font-bold mb-4">{tour.name}</h1>
+          {/* RATING */}
           <div className="flex items-center space-x-4 mb-4">
             <Badge variant="secondary"><Clock className="w-4 h-4 inline mr-1" />{tour.duration}</Badge>
             <Badge variant="secondary"><Users className="w-4 h-4 inline mr-1" />{tour.groupSize}</Badge>
@@ -154,6 +121,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
               <span className="ml-1">{tour.rating} ({tour.reviewCount} reviews)</span>
             </div>
           </div>
+
           <Image 
             src={tour.url} 
             alt={tour.name} 
@@ -162,7 +130,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
             className="rounded-lg mb-6 max-h-80"
           />
           <p className="text-white mb-6">{tour.description}</p>
-          
+          {/* ----------- NHỮNG ĐỊA ĐIỂM NỔI BẬT ----------- */}
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className='text-primary'>Những địa điểm nổi bật</CardTitle>
@@ -175,21 +143,17 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
               </ul>
             </CardContent>
           </Card>
-          {/* -------- LỊCH TRÌNH ------------ */}
-
-          <TourTimeline tourData={tour.tourData}/>
-
-          {/* THÔNG TIN ĐIỀU KHOẢN */}
-          <TourPolicies />
         </div>
-
-        <div>
-          <Card className="mb-6">
+          
+        <div className='grid grid-cols-1 gap-6'>
+        
+          {/* ----------- GIÁ VÉ ----------- */}
+          <Card className="h-fit">
             <CardHeader>
               <CardTitle>Giá vé</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold">{tour.price} đ</p>
+              <p className="text-3xl font-bold">{formatCurrency(tour.price)}</p>
               <p className="text-gray-600">mỗi người</p>
             </CardContent>
             <CardFooter>
@@ -197,8 +161,8 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
                   {/* 
                   -----------------------------------------------------------------
                   */}
-                    <Button className="w-full" onClick={() => setIsDialogOpen(true)}>
-                        Đặt ngay để nhận <p className="text-white pl-1">ƯU ĐÃI</p>
+                    <Button className="w-full font-bold" onClick={() => setIsDialogOpen(true)}>
+                        Đặt ngay để nhận<p className="text-white uppercase">ưu đãi</p>
                     </Button>
                     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                         <DialogContent>
@@ -261,6 +225,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
             </CardFooter>
           </Card>
 
+          {/* ------ BAO GỒM ------ */}
           <Card className="mb-6">
             <CardHeader>
               <CardTitle>Chuyến đi gồm</CardTitle>
@@ -275,7 +240,8 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
               </ul>
             </CardContent>
           </Card>
-
+          
+          {/* ------ KHÔNG BAO GỒM ------ */}
           <Card>
             <CardHeader>
               <CardTitle>Không bao gồm</CardTitle>
@@ -291,6 +257,15 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
             </CardContent>
           </Card>
         </div>
+
+          {/* -------- LỊCH TRÌNH ------------ */}
+          <div className="md:col-span-2">
+            <TourTimeline tourData={tour.tourData}/>
+          </div>
+
+          {/* THÔNG TIN ĐIỀU KHOẢN */}
+          <TourPolicies />
+        
       </div>
     </div>
   )

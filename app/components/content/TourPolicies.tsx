@@ -3,7 +3,7 @@ import { AlertCircle, CreditCard, Users, Info } from 'lucide-react';
 
 const TourPolicies: React.FC = () => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 space-y-8">
+    <div className="bg-white rounded-lg shadow-md p-6 space-y-8 h-fit">
        {/* Additional Notes */}
        <section>
         <div className="flex items-center space-x-2 mb-4">
