@@ -154,7 +154,7 @@ const AdminHomePage = () => {
     }
 
     return (
-    <div className="container mx-auto px-4 py-8 w-full">
+    <div className="container mt-10 py-10 w-screen">
     <form onSubmit={handleSubmit} className="space-y-6 max-w-6xl mx-auto">
         {/* Image Upload Section */}
         <Card className="w-full">

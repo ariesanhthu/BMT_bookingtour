@@ -2,7 +2,7 @@
 
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,13 +15,35 @@ const links = [
   { name: "Giới thiệu", href: "/about"},
   { name: "Liên hệ", href: "/Booking"  },
 ];
+
+import {
+  LayoutDashboard
+} from "lucide-react";
+
+import { checkRole } from '@/utils/roles'
+
+import AdminDashboard from "../admin/page";
 // { name: "Sản phẩm", href: "/Tour", sublinks: ["Miền Bắc", "Miền Trung", "Miền Nam", "Khác"] },
 // { name: "Ưu đãi", href: "/Discount" },
 
+import axios from "axios";
+
 export default function Navbar() {
+  const [isAdmin, setIsAdmin] = useState(false);
   
   const { isSignedIn } = useUser();
-  
+  useEffect(() => {
+    const fetchRole = async () => {
+      try {
+        const res = await axios.get("/api/check-role");
+        setIsAdmin(res.data.isAdmin);
+      } catch (error) {
+        console.error("Error fetching role:", error);
+      }
+    };
+
+    fetchRole();
+  }, []);
   // const [homePageData, setHomePageData] = useState({
   //   _id: '',
   //   images: [] as string[],
@@ -85,7 +107,7 @@ export default function Navbar() {
     }
     return pathname?.startsWith(href);
   };
-
+  
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
       <div className="flex items-center justify-between mx-auto max-w-2xl px-4 py-4 sm:px-6 lg:max-w-7xl">
@@ -164,11 +186,11 @@ export default function Navbar() {
         </nav>
         {!isSignedIn ? (
             <div className="flex gap-4">
-                <div className="text-white btn rounded-lg py-2 px-4 hover:bg-gray-900 transition font-bold bg-primary p-0">
+                {/* <div className="text-white btn rounded-lg py-2 px-4 hover:bg-gray-900 transition font-bold bg-primary p-0">
                     <SignInButton fallbackRedirectUrl="/" signUpFallbackRedirectUrl="/">
                         Đăng ký
                     </SignInButton>
-                </div>
+                </div> */}
 
                 <div className="px-4 py-2 border-primary border-[2px] text-white rounded-lg hover:bg-slate-800 transition font-bold">
                     <SignUpButton signInFallbackRedirectUrl="/" fallbackRedirectUrl="/">
@@ -177,7 +199,21 @@ export default function Navbar() {
                 </div>
           </div>
         ) : (
-          <UserButton afterSignOutUrl="/" />
+          <UserButton afterSignOutUrl="/">
+              {/* KIỂM TRA TÀI KHOẢN */}
+              {
+                isAdmin ? (
+                  <UserButton.MenuItems>
+                   <UserButton.Link
+                     label="Quản lý trang"
+                     labelIcon={<LayoutDashboard fill="#3e9392" size={15} stroke="0"/>}
+                     href="/admin/product"
+                   />
+                 </UserButton.MenuItems>
+                 )  : null
+              }
+              
+          </UserButton>
         )}
         <div className="flex items-center gap-4">
             <ModeToggle/>

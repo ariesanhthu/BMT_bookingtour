@@ -101,7 +101,7 @@ export function AdminSideBar() {
     //   </SidebarContent>
     // </Sidebar>
 
-    <Sidebar>
+    <Sidebar className="bg-slate-900 z-[1000]">
     {/* Mobile Trigger */}
     {/* <SidebarTrigger onClick={() => setOpen(!open)} className="md:hidden p-2">
       <span className="sr-only">Toggle Menu</span>
@@ -121,7 +121,6 @@ export function AdminSideBar() {
         ></path>
       </svg> */}
     {/* </SidebarTrigger> */}
-    <SidebarTrigger />
     {/* Sidebar content */}
     <SidebarContent className="w-64 p-4 border-r md:block">
       {sidebarItems.map((group) => (
