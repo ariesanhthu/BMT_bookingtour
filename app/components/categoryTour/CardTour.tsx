@@ -108,6 +108,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatCurrency } from "@/utils/formatCurrency";
 
 interface ImageComponentProps {
   src: string;
@@ -120,12 +121,12 @@ interface ImageComponentProps {
   link: string;
 }
 
-const formatCurrency = (value: any): string => {
-  return new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND',
-  }).format(value).replace(/\sVND$/, ' VND');
-};
+// const formatCurrency = (value: any): string => {
+//   return new Intl.NumberFormat('vi-VN', {
+//     style: 'currency',
+//     currency: 'VND',
+//   }).format(value).replace(/\sVND$/, ' VND');
+// };
 
 const calculateDiscountPercentage = (oldPrice: any, price: any): string => {
 
