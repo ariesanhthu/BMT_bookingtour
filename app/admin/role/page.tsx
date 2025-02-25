@@ -119,7 +119,7 @@ export default function RolePage() {
 
   return (
     <div className="m-10">
-      <h1>Quản lý vai trò</h1>
+      <h1 className='title'>Quản lý vai trò</h1>
       <div className="flex flex-row gap-10 p-10 mx-20 justify-center">
         <Card className="flex-1 min-w-[30rem]">
           {status && <p style={{ color: 'red'}}>{status}</p>}

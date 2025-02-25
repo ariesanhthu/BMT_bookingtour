@@ -125,18 +125,18 @@ export default function AdminCategoryPage() {
   };
 
   return (
-    <div className="flex flex-row gap-10 p-6 justify-center">
+    <div className="flex flex-col gap-10 p-6 justify-center w-screen">
       {/* Status Message */}
       {status && <p className="text-red-500">{status}</p>}
 
-      <Card className="w-full">
+      <Card className="w-full m-10">
         <CardHeader>
-          <CardTitle>{editingCategory ? 'Edit Category' : 'Add New Category'}</CardTitle>
+          <CardTitle>{editingCategory ? 'Chỉnh sửa danh mục sản phẩm' : 'Thêm danh mục sản phẩm'}</CardTitle>
         </CardHeader>
         <form onSubmit={handleCreateOrUpdate}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="categoryName">Category Name</Label>
+              <Label htmlFor="categoryName">Tên danh mục</Label>
               <Input
                 id="categoryName"
                 value={name}
@@ -160,13 +160,13 @@ export default function AdminCategoryPage() {
           <CardFooter className="justify-center">
             <Button type="submit" className="text-white">
               <Plus className="w-4 h-4 mr-2 text-white" />
-              {editingCategory ? 'Save Changes' : 'Add Category'}
+              {editingCategory ? 'Lưu thay đổi' : 'Thêm mới'}
             </Button>
           </CardFooter>
         </form>
       </Card>
 
-      <Table className="w-full border items-center justify-center">
+      <Table className="w-full border items-center justify-center m-10">
         <TableCaption>Danh sách category</TableCaption>
         <TableHeader>
             <TableRow>

@@ -15,7 +15,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <SidebarProvider> 
         <AdminSideBar />
         <main>
-          <SidebarTrigger/>
+          <SidebarTrigger className="fixed bg-primary"/>
           {/* {children} */}
           <EdgeStoreProvider>{children}</EdgeStoreProvider>
         </main>
