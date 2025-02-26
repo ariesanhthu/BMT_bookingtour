@@ -41,12 +41,22 @@ export default function Testimonial() {
 
     return () => clearTimeout(timer);
   }, [index]);
+  
+  const intervalTime = 5000; // 5 giây (có thể chỉnh sửa)
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextTestimonial();
+    }, intervalTime);
+  
+    return () => clearInterval(interval); // Dọn dẹp khi component unmount
+  }, [index]); // Chạy lại mỗi khi index thay đổi
+  
   return (
-    <div className="relative flex flex-col items-center justify-center w-full mx-auto mt-20 px-5">
+    <div className="relative flex flex-col items-center justify-center w-full mx-auto mt-28 px-5">
       <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold">Khách hàng nói gì về chúng tôi?</h2>
-        <p className="mt-2">Những đánh giá thực tế từ những chuyến đi đáng nhớ.</p>
+        <h2 className="text-xl md:text-2xl font-bold">Khách hàng nói gì về chúng tôi?</h2>
+        <p className="text-md md:text-lg mt-2">Những đánh giá thực tế từ những chuyến đi đáng nhớ.</p>
       </div>
 
       <div className="relative flex flex-row h-full w-full justify-center items-center">
@@ -55,7 +65,7 @@ export default function Testimonial() {
           onClick={prevTestimonial} 
           className="flex-[1] absolute left-0 z-10 p-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-4 md:w-6 h-4 md:h-6" />
         </button>
         
 
@@ -72,7 +82,7 @@ export default function Testimonial() {
               return (
                 <Card
                   className={cn(
-                    "w-1/5 py-6 flex-shrink-0 flex flex-col items-center justify-center px-0 md:px-6 rounded-lg transition-all duration-700 ease-in-out transform",
+                    "w-1/5 py-6 flex-shrink-0 flex flex-col justify-center px-2 md:px-6 rounded-lg transition-all duration-700 ease-in-out transform",
                     scale
                   )}
                 >
@@ -85,11 +95,11 @@ export default function Testimonial() {
                       height={50} 
                       className="rounded-b-3xl"
                     />
-                    <p className="ml-3 font-semibold">{t.name}</p>
+                    <p className="ml-3 text-md md:text-xl font-semibold">{t.name}</p>
                   </CardHeader>
 
                   <CardContent className="">
-                    <p className="mt-4">{t.review.length > 50 ? t.review.substring(0, 50) + "..." : t.review}</p>
+                    <p className="mt-4 text-sm md:text-lg">{t.review.length > 50 ? t.review.substring(0, 50) + "..." : t.review}</p>
                   </CardContent>
 
                   <CardFooter>
@@ -112,7 +122,7 @@ export default function Testimonial() {
           onClick={nextTestimonial} 
           className="flex-[1] absolute right-0 z-10 p-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-4 md:w-6 h-4 md:h-6" />
         </button>
         
       </div>
