@@ -159,9 +159,9 @@ export default function Home() {
 
       </div>
 
-      <Contactform />
       <RegionTour />
       <Testimonial/>
+      <Contactform />
     </div>
   );
 }

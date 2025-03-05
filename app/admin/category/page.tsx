@@ -182,7 +182,7 @@ export default function AdminCategoryPage() {
         <TableBody>
             {categories.map((category) => (
                 <TableRow key={category._id}>
-                    <TableCell className='w-[20rem]'>{category.name || asd}</TableCell>
+                    <TableCell className='w-[20rem]'>{category.name}</TableCell>
                     <TableCell className='w-[20rem]'>{category.slug}</TableCell>
                     <TableCell className='w-[10rem]'> 
                         <Button variant="outline" size="sm" onClick={() => handleEdit(category)}>
